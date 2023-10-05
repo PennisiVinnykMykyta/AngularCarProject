@@ -1,0 +1,55 @@
+<div>
+  <select [(ngModel)]="filterKey">
+    <option *ngFor="let column of tableConfig.headers  | slice:0:tableConfig.headers.length-1" [ngValue]="column.key">
+      {{column.label}}
+    </option>
+  </select>
+
+  <input type="search" [(ngModel)]="filter">
+  <app-custom-button [buttonConfig]="cancelButtonConfig" (click)="filter=''"></app-custom-button>
+
+</div>
+<ng-container *ngFor ="let action of tableConfig.actions"> <!---->
+  <app-custom-button *ngIf="!action.rowAction" [buttonConfig]="{text:action.text, icon:action.icon}" (click)="actionMethod(null,action)"></app-custom-button>
+</ng-container>
+
+<table border="1">
+  <tr>
+    <th *ngFor="let header of tableConfig.headers" (click)="sort(header.key)" scope = "col">
+      {{header.label}}
+      <i *ngIf="orderType === 'asc'">
+        <fa-icon [icon]="faArrowUp"></fa-icon>
+      </i>
+      <i *ngIf="orderType === 'desc'">
+        <fa-icon [icon]="faArrowDown"></fa-icon>
+      </i>
+    </th>
+    <th *ngIf = "tableConfig.actions && tableConfig.actions.length>0">
+      opzioni
+    </th>
+  </tr>
+
+  <tr *ngFor="let obj of data | searchingPipe : filter : filterKey | paginationPipe :currentPage :pageItems | sortingPipe : key : orderType">
+    <td *ngFor="let header of tableConfig.headers">
+      {{obj[header.key]}}
+    </td>
+    <td >
+      <div *ngFor =" let action of tableConfig.actions">
+        <app-custom-button *ngIf =" action.rowAction" [buttonConfig] ="{text:action.text, icon: action.icon}" (click) ="actionMethod(obj,action)"></app-custom-button>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<!-- Previous Page -->
+<app-custom-button style="padding-right: 10px" [buttonConfig]="previousButtonConfig" (click)="movePage(false)"></app-custom-button>
+
+<!-- Range of Pages -->
+<ng-container *ngFor="let page of pages" >
+
+  <app-custom-button style="padding-right: 10px" [buttonConfig]="{text:page.toString()}"  (click)="setPage(page)" [enabled]="page !== currentPage" ></app-custom-button>
+
+</ng-container>
+
+<!-- Next Page -->
+<app-custom-button [buttonConfig]="nextButtonConfig" (click)="movePage(true)"></app-custom-button>
