@@ -14,6 +14,10 @@ import {PaginationPipe} from "./components/pipes/pagination-pipe";
 import { UserTableComponent } from './components/tables/user-table/user-table.component';
 import { CarsTableComponent } from './components/tables/cars-table/cars-table.component';
 import { BookingsTableComponent } from './components/tables/bookings-table/bookings-table.component';
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
+import { UserFormComponent } from './components/forms/user-form/user-form.component';
+import { CarsFormComponent } from './components/forms/cars-form/cars-form.component';
+import { BookingsFormComponent } from './components/forms/bookings-form/bookings-form.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { BookingsTableComponent } from './components/tables/bookings-table/booki
     PaginationPipe,
     UserTableComponent,
     CarsTableComponent,
-    BookingsTableComponent
+    BookingsTableComponent,
+    NavigationBarComponent,
+    UserFormComponent,
+    CarsFormComponent,
+    BookingsFormComponent
   ],
   imports: [
     FormsModule,

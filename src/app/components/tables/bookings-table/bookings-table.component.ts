@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BookingTemplate} from "../../mock-files/templates/booking-template";
 import {BookingsService} from "../../services/bookings.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-bookings-table',
@@ -11,7 +12,7 @@ export class BookingsTableComponent implements  OnInit{
 
   bookings!: BookingTemplate[];
 
-  constructor(private bookingService: BookingsService) {
+  constructor(private bookingService: BookingsService,private router:Router) {
   }
   ngOnInit() {
   }
@@ -19,4 +20,11 @@ export class BookingsTableComponent implements  OnInit{
   getAllBookings(){
     return  this.bookingService.getAllBookings();
   }
+
+  clickAction(str: string){
+    if(str === 'return'){
+      void this.router.navigate(['/navigationBar'])
+    }
+  }
+
 }

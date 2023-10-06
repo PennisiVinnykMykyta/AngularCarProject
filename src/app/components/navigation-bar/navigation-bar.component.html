@@ -1,0 +1,5 @@
+<p>Welcome to the DashBoard</p>
+
+<span *ngFor = "let action of actions">
+  <app-custom-button [buttonConfig] = "{text:action.text, icon:action.icon}" (click) = "clickAction(action.text)" ></app-custom-button>
+</span>
