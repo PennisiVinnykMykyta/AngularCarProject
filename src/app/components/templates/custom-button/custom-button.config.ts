@@ -5,6 +5,7 @@ export class CustomButtonConfig{ //make sure the button gets all of its componen
   customCssClass?: string;
   text?: string;
   icon?: IconDefinition;
+  path?: string;
 }
 
 export const back: CustomButtonConfig = {
