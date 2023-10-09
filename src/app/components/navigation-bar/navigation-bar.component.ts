@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 
 import {NavigationBarConfig} from "./navigation-bar.config";
+import {Roles} from "../mock-files/templates/roles";
 
 @Component({
   selector: 'app-navigation-bar',
@@ -10,7 +11,9 @@ import {NavigationBarConfig} from "./navigation-bar.config";
 })
 export class NavigationBarComponent implements  OnInit{
 
-   @Input() navigationBarConfig!: NavigationBarConfig;
+   @Input() userBarConfig!: NavigationBarConfig;
+   @Input() adminBarConfig?: NavigationBarConfig;
+   @Input() role!: Roles;
 
   constructor(private router: Router, private route:ActivatedRoute) {
   }
