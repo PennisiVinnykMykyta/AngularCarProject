@@ -6,7 +6,4 @@
 
 </span>
 
-<span *ngIf = "role === 'Admin'" >
-  <app-custom-button *ngFor = "let button of adminBarConfig?.buttonsConfig" [buttonConfig] = "button" (click) = "clickAction(button.path!)"></app-custom-button>
-</span>
 

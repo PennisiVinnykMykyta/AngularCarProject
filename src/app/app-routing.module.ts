@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {NavigationBarComponent} from "./components/navigation-bar/navigation-bar.component";
+import {CarsTableComponent} from "./components/tables/cars-table/cars-table.component";
 import {BookingsTableComponent} from "./components/tables/bookings-table/bookings-table.component";
+import {UserTableComponent} from "./components/tables/user-table/user-table.component";
+import {Roles} from "./components/mock-files/templates/roles";
 
 const routes: Routes = [
-  {path:'navigationBar',  component:NavigationBarComponent}, //create a homepage and then inject NavigationBarComponent into it
-  {path: '', redirectTo:'/navigationBar', pathMatch: 'full'},
-  {path: 'table/bookings', component:BookingsTableComponent},
-
+  {path: 'availableCars', component:CarsTableComponent, data:{roles: [Roles.User,Roles.Admin]}},
+  {path: 'yourBookings', component:BookingsTableComponent,data:{roles: [Roles.User,Roles.Admin]}},
+  {path: 'users', component:UserTableComponent, data:{roles: [Roles.User,Roles.Admin]}}
 ];
 
 @NgModule({
