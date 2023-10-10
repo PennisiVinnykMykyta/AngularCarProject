@@ -14,4 +14,8 @@ export class UserService {
     const users = of(Users);
     return users;
   }
+
+  deleteUser(id:number): void{
+    console.log("User deleted: " + id);
+  }
 }

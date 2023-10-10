@@ -1,5 +1,3 @@
-<p>Welcome to the DashBoard</p>
-
 <span *ngFor = "let button of userBarConfig.buttonsConfig">
 
   <app-custom-button [buttonConfig] = "button" (click) = "clickAction(button.path!)"></app-custom-button>

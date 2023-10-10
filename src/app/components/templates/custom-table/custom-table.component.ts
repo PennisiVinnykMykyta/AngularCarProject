@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomTableConfig} from "./custom-table.config";
-import {faArrowDown, faArrowUp, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faArrowAltCircleLeft, faArrowDown, faArrowUp, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {
   addCar,
   addUser,
@@ -15,6 +15,7 @@ import {
   previous
 } from "../custom-button/custom-button.config";
 import {MyTableActionEnum} from "./table-details/my-actions";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-custom-table',
@@ -56,6 +57,9 @@ export class CustomTableComponent implements OnInit {
   deleteUserConfig: CustomButtonConfig = deleteUser;
   modifyBookingConfig: CustomButtonConfig = modifyBooking;
   modifyUserConfig: CustomButtonConfig = changeUserInfo;
+
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
 
@@ -109,7 +113,11 @@ export class CustomTableComponent implements OnInit {
   //metodo per ricavare gli Item
   actionMethod(object : any | null,action: any){
     //console.log("Requested action: ", action, obj);
+    if(object === ''){
+      void this.router.navigateByUrl("");
+    }
     this.getTableData.emit({obj:object,action:action});
   }
 
+  protected readonly faArrowAltCircleLeft = faArrowAltCircleLeft;
 }

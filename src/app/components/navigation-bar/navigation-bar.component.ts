@@ -11,7 +11,6 @@ import {NavigationBarConfig} from "./navigation-bar.config";
 export class NavigationBarComponent implements  OnInit{
 
    @Input() userBarConfig!: NavigationBarConfig;
-   @Input() adminBarConfig?: NavigationBarConfig;
 
   constructor(private router: Router, private route:ActivatedRoute) {
   }
