@@ -12,4 +12,21 @@ export class BookingsService {
   getAllBookings() : BookingTemplate[]{
     return Bookings;
   }
+
+  getUserBookings(userId: number) : void{
+    console.log("retrived users bookings" + userId)
+    //return booking where userid is equal to userId
+  }
+
+  deleteBooking(id:number): void{
+
+  }
+
+  addBooking(): void {
+    //return blank form
+  }
+
+  modifyBooking(id: number): void{
+    //return form filled with info to modify
+  }
 }

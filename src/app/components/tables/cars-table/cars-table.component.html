@@ -1,1 +1,3 @@
 <p>cars-table works!</p>
+
+<app-custom-table [tableConfig]="tableConfig" [data]="cars" (getTableData)="clickAction($event)"></app-custom-table>

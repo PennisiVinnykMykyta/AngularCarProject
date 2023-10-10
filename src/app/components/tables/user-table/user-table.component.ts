@@ -6,6 +6,7 @@ import {MyActionEvent} from "../../templates/custom-table/table-details/my-actio
 import {Router} from "@angular/router";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
 import {faBook, faCancel, faUserGear, faUserPlus} from "@fortawesome/free-solid-svg-icons";
+import {BookingsService} from "../../services/bookings.service";
 
 @Component({
   selector: 'app-user-table',
@@ -22,7 +23,7 @@ export class UserTableComponent implements  OnInit{
   userActions!: MyActionEvent[];
 
 
-  constructor(private userService:UserService, private router: Router) {
+  constructor(private userService:UserService, private bookService:BookingsService, private router: Router) {
   }
   ngOnInit() {
     this.setUsers();
@@ -80,5 +81,24 @@ export class UserTableComponent implements  OnInit{
     return this.userService.getAllUsers().subscribe(users => this.users = users);
   }
 
-
+  clickAction($event: { obj: any; action: any }) {
+    switch ($event.action.text) {
+      case "Add User":
+        console.log("clicked:" + $event.action.text)
+        void this.router.navigateByUrl('users/addForm');
+        break;
+      case "Delete User":
+        console.log("clicked:" + $event.action.text)
+        this.userService.deleteUser($event.obj.id);
+        break;
+      case "Change User Info":
+        console.log("clicked:" + $event.action.text)
+        void this.router.navigateByUrl('users/modifyForm');
+        break;
+      case "View User Bookings":
+        console.log("clicked:" + $event.action.text)
+        this.bookService.getUserBookings($event.obj.id);
+        break;
+    }
+  }
 }

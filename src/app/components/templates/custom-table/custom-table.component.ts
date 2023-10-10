@@ -115,8 +115,9 @@ export class CustomTableComponent implements OnInit {
     //console.log("Requested action: ", action, obj);
     if(object === ''){
       void this.router.navigateByUrl("");
+    }else{
+      this.getTableData.emit({obj:object,action:action});
     }
-    this.getTableData.emit({obj:object,action:action});
   }
 
   protected readonly faArrowAltCircleLeft = faArrowAltCircleLeft;

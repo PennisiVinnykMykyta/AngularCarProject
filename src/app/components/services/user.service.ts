@@ -16,6 +16,15 @@ export class UserService {
   }
 
   deleteUser(id:number): void{
-    console.log("User deleted: " + id);
+    console.log("user deleted");
   }
+
+  addUser(): void {
+    console.log("user add form");
+  }
+
+  modifyUser(id: number): void{
+    console.log("user modify form: " + id);
+  }
+
 }
