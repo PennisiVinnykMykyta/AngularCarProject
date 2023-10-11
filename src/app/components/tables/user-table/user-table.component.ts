@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
 import {UserTemplate} from "../../mock-files/templates/user-template";
@@ -13,12 +13,16 @@ import {BookingsService} from "../../services/bookings.service";
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.css']
 })
+
+@Injectable({
+  providedIn: 'root'
+})
 export class UserTableComponent implements  OnInit{
 
+  formRequest!: boolean;
+  user!: any;
   tableConfig!: CustomTableConfig
-  //headers!: MyHeaders[];
   users: UserTemplate[] = [];
-  //pagination!: MyPagination;
   //role!: Roles;
   userActions!: MyActionEvent[];
 
@@ -26,6 +30,7 @@ export class UserTableComponent implements  OnInit{
   constructor(private userService:UserService, private bookService:BookingsService, private router: Router) {
   }
   ngOnInit() {
+    this.formRequest = false;
     this.setUsers();
     this.userActions = [
       {
@@ -85,7 +90,8 @@ export class UserTableComponent implements  OnInit{
     switch ($event.action.text) {
       case "Add User":
         console.log("clicked:" + $event.action.text)
-        void this.router.navigateByUrl('users/addForm');
+        this.formRequest = true;
+        this.user = null;
         break;
       case "Delete User":
         console.log("clicked:" + $event.action.text)
@@ -93,12 +99,19 @@ export class UserTableComponent implements  OnInit{
         break;
       case "Change User Info":
         console.log("clicked:" + $event.action.text)
-        void this.router.navigateByUrl('users/modifyForm');
+        this.formRequest = true;
+        this.user = $event.obj
         break;
       case "View User Bookings":
         console.log("clicked:" + $event.action.text)
         this.bookService.getUserBookings($event.obj.id);
         break;
+    }
+  }
+
+  setRequest($event: boolean) {
+    if($event === true){
+      this.formRequest = false;
     }
   }
 }

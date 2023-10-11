@@ -1,3 +1,37 @@
 <p>user-form works!</p>
 
-<app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft}" (click)="clickAction('back')"></app-custom-button>
+<form>
+  <tr>
+    <label>Name:</label>
+    <input  [type]="name" [value]="name">
+  </tr>
+
+  <tr>
+    <label>Surname:</label>
+    <input [type]="lastName" [value]="lastName">
+  </tr>
+
+  <tr>
+    <label>Email:</label>
+    <input [type]="email" [value]="email">
+  </tr>
+
+  <tr>
+    <label>Password:</label>
+    <input [type]="password" [value]="password">
+  </tr>
+
+  <tr>
+    <label>Birthday:</label> <!--ASSIGN THE CORRECT ACTION THE CLICK ACTION ON SUBMIT AND PASS ACTION STR FROM TABLE-->
+    <input [type]="birthday" [value]="birthday">
+  </tr>
+
+  <app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck}" (click)="clickAction('')"></app-custom-button>
+
+</form>
+
+<div>
+
+  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft}" (click)="clickAction('back')"></app-custom-button>
+
+</div>

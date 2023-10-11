@@ -10,9 +10,9 @@ const routes: Routes = [
   {path: 'availableCars', component:CarsTableComponent, data:{roles: [Roles.User,Roles.Admin]}},
   {path: 'yourBookings', component:BookingsTableComponent,data:{roles: [Roles.User,Roles.Admin]}},
   {path: 'users', component:UserTableComponent, data:{roles: [Roles.User,Roles.Admin]}},
-  {path: 'allCars', component:CarsTableComponent},
-  {path: 'users/addForm', component:UserFormComponent},
-  {path: 'users/modifyForm', component:UserFormComponent}
+  {path: 'allCars', component:CarsTableComponent,data:{roles: [Roles.User,Roles.Admin]}},
+  {path: 'users/addForm', component:UserFormComponent, data:{roles: [Roles.Admin]}},
+  {path: 'users/modifyForm', component:UserFormComponent, data:{roles: [Roles.User,Roles.Admin]}}
 
 
 ];
