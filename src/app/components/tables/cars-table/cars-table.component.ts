@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {CarsService} from "../../services/cars.service";
 import {
   faCancel,
@@ -10,6 +10,11 @@ import {CustomTableConfig} from "../../templates/custom-table/custom-table.confi
 import {CarTemplate} from "../../mock-files/templates/car-template";
 import {MyActionEvent} from "../../templates/custom-table/table-details/my-action-event";
 
+
+@Injectable({
+  providedIn: 'root'
+})
+
 @Component({
   selector: 'app-cars-table',
   templateUrl: './cars-table.component.html',
@@ -17,18 +22,27 @@ import {MyActionEvent} from "../../templates/custom-table/table-details/my-actio
 })
 export class CarsTableComponent implements OnInit{
 
+  car!: any;
   tableConfig!: CustomTableConfig;
   cars: CarTemplate[] = [];
   carActions!: MyActionEvent[];
+  formRequest!: boolean;
   constructor(private carService:CarsService, private router: Router) {
   }
   ngOnInit() {
+    this.formRequest = false;
     this.setCars();
     this.carActions = [
       {
         action: MyTableActionEnum.NEW_ROW,
         rowAction:false,
         text:"Book Car",
+        icon: faPlus
+      },
+      {
+        action: MyTableActionEnum.NEW_ROW,
+        rowAction:false,
+        text:"Add Car",
         icon: faPlus
       },
       {
@@ -74,18 +88,33 @@ export class CarsTableComponent implements OnInit{
 
   clickAction($event: { obj: any; action: any }) {
     switch ($event.action.text) {
+      case "Book Car":
+        console.log("clicked:" + $event.action.text)
+        this.formRequest = true;
+        this.car = null;
+        break;
+
       case "Add Car":
         console.log("clicked:" + $event.action.text)
-        void this.router.navigateByUrl('cars/addForm');
+        this.formRequest = true;
+        this.car = null;
         break;
+
       case "Delete Car":
         console.log("clicked:" + $event.action.text)
         this.carService.deleteCar($event.obj.id);
         break;
       case "Change Car Info":
         console.log("clicked:" + $event.action.text)
-        void this.router.navigateByUrl('cars/modifyForm');
+        this.formRequest = true;
+        this.car = $event.obj
         break;
     }
   }
+  setRequest($event: boolean) {
+    if($event === true){
+      this.formRequest = false;
+    }
+  }
+
 }

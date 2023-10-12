@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {faArrowAltCircleLeft, faCheck} from "@fortawesome/free-solid-svg-icons";
 import {UserTableComponent} from "../../tables/user-table/user-table.component";
-import {UserTemplate} from "../../mock-files/templates/user-template";
+
 
 
 @Component({
@@ -14,6 +14,7 @@ import {UserTemplate} from "../../mock-files/templates/user-template";
 export class UserFormComponent implements  OnInit{
 
   protected readonly faArrowAltCircleLeft = faArrowAltCircleLeft;
+  protected readonly faCheck = faCheck;
 
 
   @Input() user!: any;
@@ -58,5 +59,4 @@ export class UserFormComponent implements  OnInit{
     this.goBack.emit(true)
   }
 
-  protected readonly faCheck = faCheck;
 }

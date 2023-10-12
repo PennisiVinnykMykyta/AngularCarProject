@@ -1,1 +1,32 @@
 <p>cars-form works!</p>
+
+<form>
+<tr>
+  <label>Brand:</label>
+  <input [type]="brand" [value]="brand">
+</tr>
+
+<tr>
+  <label>Model:</label>
+  <input  [type]="model" [value]="model">
+</tr>
+
+<tr>
+  <label>Color:</label>
+  <input [type]="color" [value]="color">
+</tr>
+
+<tr>
+  <label>Plate Number:</label>
+  <input [type]="plateNumber" [value]="plateNumber">
+</tr>
+
+<app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck}" (click)="clickAction('')"></app-custom-button>
+
+</form>
+
+
+<div>
+  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft}" (click)="clickAction('back')"></app-custom-button>
+
+</div>

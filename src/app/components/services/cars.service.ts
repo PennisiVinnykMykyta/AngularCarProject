@@ -23,11 +23,8 @@ export class CarsService {
 
   }
 
-  addCar(): void {
+  addORUpdateCare(id:number | null): void {
     //return blank form
   }
 
-  modifyCar(id:number): void{
-    //return form filled with info to modify
-  }
 }
