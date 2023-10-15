@@ -2,20 +2,16 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomTableConfig} from "./custom-table.config";
 import {faArrowAltCircleLeft, faArrowDown, faArrowUp, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {
-  addCar,
-  addUser,
-  back,
   cancel,
-  cancelBooking,
-  changeUserInfo,
   CustomButtonConfig,
-  deleteUser,
-  modifyBooking,
   next,
   previous
 } from "../custom-button/custom-button.config";
-import {MyTableActionEnum} from "./table-details/my-actions";
-import {Router} from "@angular/router";
+import * as _ from "lodash";
+export interface TableEmit{
+  obj: any;
+  action: any;
+}
 
 @Component({
   selector: 'app-custom-table',
@@ -27,7 +23,7 @@ export class CustomTableComponent implements OnInit {
 
   @Input() data!: any[];
 
-  @Output() getTableData: EventEmitter<{ obj:any,action:any }> = new EventEmitter();
+  @Output() getTableData: EventEmitter<TableEmit> = new EventEmitter();
 
 
   //table variables
@@ -39,8 +35,6 @@ export class CustomTableComponent implements OnInit {
   currentPage!: number;
   totalPages!: number[];
   pages!: number[];
-  action = MyTableActionEnum;
-
 
   //table icons
   faArrowUp = faArrowUp;
@@ -48,18 +42,13 @@ export class CustomTableComponent implements OnInit {
 
   //table buttons
   cancelButtonConfig: CustomButtonConfig = cancel;
-  backButtonConfig: CustomButtonConfig = back;
   nextButtonConfig: CustomButtonConfig = next;
   previousButtonConfig: CustomButtonConfig = previous;
-  addBookConfig: CustomButtonConfig = addCar;
-  addUserConfig: CustomButtonConfig = addUser;
-  cancelBookConfig: CustomButtonConfig = cancelBooking;
-  deleteUserConfig: CustomButtonConfig = deleteUser;
-  modifyBookingConfig: CustomButtonConfig = modifyBooking;
-  modifyUserConfig: CustomButtonConfig = changeUserInfo;
 
-  constructor(private router: Router) {
+
+  constructor() {
   }
+
 
   ngOnInit() {
 
@@ -71,8 +60,10 @@ export class CustomTableComponent implements OnInit {
     this.getPageRange();
   }
 
+
+
 //table methods
-  sort(key: string) {
+  sort(key: any) {
     if (key !== this.key || this.orderType == 'desc') {
       this.key = key
       this.orderType = 'asc'
@@ -113,11 +104,11 @@ export class CustomTableComponent implements OnInit {
   //metodo per ricavare gli Item
   actionMethod(object : any | null,action: any){
     //console.log("Requested action: ", action, obj);
-    if(object === ''){
-      void this.router.navigateByUrl("");
-    }else{
-      this.getTableData.emit({obj:object,action:action});
-    }
+    this.getTableData.emit({obj:object,action:action});
+  }
+
+  getValue(obj:any, str:any){
+    return _.get(obj,str);
   }
 
   protected readonly faArrowAltCircleLeft = faArrowAltCircleLeft;

@@ -3,10 +3,12 @@ import {UserService} from "../../services/user.service";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
 import {UserTemplate} from "../../mock-files/templates/user-template";
 import {MyActionEvent} from "../../templates/custom-table/table-details/my-action-event";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
 import {faBook, faCancel, faUserGear, faUserPlus} from "@fortawesome/free-solid-svg-icons";
 import {BookingsService} from "../../services/bookings.service";
+import {AppComponent} from "../../../app.component";
+import {Roles} from "../../mock-files/templates/roles";
 
 @Component({
   selector: 'app-user-table',
@@ -23,16 +25,25 @@ export class UserTableComponent implements  OnInit{
   user!: any;
   tableConfig!: CustomTableConfig
   users: UserTemplate[] = [];
-  //role!: Roles;
+  adminActions!: MyActionEvent[];
   userActions!: MyActionEvent[];
 
+  role!: Roles;
 
-  constructor(private userService:UserService, private bookService:BookingsService, private router: Router) {
+  constructor(private userService:UserService, private bookService:BookingsService, private obj: AppComponent) {
   }
   ngOnInit() {
+    this.role = this.obj.userRole;
+
+    if(this.role === 'User'){
+      console.log('User');
+    }else{
+      console.log('Admin');
+    }
+
     this.formRequest = false;
     this.setUsers();
-    this.userActions = [
+    this.adminActions = [
       {
         action: MyTableActionEnum.NEW_ROW,
         rowAction:false,
@@ -59,6 +70,14 @@ export class UserTableComponent implements  OnInit{
       }
     ]
 
+    this.userActions = [
+      {
+        action: MyTableActionEnum.EDIT,
+        rowAction: true,
+        text: "Change User Info",
+        icon: faUserGear
+      }
+    ]
 
     this.tableConfig = {
       headers: [
@@ -83,7 +102,12 @@ export class UserTableComponent implements  OnInit{
   }
 
   setUsers(){
-    return this.userService.getAllUsers().subscribe(users => this.users = users);
+    if(this.role === 'User'){
+      return this.userService.getAllUsers().subscribe(users => this.users = users);
+      //return  this.userService.getCurrentUser().subscribe(users:); aggiungere funzione in service per prendere il user corrente
+    }else{
+      return this.userService.getAllUsers().subscribe(users => this.users = users);
+    }
   }
 
   clickAction($event: { obj: any; action: any }) {
@@ -110,7 +134,7 @@ export class UserTableComponent implements  OnInit{
   }
 
   setRequest($event: boolean) {
-    if($event === true){
+    if($event){
       this.formRequest = false;
     }
   }

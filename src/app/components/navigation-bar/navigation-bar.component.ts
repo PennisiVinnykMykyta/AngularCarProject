@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Component, Input} from '@angular/core';
+import {Router} from "@angular/router";
 
 import {NavigationBarConfig} from "./navigation-bar.config";
 
@@ -8,18 +8,15 @@ import {NavigationBarConfig} from "./navigation-bar.config";
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.css']
 })
-export class NavigationBarComponent implements  OnInit{
+export class NavigationBarComponent{
 
    @Input() userBarConfig!: NavigationBarConfig;
 
-  constructor(private router: Router, private route:ActivatedRoute) {
+  constructor(private router: Router) {
   }
 
-  ngOnInit() {
 
-  }
-
-  clickAction(str: string ){ //ok now we need to redirect to the correct form based on the action pressed
+  clickAction(str: string ){
     console.log("action clicked",str);
     void this.router.navigateByUrl(str);
   }

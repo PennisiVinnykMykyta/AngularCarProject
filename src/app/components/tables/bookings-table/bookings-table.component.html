@@ -1,2 +1,6 @@
-<p>bookings-table works!</p>
-<app-custom-button [buttonConfig] = "{text:'Go Back'}"  (click) = "clickAction('return')"></app-custom-button>
+<app-custom-table *ngIf="!formRequest" [tableConfig]="tableConfig" [data]="bookings" (getTableData)="clickAction($event)"></app-custom-table>
+
+<app-bookings-form *ngIf = "formRequest" [book] = "book" (goBack)="setRequest($event)"></app-bookings-form>
+
+
+

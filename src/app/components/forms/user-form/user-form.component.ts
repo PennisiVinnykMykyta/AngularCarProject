@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {faArrowAltCircleLeft, faCheck} from "@fortawesome/free-solid-svg-icons";
-import {UserTableComponent} from "../../tables/user-table/user-table.component";
 
 
 
@@ -26,7 +24,7 @@ export class UserFormComponent implements  OnInit{
   email?: string = '';
   birthday?: string = '';
 
-  constructor(private router: Router, private userService: UserService, private table: UserTableComponent) {
+  constructor(private userService: UserService) {
   }
   ngOnInit() {
     console.log(this.user);
@@ -52,7 +50,7 @@ export class UserFormComponent implements  OnInit{
     }
 }
 
-  clickAction(action:string){
+  clickAction(action?:string){
     if(action !== 'back'){
       this.addOrUpdate(this.user)
     }

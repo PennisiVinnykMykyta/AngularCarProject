@@ -31,7 +31,7 @@
 
   <tr *ngFor="let obj of data | searchingPipe : filter : filterKey | paginationPipe :currentPage :pageItems | sortingPipe : key : orderType">
     <td *ngFor="let header of tableConfig.headers">
-      {{obj[header.key]}}
+      {{getValue(obj,header.key)}}
     </td>
     <td >
       <div *ngFor =" let action of tableConfig.actions">

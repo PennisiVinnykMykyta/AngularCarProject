@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "./components/services/user.service";
 import {NavigationBarConfig} from "./components/navigation-bar/navigation-bar.config";
-import {faBook, faBookAtlas, faCar, faCaravan, faUser, faUsers} from "@fortawesome/free-solid-svg-icons";
+import {faBook, faBookAtlas, faCaravan, faUser, faUsers} from "@fortawesome/free-solid-svg-icons";
 import {Roles} from "./components/mock-files/templates/roles";
 
 @Component({
@@ -12,16 +12,11 @@ import {Roles} from "./components/mock-files/templates/roles";
 export class AppComponent implements  OnInit{
   title = 'Welcome User';
 
-  @Input() user!: Roles;
+  public userRole!: Roles;
 
   userButtons: NavigationBarConfig =
     {
       buttonsConfig: [
-        {
-          text: 'View Available Cars',
-          icon: faCar,
-          path: '/availableCars'
-        },
         {
           text: 'View Your Bookings',
           icon: faBook,
@@ -37,11 +32,6 @@ export class AppComponent implements  OnInit{
   adminButtons: NavigationBarConfig =
     {
       buttonsConfig: [
-        {
-          text: 'View Available Cars',
-          icon: faCar,
-          path: '/availableCars'
-        },
         {
           text: 'View Your Bookings',
           icon: faBook,
@@ -69,7 +59,7 @@ export class AppComponent implements  OnInit{
       ]
     }
   getNavConfig(){
-    if(this.user === 'Admin'){
+    if(this.userRole === Roles.Admin){
       return this.adminButtons;
     }else{
       return  this.userButtons;
@@ -80,7 +70,7 @@ export class AppComponent implements  OnInit{
   }
 
   ngOnInit() {
-    this.user = Roles.Admin; //per adesso l'ho settato ad Admin solo per testare
+    this.userRole = Roles.User; // User per adesso l'ho settato ad Admin solo per testare
   }
 
 }

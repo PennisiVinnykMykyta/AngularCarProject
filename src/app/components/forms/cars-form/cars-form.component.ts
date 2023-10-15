@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UserTableComponent} from "../../tables/user-table/user-table.component";
-import {Router} from "@angular/router";
 import {CarsService} from "../../services/cars.service";
 import {faArrowAltCircleLeft, faCheck} from "@fortawesome/free-solid-svg-icons";
 
@@ -22,7 +20,7 @@ export class CarsFormComponent implements  OnInit{
   color?: string = '';
   plateNumber?: string = '';
 
-  constructor(private table: UserTableComponent, private router: Router, private carService: CarsService) {
+  constructor(private carService: CarsService) {
   }
 
   ngOnInit() {
@@ -46,7 +44,7 @@ export class CarsFormComponent implements  OnInit{
     }
   }
 
-  clickAction(action:string){
+  clickAction(action?:string){
     if(action !== 'back'){
       this.addOrUpdate(this.car)
     }else{

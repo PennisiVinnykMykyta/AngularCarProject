@@ -1,1 +1,26 @@
-<p>bookings-form works!</p>
+<h2>Please Select the Dates</h2>
+<div>
+  <!--dates selector-->
+  <tr>
+    <label>Start Date</label>
+    <input type="date" value="startDate" [(ngModel)] = "startDate">
+  </tr>
+
+  <tr>
+    <label>End Date</label>
+    <input type="date" value="endDate" [(ngModel)] = "endDate">
+  </tr>
+
+  <app-custom-button [buttonConfig] = "{text:'Select'}" (click)="ConfirmDates()"></app-custom-button>
+</div>
+
+<div>
+  <!--cars info display only 1 car when booking id exists or display list of available cars otherwise-->
+
+  <app-custom-button *ngIf="datesSelected" [buttonConfig] = "{text:'Finish Booking'}" (click)="clickAction()" )></app-custom-button>
+</div>
+
+<div>
+  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft}" (click)="clickAction('back')"></app-custom-button>
+
+</div>
