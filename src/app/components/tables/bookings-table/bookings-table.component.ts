@@ -1,12 +1,11 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {BookingTemplate} from "../../mock-files/templates/booking-template";
 import {BookingsService} from "../../services/bookings.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {MyActionEvent} from "../../templates/custom-table/table-details/my-action-event";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
 import {faBookBookmark, faCancel, faGear, faPlus} from "@fortawesome/free-solid-svg-icons";
-import * as _ from "lodash";
 import {AuthenticationService} from "../../services/authentication.service";
 
 
@@ -69,9 +68,10 @@ export class BookingsTableComponent implements  OnInit{
     }
   ]
 
-  constructor(private bookingService: BookingsService,private router:Router, private authService: AuthenticationService) {
+  constructor(private bookingService: BookingsService,private route:ActivatedRoute, private authService: AuthenticationService) {
   }
   ngOnInit() {
+
     this.formRequest = false;
     this.setBookings();
 
@@ -113,10 +113,20 @@ export class BookingsTableComponent implements  OnInit{
   }
 
   setBookings(){
+
     if(this.authService.getUser().role === 'Admin'){
-      return this.bookingService.getAllBookings().subscribe(books => this.bookings = books);
+
+      if(this.route.snapshot.paramMap.get('id') !== null){
+        let id: number = +this.route.snapshot.paramMap.get('id')!;
+        console.log(id);
+
+        return this.bookingService.getUserBookings(id).subscribe(books => this.bookings = books)
+      }else{
+        return this.bookingService.getAllBookings().subscribe(books => this.bookings = books);
+      }
+
     }else{
-      return this.bookings = this.bookingService.getUserBookings(this.authService.getUser().id);
+      return this.bookingService.getUserBookings(this.authService.getUser().id).subscribe(books =>this.bookings = books);
     }
   }
 

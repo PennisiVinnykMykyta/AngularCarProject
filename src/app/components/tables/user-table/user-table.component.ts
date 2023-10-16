@@ -131,7 +131,7 @@ export class UserTableComponent implements  OnInit{
       case MyTableActionEnum.UBOOKINGS:
         console.log("clicked:" + $event.action.text)
         this.bookService.getUserBookings($event.obj.id);
-        void this.router.navigate(['userBookings'],$event.obj)
+        void this.router.navigate(['userBookings', $event.obj.id])
         break;
     }
   }

@@ -36,12 +36,6 @@ export class CarsTableComponent implements OnInit{
       {
         action: MyTableActionEnum.NEW_ROW,
         rowAction:false,
-        text:"Book Car",
-        icon: faPlus
-      },
-      {
-        action: MyTableActionEnum.NEW_ROW,
-        rowAction:false,
         text:"Add Car",
         icon: faPlus
       },
@@ -87,24 +81,19 @@ export class CarsTableComponent implements OnInit{
   }
 
   clickAction($event: { obj: any; action: any }) {
-    switch ($event.action.text) {
-      case "Book Car":
+    console.log($event.action)
+    switch ($event.action.action) {
+      case MyTableActionEnum.NEW_ROW:
         console.log("clicked:" + $event.action.text)
         this.formRequest = true;
         this.car = null;
         break;
 
-      case "Add Car":
-        console.log("clicked:" + $event.action.text)
-        this.formRequest = true;
-        this.car = null;
-        break;
-
-      case "Delete Car":
+      case MyTableActionEnum.DELETE:
         console.log("clicked:" + $event.action.text)
         this.carService.deleteCar($event.obj.id);
         break;
-      case "Change Car Info":
+      case MyTableActionEnum.EDIT:
         console.log("clicked:" + $event.action.text)
         this.formRequest = true;
         this.car = $event.obj

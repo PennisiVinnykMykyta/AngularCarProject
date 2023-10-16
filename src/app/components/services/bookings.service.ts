@@ -15,10 +15,10 @@ export class BookingsService {
     return of(Bookings);
   }
 
-  getUserBookings(userId: number) :BookingTemplate[]{
+  getUserBookings(userId: number) : Observable<BookingTemplate[]>{
     console.log("retrived users bookings" + userId)
     //return booking of the userId
-    return this.emptyBookings;
+    return of(this.emptyBookings);
   }
 
   deleteBooking(id:number): void{
