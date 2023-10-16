@@ -56,7 +56,12 @@ export class CustomTableComponent implements OnInit {
     this.orderType = this.tableConfig.order.orderType;
     this.currentPage = 1;
     this.pageItems = this.tableConfig.pagination.itemPerPage;
-    this.totalPages = new Array(Math.ceil(this.data.length / this.pageItems));
+    console.log(this.data)
+    if(this.data !== null || this.data !== undefined){
+      this.totalPages = new Array(Math.ceil(this.data!.length / this.pageItems));
+    }else{
+      this.totalPages = new Array(0);
+    }
     this.getPageRange();
   }
 

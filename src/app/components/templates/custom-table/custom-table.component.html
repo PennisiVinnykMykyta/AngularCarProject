@@ -1,12 +1,12 @@
 <div>
-  <select [(ngModel)]="filterKey">
+  <select *ngIf = "data.length > 1" [(ngModel)]="filterKey">
     <option *ngFor="let column of tableConfig.headers  | slice:0:tableConfig.headers.length-1" [ngValue]="column.key">
       {{column.label}}
     </option>
   </select>
 
-  <input type="search" [(ngModel)]="filter">
-  <app-custom-button [buttonConfig]="cancelButtonConfig" (click)="filter=''"></app-custom-button>
+  <input *ngIf = "data.length > 1"  type="search" [(ngModel)]="filter">
+  <app-custom-button *ngIf = "data.length > 1" [buttonConfig]="cancelButtonConfig" (click)="filter=''"></app-custom-button>
 
 </div>
 <ng-container *ngFor ="let action of tableConfig.actions"> <!---->
@@ -42,19 +42,19 @@
 </table>
 
 <!-- Previous Page -->
-<app-custom-button style="padding-right: 10px" [buttonConfig]="previousButtonConfig" (click)="movePage(false)"></app-custom-button>
+<app-custom-button *ngIf = "data.length > 1" style="padding-right: 10px" [buttonConfig]="previousButtonConfig" (click)="movePage(false)"></app-custom-button>
 
 <!-- Range of Pages -->
-<ng-container *ngFor="let page of pages" >
+<ng-container  *ngFor="let page of pages" >
 
-  <app-custom-button style="padding-right: 10px" [buttonConfig]="{text:page.toString()}"  (click)="setPage(page)" [enabled]="page !== currentPage" ></app-custom-button>
+  <app-custom-button *ngIf = "data.length > 1" style="padding-right: 10px" [buttonConfig]="{text:page.toString()}"  (click)="setPage(page)" [enabled]="page !== currentPage" ></app-custom-button>
 
 </ng-container>
 
 <!-- Next Page -->
-<app-custom-button [buttonConfig]="nextButtonConfig" (click)="movePage(true)"></app-custom-button>
+<app-custom-button *ngIf = "data.length > 1" [buttonConfig]="nextButtonConfig" (click)="movePage(true)"></app-custom-button>
 <div>
-  <app-custom-button [buttonConfig] ="{text:'Go Back', icon:faArrowAltCircleLeft, path:' ' }" (click)="actionMethod('','')"></app-custom-button>
+  <app-custom-button *ngIf = "data.length > 1" [buttonConfig] ="{text:'Go Back', icon:faArrowAltCircleLeft, path:' ' }" (click)="actionMethod('','')"></app-custom-button>
 </div>
 
 

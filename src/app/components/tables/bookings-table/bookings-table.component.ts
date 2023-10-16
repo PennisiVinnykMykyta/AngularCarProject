@@ -7,6 +7,7 @@ import {CustomTableConfig} from "../../templates/custom-table/custom-table.confi
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
 import {faBookBookmark, faCancel, faGear, faPlus} from "@fortawesome/free-solid-svg-icons";
 import * as _ from "lodash";
+import {AuthenticationService} from "../../services/authentication.service";
 
 
 @Injectable({
@@ -19,43 +20,67 @@ import * as _ from "lodash";
 })
 export class BookingsTableComponent implements  OnInit{
 
+  user!: any;
   formRequest!: boolean;
   book!: any;
   bookings!: BookingTemplate[];
   bookActions!: MyActionEvent[];
   tableConfig!: CustomTableConfig;
 
-  constructor(private bookingService: BookingsService,private router:Router) {
+  adminBookActions: MyActionEvent[] = [
+    {
+      action: MyTableActionEnum.DELETE,
+      rowAction:true,
+      text:"Cancel Booking",
+      icon: faCancel
+    },
+    {
+      action: MyTableActionEnum.EDIT,
+      rowAction:true,
+      text:"Change Booking",
+      icon: faGear
+    },
+    {
+      action: MyTableActionEnum.APPROVE,
+      rowAction: true,
+      text: "Approve/Disapprove",
+      icon: faBookBookmark
+    },
+  ]
+
+  userBookActions: MyActionEvent[] = [
+    {
+      action: MyTableActionEnum.NEW_ROW,
+      rowAction: false,
+      text:"Make a Booking",
+      icon: faPlus
+    },
+    {
+      action: MyTableActionEnum.DELETE,
+      rowAction:true,
+      text:"Cancel Booking",
+      icon: faCancel
+    },
+    {
+      action: MyTableActionEnum.EDIT,
+      rowAction:true,
+      text:"Change Booking",
+      icon: faGear
+    }
+  ]
+
+  constructor(private bookingService: BookingsService,private router:Router, private authService: AuthenticationService) {
   }
   ngOnInit() {
     this.formRequest = false;
     this.setBookings();
-    this.bookActions = [
-      {
-        action: MyTableActionEnum.NEW_ROW,
-        rowAction: false,
-        text:"Make a Booking",
-        icon: faPlus
-      },
-      {
-        action: MyTableActionEnum.DELETE,
-        rowAction:true,
-        text:"Cancel Booking",
-        icon: faCancel
-      },
-      {
-        action: MyTableActionEnum.EDIT,
-        rowAction:true,
-        text:"Change Booking",
-        icon: faGear
-      },
-      {
-        action: MyTableActionEnum.EDIT,
-        rowAction: true,
-        text: "Approve/Disapprove",
-        icon: faBookBookmark
-      },
-    ]
+
+    if(this.authService.getUser().role === 'Admin'){
+      this.bookActions = this.adminBookActions;
+    }else{
+      this.bookActions = this.userBookActions;
+    }
+
 
 
     this.tableConfig = {
@@ -88,25 +113,32 @@ export class BookingsTableComponent implements  OnInit{
   }
 
   setBookings(){
-    return this.bookingService.getAllBookings().subscribe(books => this.bookings = books);
+    if(this.authService.getUser().role === 'Admin'){
+      return this.bookingService.getAllBookings().subscribe(books => this.bookings = books);
+    }else{
+      return this.bookings = this.bookingService.getUserBookings(this.authService.getUser().id);
+    }
   }
 
   clickAction($event: { obj: any; action: any }){
-    switch ($event.action.text){
-      case "Make a Booking":
+    switch ($event.action.action){
+      case MyTableActionEnum.NEW_ROW:
         console.log("clicked:" + $event.action.text, $event.obj);
         this.formRequest = true;
         this.book = null;
         break;
-      case "Delete Book":
+      case MyTableActionEnum.DELETE:
         console.log("clicked:" + $event.action.text)
         this.bookingService.deleteBooking($event.obj.id);
         break;
-      case "Change Booking":
+      case MyTableActionEnum.EDIT:
         console.log("clicked:" + $event.action.text)
         this.formRequest = true;
         this.book = $event.obj
         break;
+      case MyTableActionEnum.APPROVE:
+        console.log("clicked:" + $event.action.text)
+        this.book.approval = !this.book.approval
     }
     console.log($event.obj,$event.action)
   }

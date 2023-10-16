@@ -1,8 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {faCheck,faArrowAltCircleLeft} from "@fortawesome/free-solid-svg-icons";
+import {faArrowAltCircleLeft, faCheck, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {BookingsService} from "../../services/bookings.service";
 import * as _ from "lodash";
+import {CarsService} from "../../services/cars.service";
+import {CarTemplate} from "../../mock-files/templates/car-template";
+import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
+import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
 
 @Component({
   selector: 'app-bookings-form',
@@ -24,7 +28,10 @@ export class BookingsFormComponent implements  OnInit{
   startDate?: Date;
   endDate?: Date;
   approval?: boolean;
-  constructor(private router: Router, private bookService:BookingsService) {
+  tableConfig!: CustomTableConfig;
+
+  availableCars!: CarTemplate[];
+  constructor(private router: Router, private bookService:BookingsService,private carService: CarsService) {
   }
   ngOnInit() {
     this.initBookInfo(this.book);
@@ -43,7 +50,7 @@ export class BookingsFormComponent implements  OnInit{
 
     }else{
 
-   //console.log(this.endDate);
+    console.log(this.endDate);
     }
   }
 
@@ -55,15 +62,49 @@ export class BookingsFormComponent implements  OnInit{
     }
   }
 
-  clickAction(action?:string){
-    if(action!=='back'){
-      this.addOrUpdateBook(this.book);
-    }
+  clickAction($event: {obj: any, action: any}){
+    this.book.startDate;
+    this.book.endDate;
+    this.book.car = $event.obj;
+    this.addOrUpdateBook(this.book);
+    console.log("car has been booked");
     this.goBack.emit(true);
   }
 
   ConfirmDates() {
-    //console.log(this.endDate);
+    console.log(this.startDate,this.endDate);
     this.datesSelected = true;
+    this.setTableConfig();
+
+  }
+
+  setTableConfig(){
+    this.carService.getAvailableCars(this.startDate!,this.endDate!).subscribe(cars => this.availableCars = cars)
+    this.tableConfig = {
+      headers:[
+        {key: "brand", label: "Brand"},
+        {key: "model", label:"Model"},
+        {key: "color", label:"Color"},
+        {key: "plateNumber", label:"Plate Number"}
+      ],
+      order: {
+        orderType: "desc",
+        defaultColumn: "desc"
+      },
+      pagination:{
+        itemPerPage: 5,
+        itemPerPageOptions:[
+          5,
+          10
+        ]
+      },
+      actions: [
+        { action: MyTableActionEnum.NEW_ROW,
+          rowAction:true,
+          text: "Book Car",
+          icon:faPlus
+        }
+      ]
+    }
   }
 }

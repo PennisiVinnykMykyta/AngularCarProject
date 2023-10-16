@@ -7,6 +7,7 @@ import {Observable, of} from "rxjs";
   providedIn: 'root'
 })
 export class BookingsService {
+  emptyBookings : BookingTemplate[] = []
 
   constructor() { }
 
@@ -14,9 +15,10 @@ export class BookingsService {
     return of(Bookings);
   }
 
-  getUserBookings(userId: number) : void{
+  getUserBookings(userId: number) :BookingTemplate[]{
     console.log("retrived users bookings" + userId)
-    //return booking where userid is equal to userId
+    //return booking of the userId
+    return this.emptyBookings;
   }
 
   deleteBooking(id:number): void{

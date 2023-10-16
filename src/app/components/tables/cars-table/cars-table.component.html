@@ -1,5 +1,3 @@
-<p>cars-table works!</p>
-
 <app-custom-table *ngIf = "!formRequest" [tableConfig]="tableConfig" [data]="cars" (getTableData)="clickAction($event)"></app-custom-table>
 
 <app-cars-form *ngIf="formRequest" [car] = "car" (goBack) = "setRequest($event)"></app-cars-form>

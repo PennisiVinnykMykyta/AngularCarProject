@@ -15,8 +15,9 @@ export class CarsService {
     return cars;
   }
 
-  getAvailableCars(): void{
-    //get cars with available = true
+  getAvailableCars(start: Date, end:Date): Observable<CarTemplate[]>{
+    //will select cars available for the selected dates
+    return  of(Cars);
   }
 
   deleteCar(id:number): void{
