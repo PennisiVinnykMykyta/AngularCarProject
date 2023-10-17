@@ -1,14 +1,9 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {CarsService} from "../../services/cars.service";
-import {
-  faCancel,
-  faCarSide, faPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import {Router} from "@angular/router";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
 import {CarTemplate} from "../../mock-files/templates/car-template";
-import {MyActionEvent} from "../../templates/custom-table/table-details/my-action-event";
+import {CarsTableConfig} from "./cars-table.config";
 
 
 @Injectable({
@@ -25,55 +20,13 @@ export class CarsTableComponent implements OnInit{
   car!: any;
   tableConfig!: CustomTableConfig;
   cars: CarTemplate[] = [];
-  carActions!: MyActionEvent[];
   formRequest!: boolean;
-  constructor(private carService:CarsService, private router: Router) {
+  constructor(private carService:CarsService, private carTableConfig: CarsTableConfig) {
   }
   ngOnInit() {
     this.formRequest = false;
     this.setCars();
-    this.carActions = [
-      {
-        action: MyTableActionEnum.NEW_ROW,
-        rowAction:false,
-        text:"Add Car",
-        icon: faPlus
-      },
-      {
-        action: MyTableActionEnum.DELETE,
-        rowAction:true,
-        text:"Delete Car",
-        icon: faCancel
-      },
-      {
-        action: MyTableActionEnum.EDIT,
-        rowAction: true,
-        text: "Change Car Info",
-        icon: faCarSide
-      }
-    ]
-
-
-    this.tableConfig = {
-      headers: [
-        {key: "brand", label: "Brand"},
-        {key: "model", label:"Model"},
-        {key: "color", label:"Color"},
-        {key: "plateNumber", label:"Plate Number"}
-      ],
-      order: {
-        orderType: "desc",
-        defaultColumn: "desc"
-      },
-      pagination:{
-        itemPerPage: 5,
-        itemPerPageOptions:[
-          5,
-          10
-        ]
-      },
-      actions: this.carActions
-    }
+    this.tableConfig = this.carTableConfig.tableConfig;
   }
 
   setCars(){
@@ -101,7 +54,7 @@ export class CarsTableComponent implements OnInit{
     }
   }
   setRequest($event: boolean) {
-    if($event === true){
+    if($event){
       this.formRequest = false;
     }
   }

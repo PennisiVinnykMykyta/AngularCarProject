@@ -7,6 +7,7 @@ import {Observable, of} from "rxjs";
   providedIn: 'root'
 })
 export class BookingsService {
+  //il caso in cui il user non ha alcun booking prenotato, senza il databse è il caso default
   emptyBookings : BookingTemplate[] = []
 
   constructor() { }
@@ -17,19 +18,16 @@ export class BookingsService {
 
   getUserBookings(userId: number) : Observable<BookingTemplate[]>{
     console.log("retrived users bookings" + userId)
-    //return booking of the userId
+    //return all bookings of the userId
     return of(this.emptyBookings);
   }
 
   deleteBooking(id:number): void{
-
+    console.log("deleted the booking:" + id);
   }
 
   addOrUpdateBooking(id: number | null): void {
-    //return blank form
+    console.log("added or updated the booking:" + id);
   }
 
-  modifyBooking(id: number): void{
-    //return form filled with info to modify
-  }
 }

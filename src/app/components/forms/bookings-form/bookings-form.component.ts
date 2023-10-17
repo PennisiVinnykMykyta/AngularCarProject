@@ -39,7 +39,7 @@ export class BookingsFormComponent implements  OnInit{
   }
 
   initBookInfo(obj: any){
-    if(obj !== null){
+    if(obj !== null && obj !==undefined){
       let brandPath= _.get(this.book, 'car.brand');
       let modelPath= _.get(this.book, 'car.model');
       let colorPath= _.get(this.book, 'car.color');
@@ -71,7 +71,7 @@ export class BookingsFormComponent implements  OnInit{
     this.goBack.emit(true);
   }
 
-  ConfirmDates() {
+  confirmDates() {
     console.log(this.startDate,this.endDate);
     this.datesSelected = true;
     this.setTableConfig();

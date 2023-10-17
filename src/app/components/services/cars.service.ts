@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {CarTemplate} from "../mock-files/templates/car-template";
 import {Observable, of} from "rxjs";
 import {Cars} from "../mock-files/mock-cars";
@@ -11,8 +11,7 @@ export class CarsService {
   constructor() { }
 
   getAllCars(): Observable<CarTemplate[]>{
-    const cars : Observable<CarTemplate[]> = of(Cars);
-    return cars;
+    return of(Cars);
   }
 
   getAvailableCars(start: Date, end:Date): Observable<CarTemplate[]>{
@@ -21,11 +20,11 @@ export class CarsService {
   }
 
   deleteCar(id:number): void{
-
+    console.log("deleted the car with id:" + id)
   }
 
   addORUpdateCare(id:number | null): void {
-    //return blank form
+    console.log("added or updated the car with id:" + id)
   }
 
 }

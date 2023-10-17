@@ -2,13 +2,12 @@ import {Component, Injectable, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
 import {UserTemplate} from "../../mock-files/templates/user-template";
-import {MyActionEvent} from "../../templates/custom-table/table-details/my-action-event";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
-import {faBook, faCancel, faUserGear, faUserPlus} from "@fortawesome/free-solid-svg-icons";
 import {BookingsService} from "../../services/bookings.service";
 import {Roles} from "../../mock-files/templates/roles";
 import {AuthenticationService} from "../../services/authentication.service";
 import {Router} from "@angular/router";
+import {UserTableConfig} from "./user-tableConfig";
 
 @Component({
   selector: 'app-user-table',
@@ -25,88 +24,31 @@ export class UserTableComponent implements  OnInit{
   user!: any;
   tableConfig!: CustomTableConfig
   users: UserTemplate[] = [];
-  adminActions: MyActionEvent[] = [
-    {
-      action: MyTableActionEnum.NEW_ROW,
-      rowAction:false,
-      text:"Add User",
-      icon: faUserPlus
-    },
-    {
-      action: MyTableActionEnum.DELETE,
-      rowAction:true,
-      text:"Delete User",
-      icon: faCancel
-    },
-    {
-      action: MyTableActionEnum.EDIT,
-      rowAction: true,
-      text: "Change User Info",
-      icon: faUserGear
-    },
-    {
-      action: MyTableActionEnum.UBOOKINGS,
-      rowAction: true,
-      text: "View User Bookings",
-      icon: faBook
-    }
-  ]
-  userActions: MyActionEvent[] = [
-    {
-      action: MyTableActionEnum.EDIT,
-      rowAction: true,
-      text: "Change User Info",
-      icon: faUserGear
-    }
-  ]
-
-  actions!: MyActionEvent[];
-
   role!: Roles;
 
-  constructor(private userService:UserService, private bookService:BookingsService, private authService: AuthenticationService,private  router: Router) {
+  constructor(private userService:UserService,private userTableConfig:UserTableConfig, private bookService:BookingsService, private authService: AuthenticationService,private  router: Router) {
   }
   ngOnInit() {
-    this.user = this.authService.getUser();
+    this.authService.getUser('user').subscribe(user => this.user = user);
 
     if(this.user.role === 'User'){
       console.log('User');
-      this.actions = this.userActions;
+      this.tableConfig = this.userTableConfig.tableConfigUser
     }else{
       console.log('Admin');
-      this.actions = this.adminActions;
+      this.tableConfig = this.userTableConfig.tableConfigAdmin
     }
-
 
     this.formRequest = false;
     this.setUsers();
     console.log(this.users);
 
-    this.tableConfig = {
-      headers: [
-        {key: "name", label: "First Name"},
-        {key: "lastName", label:"Last Name"},
-        {key: "email", label:"Email"},
-        {key: "birthday", label:"Birthday"}
-      ],
-      order: {
-        orderType: "desc",
-        defaultColumn: "desc"
-      },
-      pagination:{
-        itemPerPage: 5,
-        itemPerPageOptions:[
-          5,
-          10
-        ]
-      },
-      actions: this.actions
-    }
   }
 
   setUsers(){
     if(this.user.role === 'User'){
       return this.users.push(this.user);
+      //se è un utente nella tabella ci saranno solo le sue informazioni con l'unica opzione di modificare le proprie info
     }else{
       return this.userService.getAllUsers().subscribe(users => this.users = users);
     }

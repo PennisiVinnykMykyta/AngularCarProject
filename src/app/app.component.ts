@@ -4,6 +4,7 @@ import {NavigationBarConfig} from "./components/navigation-bar/navigation-bar.co
 import {faBook, faBookAtlas, faCaravan, faUser, faUsers} from "@fortawesome/free-solid-svg-icons";
 import {Roles} from "./components/mock-files/templates/roles";
 import {AuthenticationService} from "./components/services/authentication.service";
+import {AppConfig} from "./app.config";
 
 @Component({
   selector: 'app-root',
@@ -15,53 +16,19 @@ export class AppComponent implements  OnInit{
 
   public userRole?: Roles;
 
-  userButtons: NavigationBarConfig =
-    {
-      buttonsConfig: [
-        {
-          text: 'View Your Bookings',
-          icon: faBook,
-          path:'/yourBookings'
-        },
-        {
-          text: 'View Your Profile',
-          icon: faUser,
-          path:'/yourProfile'
-        },
-      ]
-    }
-  adminButtons: NavigationBarConfig =
-    {
-      buttonsConfig: [
-        {
-          text: 'View All Cars',
-          icon: faCaravan,
-          path: '/allCars'
-        },
-        {
-          text: 'View All Bookings',
-          icon: faBookAtlas,
-          path:'/allBookings'
-        },{
-          text: 'View All Users',
-          icon: faUsers,
-          path:'/users'
-        }
-      ]
-    }
-  getNavConfig(){
-    if(this.userRole === Roles.Admin){
-      return this.adminButtons;
-    }else{
-      return  this.userButtons;
-    }
+  constructor(private authService: AuthenticationService, private appConfig: AppConfig) {
   }
 
-  constructor(private authService: AuthenticationService) {
+  getNavConfig(){
+    if(this.userRole === Roles.Admin){
+      return this.appConfig.adminButtons;
+    }else{
+      return this.appConfig.userButtons;
+    }
   }
 
   ngOnInit() {
-    this.userRole = this.authService.getUser().role; // User per adesso l'ho settato ad Admin solo per testare
+    this.authService.getUser('user').subscribe(user => this.userRole = user.role) // User per adesso l'ho settato ad Admin solo per testare
   }
 
 }
