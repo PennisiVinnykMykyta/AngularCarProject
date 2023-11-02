@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Bookings} from "../mock-files/mock-bookings";
 import {BookingTemplate} from "../mock-files/templates/booking-template";
 import {Observable, of} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class BookingsService {
   //il caso in cui il user non ha alcun booking prenotato, senza il databse è il caso default
   emptyBookings : BookingTemplate[] = []
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getAllBookings() : Observable<BookingTemplate[]>{
     return of(Bookings);

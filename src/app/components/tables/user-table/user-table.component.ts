@@ -29,7 +29,7 @@ export class UserTableComponent implements  OnInit{
   constructor(private userService:UserService,private userTableConfig:UserTableConfig, private bookService:BookingsService, private authService: AuthenticationService,private  router: Router) {
   }
   ngOnInit() {
-    this.authService.getUser('user').subscribe(user => this.user = user);
+    this.authService.getUser('admin').subscribe(user => this.user = user);
 
     if(this.user.role === 'User'){
       console.log('User');
@@ -41,7 +41,7 @@ export class UserTableComponent implements  OnInit{
 
     this.formRequest = false;
     this.setUsers();
-    console.log(this.users);
+    //console.log(this.users);
 
   }
 

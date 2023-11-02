@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Users} from "../mock-files/mock-users";
 import {UserTemplate} from "../mock-files/templates/user-template";
 import {Observable, of} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,5 @@ export class AuthenticationService {
     }
   }
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 }

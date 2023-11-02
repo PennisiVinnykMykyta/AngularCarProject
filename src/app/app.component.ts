@@ -28,7 +28,7 @@ export class AppComponent implements  OnInit{
   }
 
   ngOnInit() {
-    this.authService.getUser('user').subscribe(user => this.userRole = user.role) // User per adesso l'ho settato ad Admin solo per testare
+    this.authService.getUser('admin').subscribe(user => this.userRole = user.userType) // User per adesso l'ho settato ad Admin solo per testare
   }
 
 }

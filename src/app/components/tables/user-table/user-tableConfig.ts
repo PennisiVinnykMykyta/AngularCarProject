@@ -44,10 +44,10 @@ export  class UserTableConfig{
 
   tableConfigUser = {
     headers: [
-      {key: "name", label: "First Name"},
+      {key: "firstName", label: "First Name"},
       {key: "lastName", label:"Last Name"},
       {key: "email", label:"Email"},
-      {key: "birthday", label:"Birthday"}
+      {key: "birthDate", label:"Birthday"}
     ],
     order: {
       orderType: "desc",
@@ -65,10 +65,10 @@ export  class UserTableConfig{
 
   tableConfigAdmin = {
     headers: [
-      {key: "name", label: "First Name"},
+      {key: "firstName", label: "First Name"},
       {key: "lastName", label:"Last Name"},
       {key: "email", label:"Email"},
-      {key: "birthday", label:"Birthday"}
+      {key: "birthDate", label:"Birthday"}
     ],
     order: {
       orderType: "desc",

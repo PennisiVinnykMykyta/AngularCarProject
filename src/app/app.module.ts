@@ -18,6 +18,7 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
 import { UserFormComponent } from './components/forms/user-form/user-form.component';
 import { CarsFormComponent } from './components/forms/cars-form/cars-form.component';
 import { BookingsFormComponent } from './components/forms/bookings-form/bookings-form.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { BookingsFormComponent } from './components/forms/bookings-form/bookings
     CommonModule,
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,13 +5,13 @@ import {BookingTemplate} from "./booking-template";
 export interface UserTemplate{
 
   id: number;
-  name?: string;
+  firstName?: string;
   lastName?: string;
   password?: string;
   email?: string;
-  role?: Roles;
+  userType?: Roles;
   rents?: BookingTemplate[];
-  birthday?: string;
+  birthDate?: string;
 
 
 }

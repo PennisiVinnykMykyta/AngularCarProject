@@ -2,13 +2,14 @@ import {Injectable} from '@angular/core';
 import {CarTemplate} from "../mock-files/templates/car-template";
 import {Observable, of} from "rxjs";
 import {Cars} from "../mock-files/mock-cars";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarsService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getAllCars(): Observable<CarTemplate[]>{
     return of(Cars);
