@@ -54,21 +54,12 @@ export class BookingsFormComponent implements  OnInit{
     }
   }
 
-  addOrUpdateBook(obj:any){
-    if(obj !== null){
-      this.bookService.addOrUpdateBooking(obj.id);
-    }else{
-      this.bookService.addOrUpdateBooking(obj);
-    }
-  }
-
   clickAction($event: {obj: any, action: any}){
     this.book.startDate;
     this.book.endDate;
     this.book.car = $event.obj;
-    this.addOrUpdateBook(this.book);
+    this.bookService.addOrUpdateBooking(this.book).subscribe(() => this.goBack.emit(true));
     console.log("car has been booked");
-    this.goBack.emit(true);
   }
 
   confirmDates() {

@@ -1,25 +1,25 @@
-<form>
+<form #ngForm="ngForm" (ngSubmit)="clickAction()">
 <tr>
   <label>Brand:</label>
-  <input [type]="brand" [value]="brand">
+  <input name = ">Brand" type="text" [(ngModel)] = "car.brand">
 </tr>
 
 <tr>
   <label>Model:</label>
-  <input  [type]="model" [value]="model">
+  <input name="Model"  type="text" [(ngModel)] = "car.model">
 </tr>
 
 <tr>
   <label>Color:</label>
-  <input [type]="color" [value]="color">
+  <input name="Color" type="text" [(ngModel)] = "car.color">
 </tr>
 
 <tr>
   <label>Plate Number:</label>
-  <input [type]="plateNumber" [value]="plateNumber">
+  <input name="numberPlate" type="text" [(ngModel)] = "car.numberPlate">
 </tr>
 
-<app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck}" (click)="clickAction()"></app-custom-button>
+<app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit'}"></app-custom-button>
 
 </form>
 

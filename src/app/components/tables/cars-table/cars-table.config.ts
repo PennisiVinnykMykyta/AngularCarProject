@@ -34,7 +34,7 @@ export  class CarsTableConfig{
       {key: "brand", label: "Brand"},
       {key: "model", label:"Model"},
       {key: "color", label:"Color"},
-      {key: "plateNumber", label:"Plate Number"}
+      {key: "numberPlate", label:"Plate Number"}
     ],
     order: {
       orderType: "desc",

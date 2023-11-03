@@ -2,9 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {faArrowAltCircleLeft, faCheck} from "@fortawesome/free-solid-svg-icons";
 import {UserTemplate} from "../../mock-files/templates/user-template";
-import {Roles} from "../../mock-files/templates/roles";
-import {FormBuilder} from "@angular/forms";
-import {back} from "../../templates/custom-button/custom-button.config";
 
 
 @Component({

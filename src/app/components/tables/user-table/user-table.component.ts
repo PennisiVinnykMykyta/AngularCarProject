@@ -48,6 +48,7 @@ export class UserTableComponent implements  OnInit{
   setUsers(){
     if(this.user.userType === Roles.User){
       this.users.push(this.user);
+      this.formRequest = false;
       //se è un utente nella tabella ci saranno solo le sue informazioni con l'unica opzione di modificare le proprie info
     }else{
       this.userService.getAllUsers().subscribe(users => {

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CarsService} from "../../services/cars.service";
 import {faArrowAltCircleLeft, faCheck} from "@fortawesome/free-solid-svg-icons";
+import {CarTemplate} from "../../mock-files/templates/car-template";
 
 @Component({
   selector: 'app-cars-form',
@@ -12,41 +13,19 @@ export class CarsFormComponent implements  OnInit{
   protected readonly faArrowAltCircleLeft = faArrowAltCircleLeft;
   protected readonly faCheck = faCheck;
 
-  @Input() car!: any;
+  @Input() car!: CarTemplate;
   @Output() goBack: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  model?: string = '';
-  brand?: string = '';
-  color?: string = '';
-  plateNumber?: string = '';
 
   constructor(private carService: CarsService) {
   }
 
   ngOnInit() {
-    this.initCarInfo(this.car);
-  }
-
-  initCarInfo(obj: any){
-    if(obj!==null){
-      this.model = obj.model;
-      this.brand = obj.brand;
-      this.color = obj.color;
-      this.plateNumber = obj.plateNumber;
-    }
-  }
-
-  addOrUpdate(obj: any){
-    if(obj !== null){
-      this.carService.addORUpdateCare(obj.id);
-    }else{
-      this.carService.addORUpdateCare(obj);
-    }
+    console.log(this.car);
   }
 
   clickAction(action?:string){
     if(action !== 'back'){
-      this.addOrUpdate(this.car)
+      this.carService.addORUpdateCare(this.car).subscribe(() => this.clickAction("back"));
     }else{
       this.goBack.emit(true);
     }

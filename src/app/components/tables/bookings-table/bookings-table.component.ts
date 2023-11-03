@@ -57,14 +57,23 @@ export class BookingsTableComponent implements  OnInit{
         let id: number = +this.route.snapshot.paramMap.get('id')!;
         console.log(id);
 
-        return this.bookingService.getUserBookings(id).subscribe(books => this.bookings = books)
+        this.bookingService.getUserBookings(id).subscribe(books => {
+          this.bookings = books;
+          this.formRequest = false;
+        })
       }else{
-        return this.bookingService.getAllBookings().subscribe(books => this.bookings = books);
+        this.bookingService.getAllBookings().subscribe(books => {
+          this.bookings = books;
+          this.formRequest = false;
+        });
       }
 
     }else{
 
-      return this.bookingService.getUserBookings(this.user.id).subscribe(books =>this.bookings = books);
+      this.bookingService.getUserBookings(this.user.id).subscribe(books => {
+        this.bookings = books;
+        this.formRequest = false;
+      });
     }
   }
 
@@ -93,7 +102,7 @@ export class BookingsTableComponent implements  OnInit{
 
   setRequest($event: boolean) {
     if($event){
-      this.formRequest = false;
+      this.setBookings();
     }
   }
 

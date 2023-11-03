@@ -13,7 +13,7 @@ export class CarsService {
   constructor(private http: HttpClient) { }
 
   getAllCars(): Observable<CarTemplate[]>{
-    return of(Cars);
+    return this.http.get<CarTemplate[]>(`http://localhost:8080/api/car/list`);
   }
 
   getAvailableCars(start: Date, end:Date): Observable<CarTemplate[]>{
@@ -21,12 +21,12 @@ export class CarsService {
     return  this.http.get<CarTemplate[]>(`http://localhost:8080/api/car/available-cars/${start},${end}`);
   }
 
-  deleteCar(id:number): void{
-    console.log("deleted the car with id:" + id)
+  deleteCar(carId:number): Observable<any>{
+    return this.http.delete(`http://localhost:8080/api/car/delete/${carId}`);
   }
 
-  addORUpdateCare(id:number | null): void {
-    console.log("added or updated the car with id:" + id)
+  addORUpdateCare(car: CarTemplate): Observable<any> {
+    return this.http.post(`http://localhost:8080/api/car/add-or-update`,car);
   }
 
 }

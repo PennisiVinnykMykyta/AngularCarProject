@@ -30,7 +30,11 @@ export class CarsTableComponent implements OnInit{
   }
 
   setCars(){
-    return this.carService.getAllCars().subscribe(cars => this.cars = cars);
+    this.carService.getAllCars().subscribe(cars => {
+        this.cars = cars;
+        this.formRequest = false;
+      }
+    );
   }
 
   clickAction($event: { obj: any; action: any }) {
@@ -39,12 +43,12 @@ export class CarsTableComponent implements OnInit{
       case MyTableActionEnum.NEW_ROW:
         console.log("clicked:" + $event.action.text)
         this.formRequest = true;
-        this.car = null;
+        this.car = {} as CarTemplate;
         break;
 
       case MyTableActionEnum.DELETE:
         console.log("clicked:" + $event.action.text)
-        this.carService.deleteCar($event.obj.id);
+        this.carService.deleteCar($event.obj.id).subscribe(() => this.setCars());
         break;
       case MyTableActionEnum.EDIT:
         console.log("clicked:" + $event.action.text)
@@ -55,7 +59,7 @@ export class CarsTableComponent implements OnInit{
   }
   setRequest($event: boolean) {
     if($event){
-      this.formRequest = false;
+      this.setCars();
     }
   }
 
