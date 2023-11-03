@@ -3,6 +3,7 @@ import {CarTemplate} from "../mock-files/templates/car-template";
 import {Observable, of} from "rxjs";
 import {Cars} from "../mock-files/mock-cars";
 import {HttpClient} from "@angular/common/http";
+import {BookingTemplate} from "../mock-files/templates/booking-template";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class CarsService {
 
   getAvailableCars(start: Date, end:Date): Observable<CarTemplate[]>{
     //will select cars available for the selected dates
-    return  of(Cars);
+    return  this.http.get<CarTemplate[]>(`http://localhost:8080/api/car/available-cars/${start},${end}`);
   }
 
   deleteCar(id:number): void{

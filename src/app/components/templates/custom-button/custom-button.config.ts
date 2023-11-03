@@ -6,6 +6,7 @@ export class CustomButtonConfig{ //make sure the button gets all of its componen
   text?: string;
   icon?: IconDefinition;
   path?: string;
+  type?: string;
 }
 
 export const back: CustomButtonConfig = {

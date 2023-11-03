@@ -1,36 +1,36 @@
-<form>
+<form #ngForm="ngForm" (ngSubmit)="updateUser($event)" >
   <tr>
     <label>Name:</label>
-    <input  [type]="name" [value]="name">
+    <input name="FirstName" id="name"  type="text" [(ngModel)] = "user.firstName">
   </tr>
 
   <tr>
     <label>Surname:</label>
-    <input [type]="lastName" [value]="lastName">
+    <input name="LastName" id="lastName"  type="text" [(ngModel)] = "user.lastName">
   </tr>
 
   <tr>
     <label>Email:</label>
-    <input [type]="email" [value]="email">
+    <input name="Email" id="email"  type="text" [(ngModel)] = "user.email">
   </tr>
 
   <tr>
     <label>Password:</label>
-    <input [type]="password" [value]="password">
+    <input name="Password" id="password"  type="text" [(ngModel)] = "user.password">
   </tr>
 
   <tr>
     <label>Birthday:</label>
-    <input [type]="birthday" [value]="birthday">
+    <input name="BirtDate" id="birthDate"  type="Date" [(ngModel)] = "user.birthDate">
   </tr>
 
-  <app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck}" (click)="clickAction()"></app-custom-button>
+  <app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit'}"></app-custom-button>
 
 </form>
 
 <div>
 
-  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft}" (click)="clickAction('back')"></app-custom-button>
+  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft}" (click)="back()"></app-custom-button>
 
 </div>
 

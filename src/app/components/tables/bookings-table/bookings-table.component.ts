@@ -6,6 +6,7 @@ import {CustomTableConfig} from "../../templates/custom-table/custom-table.confi
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
 import {AuthenticationService} from "../../services/authentication.service";
 import {BookingsTableConfig} from "./bookings-table.config";
+import {Roles} from "../../mock-files/templates/roles";
 
 
 @Injectable({
@@ -30,11 +31,17 @@ export class BookingsTableComponent implements  OnInit{
   ngOnInit() {
 
     this.formRequest = false;
-    this.authService.getUser('user').subscribe(user => this.user = user)
+    this.authService.getUser('admin').subscribe(user => this.user = user)
+    console.log(this.user.userType);
     this.setBookings();
+    console.log(this.bookings);
+    if(this.bookings === undefined){
+      console.log("Books are empty");
+      this.bookings = [];
+    }
 
 
-    if(this.user.role === 'Admin'){
+    if(this.user.userType === Roles.Admin){
       this.tableConfig = this.bookTableConfig.tableConfigAdmin;
     }else{
       this.tableConfig = this.bookTableConfig.tableConfigUser;
@@ -44,7 +51,7 @@ export class BookingsTableComponent implements  OnInit{
 
   setBookings(){
 
-    if(this.user.role === 'Admin'){
+    if(this.user.userType === Roles.Admin){
 
       if(this.route.snapshot.paramMap.get('id') !== null){
         let id: number = +this.route.snapshot.paramMap.get('id')!;
@@ -56,6 +63,7 @@ export class BookingsTableComponent implements  OnInit{
       }
 
     }else{
+
       return this.bookingService.getUserBookings(this.user.id).subscribe(books =>this.bookings = books);
     }
   }
@@ -69,7 +77,7 @@ export class BookingsTableComponent implements  OnInit{
         break;
       case MyTableActionEnum.DELETE:
         console.log("clicked:" + $event.action.text)
-        this.bookingService.deleteBooking($event.obj.id);
+        this.bookingService.deleteBooking($event.obj.id).subscribe(()=>this.setBookings());
         break;
       case MyTableActionEnum.EDIT:
         console.log("clicked:" + $event.action.text)
@@ -78,7 +86,7 @@ export class BookingsTableComponent implements  OnInit{
         break;
       case MyTableActionEnum.APPROVE:
         console.log("clicked:" + $event.action.text)
-        this.book.approval = !this.book.approval
+        this.bookingService.validateOrDecline($event.obj.id).subscribe(() => this.setBookings());
     }
     console.log($event.obj,$event.action)
   }

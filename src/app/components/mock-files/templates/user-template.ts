@@ -10,7 +10,6 @@ export interface UserTemplate{
   password?: string;
   email?: string;
   userType?: Roles;
-  rents?: BookingTemplate[];
   birthDate?: string;
 
 

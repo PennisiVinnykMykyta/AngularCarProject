@@ -52,16 +52,16 @@ export class BookingsTableConfig{
 
   tableConfigAdmin = {
     headers: [
-      {key: "user.name", label: "User Name"},
+      {key: "user.firstName", label: "User Name"},
       {key: "user.lastName", label: "User Surname"},
       {key: "user.email", label: "User Email"},
       {key: "car.brand", label: "Car Brand"},
       {key: "car.model", label: "Car Model"},
-      {key: "car.plateNumber", label: "Plate Number"},
+      {key: "car.numberPlate", label: "Plate Number"},
       {key: "car.color", label: "Car Color"},
       {key: "startDate", label: "Start Date"},
       {key: "endDate", label: "End Date"},
-      {key: "approved", label: "Approval"}
+      {key: "valid", label: "Approval"}
     ],
     order: {
       orderType: "desc",
@@ -79,16 +79,16 @@ export class BookingsTableConfig{
 
   tableConfigUser = {
     headers: [
-      {key: "user.name", label: "User Name"},
+      {key: "user.firstName", label: "User Name"},
       {key: "user.lastName", label: "User Surname"},
       {key: "user.email", label: "User Email"},
       {key: "car.brand", label: "Car Brand"},
       {key: "car.model", label: "Car Model"},
-      {key: "car.plateNumber", label: "Plate Number"},
+      {key: "car.numberPlate", label: "Plate Number"},
       {key: "car.color", label: "Car Color"},
       {key: "startDate", label: "Start Date"},
       {key: "endDate", label: "End Date"},
-      {key: "approved", label: "Approval"}
+      {key: "valid", label: "Approval"}
     ],
     order: {
       orderType: "desc",

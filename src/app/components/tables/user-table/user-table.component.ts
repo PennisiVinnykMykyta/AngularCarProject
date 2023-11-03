@@ -31,7 +31,7 @@ export class UserTableComponent implements  OnInit{
   ngOnInit() {
     this.authService.getUser('admin').subscribe(user => this.user = user);
 
-    if(this.user.role === 'User'){
+    if(this.user.userType === Roles.User){
       console.log('User');
       this.tableConfig = this.userTableConfig.tableConfigUser
     }else{
@@ -46,24 +46,28 @@ export class UserTableComponent implements  OnInit{
   }
 
   setUsers(){
-    if(this.user.role === 'User'){
-      return this.users.push(this.user);
+    if(this.user.userType === Roles.User){
+      this.users.push(this.user);
       //se è un utente nella tabella ci saranno solo le sue informazioni con l'unica opzione di modificare le proprie info
     }else{
-      return this.userService.getAllUsers().subscribe(users => this.users = users);
+      this.userService.getAllUsers().subscribe(users => {
+        this.users = users;
+        this.formRequest = false;
+      } );
     }
   }
+
 
   clickAction($event: { obj: any; action: any }) {
     switch ($event.action.action) {
       case MyTableActionEnum.NEW_ROW:
         console.log("clicked:" + $event.action.text)
         this.formRequest = true;
-        this.user = null;
+        this.user = {userType: Roles.User} as UserTemplate;
         break;
       case MyTableActionEnum.DELETE:
         console.log("clicked:" + $event.action.text)
-        this.userService.deleteUser($event.obj.id);
+        this.userService.deleteUser($event.obj.id).subscribe(() => this.setUsers());
         break;
       case MyTableActionEnum.EDIT:
         console.log("clicked:" + $event.action.text)
@@ -80,7 +84,7 @@ export class UserTableComponent implements  OnInit{
 
   setRequest($event: boolean) {
     if($event){
-      this.formRequest = false;
+      this.setUsers();
     }
   }
 }

@@ -15,14 +15,13 @@ export class UserService {
     return this.http.get<UserTemplate[]>(`http://localhost:8080/api/user/list`);
   }
 
-  deleteUser(userId:number): void{
-    this.http.delete(`http://localhost:8080/api/user/delete/${userId}`).subscribe();
-    console.log("user deleted: " + userId);
+  deleteUser(userId:number): Observable<any>{
+    return this.http.delete(`http://localhost:8080/api/user/delete/${userId}`);
   }
 
-  addOrUpdateUser(obj: any): void {
-    this.http.post(`http://localhost:8080/api/user/add-or-update`,obj).subscribe();
-    console.log("user added" + obj);
+  addOrUpdateUser(obj: any): Observable<any> {
+    return this.http.post(`http://localhost:8080/api/user/add-or-update`,obj);
+
   }
 
 }

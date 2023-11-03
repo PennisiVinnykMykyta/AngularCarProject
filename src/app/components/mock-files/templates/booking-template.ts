@@ -7,5 +7,5 @@ export class BookingTemplate{
   car!: CarTemplate;
   startDate!: string;
   endDate!: string;
-  approved!: boolean;
+  valid!: boolean;
 }
