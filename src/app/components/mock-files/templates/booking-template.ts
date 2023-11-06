@@ -5,7 +5,7 @@ export class BookingTemplate{
   id!: number;
   user!: UserTemplate;
   car!: CarTemplate;
-  startDate!: string;
-  endDate!: string;
+  startDate!: Date;
+  endDate!: Date;
   valid!: boolean;
 }

@@ -3,21 +3,27 @@
   <!--dates selector-->
   <tr>
     <label>Start Date</label>
-    <input type="date" value="startDate" [(ngModel)] = "startDate">
+    <input type="date" name="StartDate" [(ngModel)] = "book.startDate">
   </tr>
 
   <tr>
     <label>End Date</label>
-    <input type="date" value="endDate" [(ngModel)] = "endDate">
+    <input type="date" name="EndDate" [(ngModel)] = "book.endDate">
   </tr>
 
-  <app-custom-button *ngIf = "startDate != undefined && endDate != undefined" [buttonConfig] = "{text:'Select'}" (click)="confirmDates()"></app-custom-button>
+  <app-custom-button *ngIf = "book.startDate != undefined && book.endDate != undefined" [buttonConfig] = "{text:'Select'}" (click)="confirmDates()"></app-custom-button>
 </div>
 
 <div>
   <!--available cars-->
-  <app-custom-table *ngIf="datesSelected" [tableConfig]="tableConfig" [data]="availableCars" (getTableData)="clickAction($event)"></app-custom-table>
+  <app-custom-table *ngIf="datesSelected" [tableConfig]="carTableConfig" [data]="availableCars" (getTableData)="clickAction($event)"></app-custom-table>
 
 </div>
+
+<div>
+  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft}" (click)="back()"></app-custom-button>
+</div>
+
+
 
 

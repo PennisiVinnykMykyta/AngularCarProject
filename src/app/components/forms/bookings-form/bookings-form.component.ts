@@ -2,11 +2,12 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {faArrowAltCircleLeft, faCheck, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {BookingsService} from "../../services/bookings.service";
-import * as _ from "lodash";
 import {CarsService} from "../../services/cars.service";
 import {CarTemplate} from "../../mock-files/templates/car-template";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
+import {BookingTemplate} from "../../mock-files/templates/booking-template";
+import {UserTemplate} from "../../mock-files/templates/user-template";
 
 @Component({
   selector: 'app-bookings-form',
@@ -18,65 +19,54 @@ export class BookingsFormComponent implements  OnInit{
   protected readonly faArrowAltCircleLeft = faArrowAltCircleLeft;
   protected readonly faCheck = faCheck;
 
-  @Input() book!: any;
+  @Input('book') book!: BookingTemplate;
+  @Input('user') user!: UserTemplate;
   @Output() goBack: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   datesSelected!: boolean;
 
+  carTableConfig!: CustomTableConfig;
 
-  carInfo?: string;
-  startDate?: Date;
-  endDate?: Date;
-  approval?: boolean;
-  tableConfig!: CustomTableConfig;
-
-  availableCars!: CarTemplate[];
+  availableCars: CarTemplate[] = [];
   constructor(private router: Router, private bookService:BookingsService,private carService: CarsService) {
   }
   ngOnInit() {
-    this.initBookInfo(this.book);
     this.datesSelected = false;
-  }
-
-  initBookInfo(obj: any){
-    if(obj !== null && obj !==undefined){
-      let brandPath= _.get(this.book, 'car.brand');
-      let modelPath= _.get(this.book, 'car.model');
-      let colorPath= _.get(this.book, 'car.color');
-      let plateNumberPath= _.get(this.book, 'car.plateNumber');
-
-      this.carInfo = brandPath + " " + modelPath + " " + colorPath + " " + plateNumberPath
-      console.log("carInfo: " + this.carInfo)
-
-    }else{
-
-    console.log(this.endDate);
+    if(this.book.user === null){
+      this.book.user = this.user;
     }
+
   }
 
   clickAction($event: {obj: any, action: any}){
-    this.book.startDate;
-    this.book.endDate;
     this.book.car = $event.obj;
-    this.bookService.addOrUpdateBooking(this.book).subscribe(() => this.goBack.emit(true));
-    console.log("car has been booked");
+    this.book.valid = false;
+    this.bookService.addOrUpdateBooking(this.book).subscribe(() =>this.back());
   }
 
   confirmDates() {
-    console.log(this.startDate,this.endDate);
     this.datesSelected = true;
+    console.log(this.book.startDate,this.book.endDate);
     this.setTableConfig();
 
   }
 
   setTableConfig(){
-    this.carService.getAvailableCars(this.startDate!,this.endDate!).subscribe(cars => this.availableCars = cars)
-    this.tableConfig = {
+    this.carService.getAvailableCars(this.book.startDate!,this.book.endDate!).subscribe(cars =>
+    {
+      this.availableCars = cars;
+      if((this.book.car !== null || true) && !this.availableCars.includes(this.book.car)){
+        this.availableCars.push(this.book.car);
+      }
+    }
+    )
+    console.log(this.availableCars);
+    this.carTableConfig = {
       headers:[
         {key: "brand", label: "Brand"},
         {key: "model", label:"Model"},
         {key: "color", label:"Color"},
-        {key: "plateNumber", label:"Plate Number"}
+        {key: "numberPlate", label:"Plate Number"}
       ],
       order: {
         orderType: "desc",
@@ -97,5 +87,9 @@ export class BookingsFormComponent implements  OnInit{
         }
       ]
     }
+  }
+
+  back(){
+    this.goBack.emit(true);
   }
 }

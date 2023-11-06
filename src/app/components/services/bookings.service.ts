@@ -29,7 +29,7 @@ export class BookingsService {
   }
 
   addOrUpdateBooking(book: BookingTemplate): Observable<any> {
-    return this.http.post(`http://localhost:8080/api/booking/add-or-update-book`,book);
+    return this.http.post(`http://localhost:8080/api/booking/add-or-update`,book);
   }
 
 }

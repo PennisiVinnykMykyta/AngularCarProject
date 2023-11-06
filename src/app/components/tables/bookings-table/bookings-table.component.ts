@@ -82,7 +82,7 @@ export class BookingsTableComponent implements  OnInit{
       case MyTableActionEnum.NEW_ROW:
         console.log("clicked:" + $event.action.text, $event.obj);
         this.formRequest = true;
-        this.book = null;
+        this.book = {} as BookingTemplate;
         break;
       case MyTableActionEnum.DELETE:
         console.log("clicked:" + $event.action.text)
