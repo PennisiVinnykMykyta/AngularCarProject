@@ -1,5 +1,5 @@
 import {Component, Injectable, OnInit} from '@angular/core';
-import {BookingTemplate} from "../../mock-files/templates/booking-template";
+import {BookingDisplayTemplate} from "../../mock-files/templates/booking-display-template";
 import {BookingsService} from "../../services/bookings.service";
 import {ActivatedRoute} from "@angular/router";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
@@ -22,7 +22,7 @@ export class BookingsTableComponent implements  OnInit{
   user!: any;
   formRequest!: boolean;
   book!: any;
-  bookings!: BookingTemplate[];
+  bookings!: BookingDisplayTemplate[];
   tableConfig!: CustomTableConfig;
 
 
@@ -82,7 +82,7 @@ export class BookingsTableComponent implements  OnInit{
       case MyTableActionEnum.NEW_ROW:
         console.log("clicked:" + $event.action.text, $event.obj);
         this.formRequest = true;
-        this.book = {} as BookingTemplate;
+        this.book = {} as BookingDisplayTemplate;
         break;
       case MyTableActionEnum.DELETE:
         console.log("clicked:" + $event.action.text)

@@ -6,8 +6,9 @@ import {CarsService} from "../../services/cars.service";
 import {CarTemplate} from "../../mock-files/templates/car-template";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
-import {BookingTemplate} from "../../mock-files/templates/booking-template";
+import {BookingDisplayTemplate} from "../../mock-files/templates/booking-display-template";
 import {UserTemplate} from "../../mock-files/templates/user-template";
+import {BookingRequestTemplate} from "../../mock-files/templates/booking-request-template";
 
 @Component({
   selector: 'app-bookings-form',
@@ -19,13 +20,14 @@ export class BookingsFormComponent implements  OnInit{
   protected readonly faArrowAltCircleLeft = faArrowAltCircleLeft;
   protected readonly faCheck = faCheck;
 
-  @Input('book') book!: BookingTemplate;
+  @Input('book') book!: BookingDisplayTemplate;
   @Input('user') user!: UserTemplate;
   @Output() goBack: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   datesSelected!: boolean;
 
   carTableConfig!: CustomTableConfig;
+  requestBook!: BookingRequestTemplate;
 
   availableCars: CarTemplate[] = [];
   constructor(private router: Router, private bookService:BookingsService,private carService: CarsService) {
@@ -39,9 +41,15 @@ export class BookingsFormComponent implements  OnInit{
   }
 
   clickAction($event: {obj: any, action: any}){
-    this.book.car = $event.obj;
-    this.book.valid = false;
-    this.bookService.addOrUpdateBooking(this.book).subscribe(() =>this.back());
+    this.requestBook = {
+      bookId: this.book.id,
+      carId: $event.obj.id,
+      userId: this.book.user.id,
+      startDate: this.book.startDate,
+      endDate: this.book.endDate
+    }
+
+    this.bookService.addOrUpdateBooking(this.requestBook).subscribe(() =>this.back());
   }
 
   confirmDates() {

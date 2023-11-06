@@ -1,5 +1,4 @@
 import {Roles} from "./roles";
-import {BookingTemplate} from "./booking-template";
 
 
 export interface UserTemplate{
