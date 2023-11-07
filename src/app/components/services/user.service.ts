@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from "rxjs";
-import {UserTemplate} from "../mock-files/templates/user-template";
+import {UserDisplayTemplate} from "../templates/dto-templates/user-display-template";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
@@ -10,8 +10,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getAllUsers(): Observable<UserTemplate[]>{
-    return this.http.get<UserTemplate[]>(`http://localhost:8080/api/user/list`);
+  getAllUsers(): Observable<UserDisplayTemplate[]>{
+    return this.http.get<UserDisplayTemplate[]>(`http://localhost:8080/api/user/list`);
   }
 
   deleteUser(userId:number): Observable<any>{

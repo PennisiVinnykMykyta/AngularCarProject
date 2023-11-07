@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {faArrowAltCircleLeft, faCheck} from "@fortawesome/free-solid-svg-icons";
-import {UserTemplate} from "../../mock-files/templates/user-template";
+import {UserDisplayTemplate} from "../../templates/dto-templates/user-display-template";
 
 
 @Component({
@@ -15,7 +15,7 @@ export class UserFormComponent implements  OnInit{
   protected readonly faCheck = faCheck;
 
 
-  @Input() user!: UserTemplate;
+  @Input() user!: UserDisplayTemplate;
   @Output() goBack: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private userService: UserService) {

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CarsService} from "../../services/cars.service";
 import {faArrowAltCircleLeft, faCheck} from "@fortawesome/free-solid-svg-icons";
-import {CarTemplate} from "../../mock-files/templates/car-template";
+import {CarTemplate} from "../../templates/dto-templates/car-template";
 
 @Component({
   selector: 'app-cars-form',

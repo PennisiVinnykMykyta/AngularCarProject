@@ -2,7 +2,7 @@ import {Component, Injectable, OnInit} from '@angular/core';
 import {CarsService} from "../../services/cars.service";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
-import {CarTemplate} from "../../mock-files/templates/car-template";
+import {CarTemplate} from "../../templates/dto-templates/car-template";
 import {CarsTableConfig} from "./cars-table.config";
 
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {BookingDisplayTemplate} from "../mock-files/templates/booking-display-template";
+import {BookingDisplayTemplate} from "../templates/dto-templates/booking-display-template";
 import {Observable, of} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {BookingRequestTemplate} from "../mock-files/templates/booking-request-template";
+import {BookingRequestTemplate} from "../templates/dto-templates/booking-request-template";
 
 @Injectable({
   providedIn: 'root'

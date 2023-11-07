@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CarTemplate} from "../mock-files/templates/car-template";
+import {CarTemplate} from "../templates/dto-templates/car-template";
 import {Observable, of} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 

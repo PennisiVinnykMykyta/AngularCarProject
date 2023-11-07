@@ -1,10 +1,10 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
-import {UserTemplate} from "../../mock-files/templates/user-template";
+import {UserDisplayTemplate} from "../../templates/dto-templates/user-display-template";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
 import {BookingsService} from "../../services/bookings.service";
-import {Roles} from "../../mock-files/templates/roles";
+import {Roles} from "../../templates/dto-templates/roles";
 import {AuthenticationService} from "../../services/authentication.service";
 import {Router} from "@angular/router";
 import {UserTableConfig} from "./user-tableConfig";
@@ -21,41 +21,43 @@ import {UserTableConfig} from "./user-tableConfig";
 export class UserTableComponent implements  OnInit{
 
   formRequest!: boolean;
-  user!: any;
+  user!: UserDisplayTemplate;
   tableConfig!: CustomTableConfig
-  users: UserTemplate[] = [];
+  users: UserDisplayTemplate[] = [];
   role!: Roles;
+
+  check = false;
 
   constructor(private userService:UserService,private userTableConfig:UserTableConfig, private bookService:BookingsService, private authService: AuthenticationService,private  router: Router) {
   }
   ngOnInit() {
-    this.authService.getUser('admin').subscribe(user => this.user = user);
+    this.authService.getUser("admin@admin.com","admin").subscribe(user => {
+       this.user = user;
+       this.formRequest = false;
 
-    if(this.user.userType === Roles.User){
-      console.log('User');
-      this.tableConfig = this.userTableConfig.tableConfigUser
-    }else{
-      console.log('Admin');
-      this.tableConfig = this.userTableConfig.tableConfigAdmin
-    }
+       this.setUsers();
 
-    this.formRequest = false;
-    this.setUsers();
+       this.check = true;
+    })
+
     //console.log(this.users);
 
   }
 
   setUsers(){
+    console.log("User Role is:")
+    console.log(this.user.userType)
     if(this.user.userType === Roles.User){
       this.users.push(this.user);
-      this.formRequest = false;
+      this.tableConfig = this.userTableConfig.tableConfigUser
       //se è un utente nella tabella ci saranno solo le sue informazioni con l'unica opzione di modificare le proprie info
     }else{
       this.userService.getAllUsers().subscribe(users => {
         this.users = users;
-        this.formRequest = false;
+        this.tableConfig = this.userTableConfig.tableConfigAdmin
       } );
     }
+    this.formRequest = false;
   }
 
 
@@ -64,7 +66,7 @@ export class UserTableComponent implements  OnInit{
       case MyTableActionEnum.NEW_ROW:
         console.log("clicked:" + $event.action.text)
         this.formRequest = true;
-        this.user = {userType: Roles.User} as UserTemplate;
+        this.user = {userType: Roles.User} as UserDisplayTemplate;
         break;
       case MyTableActionEnum.DELETE:
         console.log("clicked:" + $event.action.text)

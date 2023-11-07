@@ -1,24 +1,16 @@
 import { Injectable } from '@angular/core';
-import {Users} from "../mock-files/mock-users";
-import {UserTemplate} from "../mock-files/templates/user-template";
+import {UserDisplayTemplate} from "../templates/dto-templates/user-display-template";
 import {Observable, of} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  //current user while angular is not connected to database
-  user = Users[1]; //0 is admin | 1 is user
-  admin: UserTemplate = Users[0];
 
-  getUser(str: string): Observable<UserTemplate>{ //will eventually take email and password and check them in database
+  getUser(email: string, password: string): Observable<UserDisplayTemplate>{ //will eventually take email and password and check them in database
     //will return current user info
-    if(str === 'user'){
-      return of(this.user);
-    }else{
-      return of(this.admin);
-    }
+    return this.http.get<UserDisplayTemplate>(`http://localhost:8080/api/user/verify/${email},${password}`);
   }
 
   constructor(private http: HttpClient) { }

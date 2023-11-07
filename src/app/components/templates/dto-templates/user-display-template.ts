@@ -1,7 +1,7 @@
 import {Roles} from "./roles";
 
 
-export interface UserTemplate{
+export interface UserDisplayTemplate {
 
   id: number;
   firstName?: string;
@@ -10,6 +10,5 @@ export interface UserTemplate{
   email?: string;
   userType?: Roles;
   birthDate?: string;
-
 
 }

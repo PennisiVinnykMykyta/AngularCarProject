@@ -19,10 +19,12 @@ import { UserFormComponent } from './components/forms/user-form/user-form.compon
 import { CarsFormComponent } from './components/forms/cars-form/cars-form.component';
 import { BookingsFormComponent } from './components/forms/bookings-form/bookings-form.component';
 import {HttpClientModule} from "@angular/common/http";
+import {LoginFormComponent} from "./components/forms/login-form/login-form.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginFormComponent,
     CustomTableComponent,
     CustomButtonComponent,
     SortingPipe,
@@ -34,7 +36,8 @@ import {HttpClientModule} from "@angular/common/http";
     NavigationBarComponent,
     UserFormComponent,
     CarsFormComponent,
-    BookingsFormComponent
+    BookingsFormComponent,
+    LoginFormComponent
   ],
   imports: [
     FormsModule,

@@ -1,4 +1,6 @@
-<h1>{{title}}</h1>
-<app-navigation-bar [userBarConfig] = "getNavConfig()" ></app-navigation-bar>
-<router-outlet></router-outlet>
+<app-login-form *ngIf = "user === null || user === undefined" (userData)="setUser($event)" ></app-login-form>
+<div *ngIf = "user !== null && user!== undefined">
+  <app-navigation-bar [userBarConfig] = "getNavConfig()" ></app-navigation-bar>
+  <router-outlet></router-outlet>
+</div>
 <!-- footer -->
