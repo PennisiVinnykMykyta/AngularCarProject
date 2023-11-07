@@ -1,0 +1,16 @@
+<p>Please enter your email and  password to log in</p>
+
+<h2>{{message}}</h2>
+<tr>
+  <label>Email:</label>
+  <input name="email" [(ngModel)]="email">
+</tr>
+<tr>
+  <label>Password:</label>
+  <input name="password" [(ngModel)] = "password">
+</tr>
+
+<div>
+  <app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit'}" (click)="verify()"></app-custom-button>
+</div>
+
