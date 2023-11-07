@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Router} from "@angular/router";
 
 import {NavigationBarConfig} from "./navigation-bar.config";
@@ -11,6 +11,7 @@ import {NavigationBarConfig} from "./navigation-bar.config";
 export class NavigationBarComponent{
 
    @Input() userBarConfig!: NavigationBarConfig;
+   @Output() logOut: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private router: Router) {
   }
@@ -18,7 +19,11 @@ export class NavigationBarComponent{
 
   clickAction(str: string ){
     console.log("action clicked",str);
+    if(str === undefined){
+      this.logOut.emit(true);
+    }
     void this.router.navigateByUrl(str);
+
   }
 
 }

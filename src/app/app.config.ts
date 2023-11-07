@@ -1,5 +1,5 @@
 import {NavigationBarConfig} from "./components/navigation-bar/navigation-bar.config";
-import {faBook, faBookAtlas, faCaravan, faUser, faUsers} from "@fortawesome/free-solid-svg-icons";
+import {faBook, faBookAtlas, faCaravan, faDoorOpen, faUser, faUsers} from "@fortawesome/free-solid-svg-icons";
 import {Injectable} from "@angular/core";
 
 @Injectable({
@@ -19,6 +19,10 @@ export class AppConfig{
           icon: faUser,
           path:'/yourProfile'
         },
+        {
+          text: 'Log out',
+          icon:faDoorOpen,
+        }
       ]
     }
   adminButtons: NavigationBarConfig =
@@ -37,6 +41,10 @@ export class AppConfig{
           text: 'View All Users',
           icon: faUsers,
           path:'/users'
+        },
+        {
+          text: 'Log out',
+          icon:faDoorOpen,
         }
       ]
     }

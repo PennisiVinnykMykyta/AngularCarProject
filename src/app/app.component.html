@@ -1,6 +1,6 @@
 <app-login-form *ngIf = "user === null || user === undefined" (userData)="setUser($event)" ></app-login-form>
 <div *ngIf = "user !== null && user!== undefined">
-  <app-navigation-bar [userBarConfig] = "getNavConfig()" ></app-navigation-bar>
+  <app-navigation-bar [userBarConfig] = "getNavConfig()" (logOut)="quitSession($event)" ></app-navigation-bar>
   <router-outlet></router-outlet>
 </div>
 <!-- footer -->

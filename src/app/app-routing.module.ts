@@ -14,7 +14,6 @@ const routes: Routes = [
   {path: 'users', component:UserTableComponent, data:{roles: [Roles.User,Roles.Admin]}},
   {path: 'allCars', component:CarsTableComponent,data:{roles: [Roles.User,Roles.Admin]}},
   {path: 'userBookings/:id', component: BookingsTableComponent},
-  {path: 'login', component: LoginFormComponent}
 
 
 ];

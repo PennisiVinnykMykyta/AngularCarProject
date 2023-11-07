@@ -32,7 +32,6 @@ export class AppComponent implements  OnInit{
   }
 
   ngOnInit() {
-
   }
 
 
@@ -48,5 +47,11 @@ export class AppComponent implements  OnInit{
     //email
     //pass
 
+  }
+
+  quitSession($event: boolean) {
+    if($event){
+      this.user = undefined;
+    }
   }
 }
