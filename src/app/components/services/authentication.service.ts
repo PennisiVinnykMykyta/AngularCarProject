@@ -8,7 +8,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 })
 export class AuthenticationService {
 
-  getUser(email: string, password: string): Observable<UserDisplayTemplate>{ //will eventually take email and password and check them in database
+  verifyUser(email: string, password: string): Observable<UserDisplayTemplate>{ //will eventually take email and password and check them in database
     //will return current user info
     return this.http.get<UserDisplayTemplate>(`http://localhost:8080/api/user/verify/${email},${password}`);
   }

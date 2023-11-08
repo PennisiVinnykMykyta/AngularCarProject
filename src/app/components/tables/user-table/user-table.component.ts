@@ -31,7 +31,7 @@ export class UserTableComponent implements  OnInit{
   constructor(private userService:UserService,private userTableConfig:UserTableConfig, private bookService:BookingsService, private authService: AuthenticationService,private  router: Router) {
   }
   ngOnInit() {
-    this.authService.getUser("admin@admin.com","admin").subscribe(user => {
+    this.authService.verifyUser("admin@admin.com","admin").subscribe(user => {
        this.user = user;
        this.formRequest = false;
 

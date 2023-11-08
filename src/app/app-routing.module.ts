@@ -4,7 +4,6 @@ import {CarsTableComponent} from "./components/tables/cars-table/cars-table.comp
 import {BookingsTableComponent} from "./components/tables/bookings-table/bookings-table.component";
 import {UserTableComponent} from "./components/tables/user-table/user-table.component";
 import {Roles} from "./components/templates/dto-templates/roles";
-import {LoginFormComponent} from "./components/forms/login-form/login-form.component";
 
 
 const routes: Routes = [

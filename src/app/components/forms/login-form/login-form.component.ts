@@ -19,13 +19,15 @@ export class LoginFormComponent {
   constructor(private authService: AuthenticationService) {
   }
 
+
   protected readonly faCheck = faCheck;
 
   verify() {
-    this.authService.getUser(this.email!,this.password!).subscribe(user => {
+    this.authService.verifyUser(this.email!,this.password!).subscribe(user => {
 
       if(user!==null && user !== undefined){
         this.userData.emit(user);
+        //localStorage.setItem('JWT',user.token);
 
       }else{
         this.email = '';
