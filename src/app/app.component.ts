@@ -10,7 +10,6 @@ import {UserDisplayTemplate} from "./components/templates/dto-templates/user-dis
   styleUrls: ['./app.component.css']
 })
 export class AppComponent{
-  title = 'Welcome User';
 
   public user?: UserDisplayTemplate;
 
@@ -19,8 +18,12 @@ export class AppComponent{
 
   getNavConfig(){
     if(this.user!.userType === Roles.Admin){
+      this.appConfig.adminButtons.userId  = this.user?.id;
+      this.appConfig.adminButtons.userRole = this.user?.userType;
       return this.appConfig.adminButtons;
     }else{
+      this.appConfig.userButtons.userId  = this.user?.id;
+      this.appConfig.userButtons.userRole = this.user?.userType;
       return this.appConfig.userButtons;
     }
 
@@ -43,6 +46,7 @@ export class AppComponent{
   quitSession($event: boolean) {
     if($event){
       this.user = undefined;
+      this.authService.logout();
     }
   }
 }

@@ -16,13 +16,12 @@ export class NavigationBarComponent{
   constructor(private router: Router) {
   }
 
-
   clickAction(str: string ){
     console.log("action clicked",str);
-    if(str === undefined){
+    if(str === '/'){
       this.logOut.emit(true);
     }
-    void this.router.navigateByUrl(str);
+    void this.router.navigate([str]);
 
   }
 

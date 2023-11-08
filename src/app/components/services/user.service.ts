@@ -23,4 +23,8 @@ export class UserService {
 
   }
 
+  getUser(id:number){
+    return this.http.get<UserDisplayTemplate>(`http://localhost:8080/api/user/get/${id}`);
+  }
+
 }

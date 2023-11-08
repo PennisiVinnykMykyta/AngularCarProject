@@ -3,12 +3,12 @@ import {faArrowAltCircleLeft, faCheck, faPlus} from "@fortawesome/free-solid-svg
 import {Router} from "@angular/router";
 import {BookingsService} from "../../services/bookings.service";
 import {CarsService} from "../../services/cars.service";
-import {CarTemplate} from "../../mock-files/templates/car-template";
+import {CarTemplate} from "../../templates/dto-templates/car-template";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
-import {BookingDisplayTemplate} from "../../mock-files/templates/booking-display-template";
-import {UserTemplate} from "../../mock-files/templates/user-template";
-import {BookingRequestTemplate} from "../../mock-files/templates/booking-request-template";
+import {BookingDisplayTemplate} from "../../templates/dto-templates/booking-display-template";
+import {UserDisplayTemplate} from "../../templates/dto-templates/user-display-template";
+import {BookingRequestTemplate} from "../../templates/dto-templates/booking-request-template";
 
 @Component({
   selector: 'app-bookings-form',
@@ -21,7 +21,7 @@ export class BookingsFormComponent implements  OnInit{
   protected readonly faCheck = faCheck;
 
   @Input('book') book!: BookingDisplayTemplate;
-  @Input('user') user!: UserTemplate;
+  @Input('userId') userData?: number | null;
   @Output() goBack: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   datesSelected!: boolean;
@@ -34,17 +34,13 @@ export class BookingsFormComponent implements  OnInit{
   }
   ngOnInit() {
     this.datesSelected = false;
-    if(this.book.user === null){
-      this.book.user = this.user;
-    }
-
   }
 
   clickAction($event: {obj: any, action: any}){
     this.requestBook = {
       bookId: this.book.id,
       carId: $event.obj.id,
-      userId: this.book.user.id,
+      userId: this.userData,
       startDate: this.book.startDate,
       endDate: this.book.endDate
     }

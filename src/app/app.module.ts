@@ -18,8 +18,11 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
 import { UserFormComponent } from './components/forms/user-form/user-form.component';
 import { CarsFormComponent } from './components/forms/cars-form/cars-form.component';
 import { BookingsFormComponent } from './components/forms/bookings-form/bookings-form.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LoginFormComponent} from "./components/forms/login-form/login-form.component";
+import {AuthenticationService} from "./components/services/authentication.service";
+import {RouteGuardService} from "./components/services/route-guard.service";
+import {InterceptorService} from "./components/services/interceptor.service";
 
 @NgModule({
   declarations: [
@@ -47,7 +50,13 @@ import {LoginFormComponent} from "./components/forms/login-form/login-form.compo
     FontAwesomeModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [/*AuthenticationService,RouteGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }*/
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,12 +1,12 @@
 import {Component, Injectable, OnInit} from '@angular/core';
-import {BookingDisplayTemplate} from "../../mock-files/templates/booking-display-template";
+import {BookingDisplayTemplate} from "../../templates/dto-templates/booking-display-template";
 import {BookingsService} from "../../services/bookings.service";
 import {ActivatedRoute} from "@angular/router";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
 import {AuthenticationService} from "../../services/authentication.service";
 import {BookingsTableConfig} from "./bookings-table.config";
-import {Roles} from "../../mock-files/templates/roles";
+import {Roles} from "../../templates/dto-templates/roles";
 
 
 @Injectable({
@@ -20,6 +20,8 @@ import {Roles} from "../../mock-files/templates/roles";
 export class BookingsTableComponent implements  OnInit{
 
   user!: any;
+  userId!: number;
+  role!: string;
   formRequest!: boolean;
   book!: any;
   bookings!: BookingDisplayTemplate[];
@@ -29,48 +31,37 @@ export class BookingsTableComponent implements  OnInit{
   constructor(private bookingService: BookingsService, private bookTableConfig: BookingsTableConfig, private route:ActivatedRoute, private authService: AuthenticationService) {
   }
   ngOnInit() {
+    this.userId = this.authService.getUserId()!; //current user
+    this.role = this.authService.getRole()!; //current users role
+    console.log(this.userId);
+    console.log(this.role);
 
-    this.formRequest = false;
-    this.authService.getUser('admin').subscribe(user => this.user = user)
-    console.log(this.user.userType);
-    this.setBookings();
-    console.log(this.bookings);
     if(this.bookings === undefined){
       console.log("Books are empty");
       this.bookings = [];
     }
 
-
-    if(this.user.userType === Roles.Admin){
+    if(this.role === Roles.Admin){
       this.tableConfig = this.bookTableConfig.tableConfigAdmin;
     }else{
       this.tableConfig = this.bookTableConfig.tableConfigUser;
     }
 
+    this.setBookings();
   }
 
   setBookings(){
 
-    if(this.user.userType === Roles.Admin){
+    if(this.role === Roles.Admin){
 
-      if(this.route.snapshot.paramMap.get('id') !== null){
-        let id: number = +this.route.snapshot.paramMap.get('id')!;
-        console.log(id);
-
-        this.bookingService.getUserBookings(id).subscribe(books => {
-          this.bookings = books;
-          this.formRequest = false;
-        })
-      }else{
-        this.bookingService.getAllBookings().subscribe(books => {
-          this.bookings = books;
-          this.formRequest = false;
-        });
-      }
+      this.bookingService.getAllBookings().subscribe(books => {
+        this.bookings = books;
+        this.formRequest = false;
+      });
 
     }else{
 
-      this.bookingService.getUserBookings(this.user.id).subscribe(books => {
+      this.bookingService.getUserBookings(this.userId).subscribe(books => {
         this.bookings = books;
         this.formRequest = false;
       });

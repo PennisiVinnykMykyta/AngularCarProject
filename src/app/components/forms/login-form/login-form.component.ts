@@ -25,9 +25,12 @@ export class LoginFormComponent {
   verify() {
     this.authService.verifyUser(this.email!,this.password!).subscribe(user => {
 
-      if(user!==null && user !== undefined){
-        this.userData.emit(user);
-        //localStorage.setItem('JWT',user.token);
+      if(user && user.userType){
+        //sessionStorage.setItem('JWT',user.token);
+        sessionStorage.setItem('type',user.userType);
+        sessionStorage.setItem('userId',String(user.id));
+
+        this.userData.emit(user); //rifare la parte di salvare utente
 
       }else{
         this.email = '';

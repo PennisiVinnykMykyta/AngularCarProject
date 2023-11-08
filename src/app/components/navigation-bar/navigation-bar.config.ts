@@ -2,4 +2,7 @@ import {CustomButtonConfig} from "../templates/custom-button/custom-button.confi
 
 export class NavigationBarConfig{
   buttonsConfig!: CustomButtonConfig[];
+
+  userId?: number;
+  userRole?: string;
 }

@@ -20,10 +20,11 @@ export class AppConfig{
           path:'/yourProfile'
         },
         {
+          path:'/',
           text: 'Log out',
           icon:faDoorOpen,
         }
-      ]
+      ],
     }
   adminButtons: NavigationBarConfig =
     {
@@ -43,6 +44,7 @@ export class AppConfig{
           path:'/users'
         },
         {
+          path:'/',
           text: 'Log out',
           icon:faDoorOpen,
         }

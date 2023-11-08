@@ -23,38 +23,46 @@ export class UserTableComponent implements  OnInit{
   formRequest!: boolean;
   user!: UserDisplayTemplate;
   tableConfig!: CustomTableConfig
-  users: UserDisplayTemplate[] = [];
-  role!: Roles;
-
-  check = false;
+  users!: UserDisplayTemplate[];
+  role!: string;
+  private userId!: number;
 
   constructor(private userService:UserService,private userTableConfig:UserTableConfig, private bookService:BookingsService, private authService: AuthenticationService,private  router: Router) {
   }
   ngOnInit() {
-    this.authService.verifyUser("admin@admin.com","admin").subscribe(user => {
-       this.user = user;
-       this.formRequest = false;
+    this.formRequest = false;
+    this.role = this.authService.getRole()!;
+    this.userId = this.authService.getUserId()!;
 
-       this.setUsers();
+    if(this.role === Roles.Admin){
+      this.tableConfig = this.userTableConfig.tableConfigAdmin
+    }else{
+      this.tableConfig = this.userTableConfig.tableConfigUser
+    }
 
-       this.check = true;
-    })
+    if(this.users === undefined){
+      this.setUsers();
+    }
 
-    //console.log(this.users);
 
   }
 
   setUsers(){
     console.log("User Role is:")
-    console.log(this.user.userType)
-    if(this.user.userType === Roles.User){
-      this.users.push(this.user);
-      this.tableConfig = this.userTableConfig.tableConfigUser
-      //se è un utente nella tabella ci saranno solo le sue informazioni con l'unica opzione di modificare le proprie info
+    console.log(this.role)
+    if(this.role === Roles.User){
+      this.userService.getUser(this.userId).subscribe(user => {
+        this.users = [];
+        this.users.push(user);
+
+
+        console.log(this.users);
+      })
+
     }else{
       this.userService.getAllUsers().subscribe(users => {
         this.users = users;
-        this.tableConfig = this.userTableConfig.tableConfigAdmin
+
       } );
     }
     this.formRequest = false;
