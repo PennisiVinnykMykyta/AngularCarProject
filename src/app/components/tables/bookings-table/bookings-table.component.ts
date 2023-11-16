@@ -59,7 +59,7 @@ export class BookingsTableComponent implements  OnInit{
         this.formRequest = false;
       });
 
-    }else{
+    }else if(this.role === Roles.User){
 
       this.bookingService.getUserBookings(this.userId).subscribe(books => {
         this.bookings = books;

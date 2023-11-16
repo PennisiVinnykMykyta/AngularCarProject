@@ -33,6 +33,7 @@ export class BookingsFormComponent implements  OnInit{
   constructor(private router: Router, private bookService:BookingsService,private carService: CarsService) {
   }
   ngOnInit() {
+    console.log(this.userData);
     this.datesSelected = false;
   }
 
@@ -40,7 +41,7 @@ export class BookingsFormComponent implements  OnInit{
     this.requestBook = {
       bookId: this.book.id,
       carId: $event.obj.id,
-      userId: this.userData,
+      email: this.userData,
       startDate: this.book.startDate,
       endDate: this.book.endDate
     }
