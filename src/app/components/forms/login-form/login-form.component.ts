@@ -2,6 +2,8 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
 import {UserDisplayTemplate} from "../../templates/dto-templates/user-display-template";
 import {AuthenticationService} from "../../services/authentication.service";
+import {UserDetailsToSendDto} from "../../templates/dto-templates/user-details-to-send-dto";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-login-form',
@@ -11,32 +13,39 @@ import {AuthenticationService} from "../../services/authentication.service";
 export class LoginFormComponent {
   email?: string;
   password?: string;
+  userInfo!: UserDetailsToSendDto;
   message?: string;
 
   @Output() userData: EventEmitter<UserDisplayTemplate> = new EventEmitter<UserDisplayTemplate>();
 
 
-  constructor(private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService, private userService:UserService) {
   }
 
 
   protected readonly faCheck = faCheck;
 
   verify() {
-    this.authService.verifyUser(this.email!,this.password!).subscribe(user => {
 
-      if(user && user.userType){
-        //sessionStorage.setItem('JWT',user.token);
-        sessionStorage.setItem('type',user.userType);
-        sessionStorage.setItem('userId',String(user.id));
+    if((this.email !== "" && this.email !== undefined) && (this.password !== "" && this.password !== undefined)){
+      this.authService.authUser(this.email!,this.password!).subscribe(info => {
+        console.log(info)
+        if(info !== null && info!==undefined){
+          //setto il token e il tipo del user nella sessione
+          sessionStorage.setItem("token", info.token!);
+          sessionStorage.setItem("type",info.userType!);
 
-        this.userData.emit(user); //rifare la parte di salvare utente
 
-      }else{
-        this.email = '';
-        this.password = '';
-        this.message = "No such user in the database";
-      }
-    });
+          //se il user è stato autenticato, mi trovo il user e salvo le sue info importanti
+          this.userService.getUserByEmail(this.email!).subscribe(user =>{
+            if(user !== null && user!==undefined){
+              sessionStorage.setItem('userId',String(user.email));
+              this.userData.emit(user);
+            }
+          });
+        }
+
+      });
+    }
   }
 }

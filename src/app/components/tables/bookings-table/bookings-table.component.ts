@@ -20,7 +20,7 @@ import {Roles} from "../../templates/dto-templates/roles";
 export class BookingsTableComponent implements  OnInit{
 
   user!: any;
-  userId!: number;
+  userId!: string;
   role!: string;
   formRequest!: boolean;
   book!: any;

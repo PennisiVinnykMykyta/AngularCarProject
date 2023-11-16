@@ -25,7 +25,7 @@ export class UserTableComponent implements  OnInit{
   tableConfig!: CustomTableConfig
   users!: UserDisplayTemplate[];
   role!: string;
-  private userId!: number;
+  private userId!: string;
 
   constructor(private userService:UserService,private userTableConfig:UserTableConfig, private bookService:BookingsService, private authService: AuthenticationService,private  router: Router) {
   }
@@ -51,7 +51,7 @@ export class UserTableComponent implements  OnInit{
     console.log("User Role is:")
     console.log(this.role)
     if(this.role === Roles.User){
-      this.userService.getUser(this.userId).subscribe(user => {
+      this.userService.getUserByEmail(this.userId).subscribe(user => {
         this.users = [];
         this.users.push(user);
 
@@ -87,8 +87,8 @@ export class UserTableComponent implements  OnInit{
         break;
       case MyTableActionEnum.UBOOKINGS:
         console.log("clicked:" + $event.action.text)
-        this.bookService.getUserBookings($event.obj.id);
-        void this.router.navigate(['userBookings', $event.obj.id])
+        this.bookService.getUserBookings($event.obj.email);
+        void this.router.navigate(['userBookings', $event.obj.email])
         break;
     }
   }

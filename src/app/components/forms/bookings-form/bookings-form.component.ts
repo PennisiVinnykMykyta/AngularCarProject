@@ -21,7 +21,7 @@ export class BookingsFormComponent implements  OnInit{
   protected readonly faCheck = faCheck;
 
   @Input('book') book!: BookingDisplayTemplate;
-  @Input('userId') userData?: number | null;
+  @Input('userId') userData?: string | null;
   @Output() goBack: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   datesSelected!: boolean;
@@ -45,6 +45,8 @@ export class BookingsFormComponent implements  OnInit{
       endDate: this.book.endDate
     }
 
+    console.log(this.requestBook);
+
     this.bookService.addOrUpdateBooking(this.requestBook).subscribe(() =>this.back());
   }
 
@@ -59,8 +61,11 @@ export class BookingsFormComponent implements  OnInit{
     this.carService.getAvailableCars(this.book.startDate!,this.book.endDate!).subscribe(cars =>
     {
       this.availableCars = cars;
-      if((this.book.car !== null || true) && !this.availableCars.includes(this.book.car)){
+      if((this.book.car !== undefined && this.book.car !== null) && !(this.availableCars.includes(this.book.car))){
         this.availableCars.push(this.book.car);
+       /* if(this.book.car === undefined){
+          this.availableCars.pop();
+        }*/
       }
     }
     )

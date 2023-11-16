@@ -1,6 +1,6 @@
 export  class BookingRequestTemplate{
   bookId?: number;
-  userId?: number | null;
+  userId?: string | null;
   carId!: number;
   startDate!:Date;
   endDate!:Date;

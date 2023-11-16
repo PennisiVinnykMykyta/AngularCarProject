@@ -2,26 +2,35 @@ import { Injectable } from '@angular/core';
 import {UserDisplayTemplate} from "../templates/dto-templates/user-display-template";
 import {Observable, of} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {UserDetailsToSendDto} from "../templates/dto-templates/user-details-to-send-dto";
+import {UserRecievedDetailsDto} from "../templates/dto-templates/user-recieved-details-dto";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  verifyUser(email: string, password: string): Observable<UserDisplayTemplate>{ //will eventually take email and password and check them in database
-    //will return current user info
-    return this.http.get<UserDisplayTemplate>(`http://localhost:8080/api/user/verify/${email},${password}`);
+
+  authUser(email: string, password: string): Observable<UserRecievedDetailsDto>{
+    let authBody: UserDetailsToSendDto = {
+      email: email,
+      password: password
+    }
+
+    return this.http.post<UserRecievedDetailsDto>("http://localhost:8080/api/user/auth", authBody);
+
   }
 
-  loggedIn(){
-    return !!sessionStorage.getItem('JWT'); // we use this function to see if the user has the token
+  loggedIn(): boolean{
+    return !!sessionStorage.getItem('token'); // we use this function to see if the user has the token
   }
 
-  getToken(){
-    return sessionStorage.getItem('JWT');
+  getToken(): string | null{
+    return sessionStorage.getItem('token');
 }
 
-  getRole(){
+  getRole(): string{
     let type = sessionStorage.getItem("type");
     if(type !== null)
     {
@@ -31,20 +40,15 @@ export class AuthenticationService {
     }
   }
 
-  getUserId(){
+  getUserId(): string | null{
     let id = sessionStorage.getItem("userId");
-    if(id !== null)
-    {
-      return  Number(id);
-    } else{
-      return id;
-    }
+    return id
   }
 
- logout(){
+ logout(): void{
     sessionStorage.removeItem("type");
     sessionStorage.removeItem("userId");
-    sessionStorage.removeItem("JWT");
+    sessionStorage.removeItem("token");
     //chiamata al backend
 }
 

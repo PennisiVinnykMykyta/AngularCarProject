@@ -17,7 +17,7 @@ export class BookingsService {
     return this.http.get<BookingDisplayTemplate[]>(`http://localhost:8080/api/booking/list`);
   }
 
-  getUserBookings(userId: number) : Observable<BookingDisplayTemplate[]>{
+  getUserBookings(userId: string) : Observable<BookingDisplayTemplate[]>{
     return  this.http.get<BookingDisplayTemplate[]>(`http://localhost:8080/api/booking/list/by-user/${userId}`);
   }
 
