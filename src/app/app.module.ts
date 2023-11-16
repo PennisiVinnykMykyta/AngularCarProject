@@ -50,12 +50,12 @@ import {InterceptorService} from "./components/services/interceptor.service";
     FontAwesomeModule,
     HttpClientModule
   ],
-  providers: [/*AuthenticationService,RouteGuardService,
+  providers: [AuthenticationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true
-    }*/
+    }
   ],
   bootstrap: [AppComponent]
 })

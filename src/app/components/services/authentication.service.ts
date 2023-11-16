@@ -12,6 +12,7 @@ import {UserRecievedDetailsDto} from "../templates/dto-templates/user-recieved-d
 export class AuthenticationService {
 
 
+
   authUser(email: string, password: string): Observable<UserRecievedDetailsDto>{
     let authBody: UserDetailsToSendDto = {
       email: email,
