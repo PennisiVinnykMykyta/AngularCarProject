@@ -64,6 +64,7 @@ export class CustomTableComponent implements OnInit {
       this.totalPages = new Array(0);
     }
     this.getPageRange();
+    console.log(this.pages.length);
   }
 
 
@@ -78,14 +79,40 @@ export class CustomTableComponent implements OnInit {
     }
   }
 
-  getPageRange(): void { //p 1234 n  p 2345 n    p 3456 n
-    if (this.currentPage - 1 === 0) {
-      this.pages = [this.currentPage, this.currentPage + 1];
-    } else if (this.currentPage + 1 === this.totalPages.length + 1) {
-      this.pages = [this.currentPage - 1, this.currentPage]
-    } else {
+  getPageRange(): void {  // il simbolo p! indica pagina corrente, |p pagina iniziale, p| pagina finale
+
+    if(this.totalPages.length>=4){ //ci assicuriamo che ci siano piu' di 2 pagine
+    if (this.currentPage === 1) { //siamo alla prima pagina                             |p!p p .. p|
+      this.pages = [this.currentPage + 1, this.currentPage + 2];
+    }
+    else if (this.currentPage === this.totalPages.length) { //siamo all'ultima pagina   |p.. p p p!|
+      this.pages = [this.currentPage - 2, this.currentPage -1]
+    }
+    else if(this.currentPage === 2){ //                                                 |p p! p .. p|
+      this.pages = [this.currentPage, this.currentPage+1]
+    }
+    else if(this.currentPage === this.totalPages.length-1){ //                          |p.. p p! p|
+      this.pages = [this.currentPage -1, this.currentPage]
+    }
+    else if(this.currentPage > 2 && this.currentPage<this.totalPages.length-1){ //      |p ..p p! p.. p|
       this.pages = [this.currentPage - 1, this.currentPage, this.currentPage + 1]
     }
+  }
+  else if(this.totalPages.length === 3){//                                              |p p! p|
+    if(this.currentPage === 1){
+      this.pages = [this.currentPage + 1]
+    }else if(this.currentPage === 3){
+      this.pages = [this.currentPage - 1]
+    }else{
+      this.pages = [this.currentPage]
+    }
+
+  }
+  else{//                                                                               |p p|
+    this.pages = [];
+  }
+
+    console.log(this.pages);
   }
 
   setPage(number: number) {

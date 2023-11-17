@@ -49,18 +49,30 @@
 
 </table>
 
-  <!-- espandere le pagine totali da visualizzare -->
+  <!-- espandere le pagine totali da visualizzare  3slice?-->
 
 <!-- Previous Page -->
 <app-custom-button *ngIf = "data.length > 1 && totalPages.length>1 && currentPage!=1" style="padding-right: 10px" [buttonConfig]="previousButtonConfig" (click)="movePage(false)"></app-custom-button>
 
 <!-- Range of Pages -->
 
+<app-custom-button *ngIf = "data.length >1 && totalPages.length>1" style="padding-right: 10px" [buttonConfig]="{text:'1'}"  (click)="setPage(1)" [enabled]="1 !== currentPage" ></app-custom-button>
+
+
 <ng-container  *ngFor="let page of pages" >
 
   <app-custom-button *ngIf = "data.length >1 && totalPages.length>1" style="padding-right: 10px" [buttonConfig]="{text:page.toString()}"  (click)="setPage(page)" [enabled]="page !== currentPage" ></app-custom-button>
 
 </ng-container>
+
+
+<app-custom-button *ngIf = "data.length >1 && totalPages.length>1" style="padding-right: 10px" [buttonConfig]="{text:totalPages.length.toString()}"  (click)="setPage(totalPages.length)" [enabled]="totalPages.length !== currentPage" ></app-custom-button>
+
+
+  <!--
+lp    <app-custom-button style="padding-right: 10px" [buttonConfig]="{text:page.toString()}"  (click)="setPage(page)" [enabled]="page !== currentPage" ></app-custom-button>
+ -->
+
 
 <!-- Next Page -->
 <app-custom-button *ngIf = "data.length > 1 && totalPages.length>1 && currentPage!=totalPages.length" [buttonConfig]="nextButtonConfig" (click)="movePage(true)"></app-custom-button>
