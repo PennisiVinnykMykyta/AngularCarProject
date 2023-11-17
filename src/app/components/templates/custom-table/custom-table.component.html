@@ -69,11 +69,6 @@
 <app-custom-button *ngIf = "data.length >1 && totalPages.length>1" style="padding-right: 10px" [buttonConfig]="{text:totalPages.length.toString()}"  (click)="setPage(totalPages.length)" [enabled]="totalPages.length !== currentPage" ></app-custom-button>
 
 
-  <!--
-lp    <app-custom-button style="padding-right: 10px" [buttonConfig]="{text:page.toString()}"  (click)="setPage(page)" [enabled]="page !== currentPage" ></app-custom-button>
- -->
-
-
 <!-- Next Page -->
 <app-custom-button *ngIf = "data.length > 1 && totalPages.length>1 && currentPage!=totalPages.length" [buttonConfig]="nextButtonConfig" (click)="movePage(true)"></app-custom-button>
 

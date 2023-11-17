@@ -37,7 +37,6 @@ export class BookingsTableComponent implements  OnInit{
     console.log(this.role);
 
     if(this.bookings === undefined){
-      console.log("Books are empty");
       this.setBookings();
     }
 
@@ -53,10 +52,21 @@ export class BookingsTableComponent implements  OnInit{
 
     if(this.role === Roles.Admin){
 
-      this.bookingService.getAllBookings().subscribe(books => {
-        this.bookings = books;
-        this.formRequest = false;
-      });
+      if(this.route.snapshot.paramMap.get('email') !== null){
+        let email: string = this.route.snapshot.paramMap.get('email')!;
+        console.log("Received id:")
+        console.log(email);
+        this.bookingService.getUserBookings(email).subscribe(books => {
+          this.bookings = books;
+          this.formRequest = false;
+        });
+
+      }else{
+        this.bookingService.getAllBookings().subscribe(books => {
+          this.bookings = books;
+          this.formRequest = false;
+        });
+      }
 
     }else if(this.role === Roles.User){
 

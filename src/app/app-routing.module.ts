@@ -13,7 +13,7 @@ const routes: Routes = [ //, canActivate: [RouteGuardService]
   {path: 'allBookings', component:BookingsTableComponent,data:{roles: [Roles.Admin]}},
   {path: 'users', component:UserTableComponent, data:{roles: [Roles.User,Roles.Admin]}},
   {path: 'allCars', component:CarsTableComponent,data:{roles: [Roles.User,Roles.Admin]}},
-  {path: 'userBookings/:id', component: BookingsTableComponent,data:{roles: [Roles.User,Roles.Admin] }},
+  {path: 'userBookings/:email', component: BookingsTableComponent,data:{roles: [Roles.User,Roles.Admin] }},
 
 
 ];
