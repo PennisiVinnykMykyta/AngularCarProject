@@ -1,4 +1,4 @@
-<app-custom-table *ngIf="!formRequest" [tableConfig]="tableConfig" [data]="bookings" (getTableData)="clickAction($event)"></app-custom-table>
+<app-custom-table *ngIf="!formRequest && bookings != undefined"  [tableConfig]="tableConfig" [data]="bookings" (getTableData)="clickAction($event)"></app-custom-table>
 
 <app-bookings-form *ngIf = "formRequest" [book] = "book" [userId]="userId" (goBack)="setRequest($event)"></app-bookings-form>
 

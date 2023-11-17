@@ -44,6 +44,7 @@ export class UserTableComponent implements  OnInit{
       this.setUsers();
     }
 
+    console.log(this.users);
 
   }
 

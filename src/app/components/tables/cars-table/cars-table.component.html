@@ -1,3 +1,3 @@
-<app-custom-table *ngIf = "!formRequest" [tableConfig]="tableConfig" [data]="cars" (getTableData)="clickAction($event)"></app-custom-table>
+<app-custom-table *ngIf = "!formRequest && cars != undefined" [tableConfig]="tableConfig" [data]="cars" (getTableData)="clickAction($event)"></app-custom-table>
 
 <app-cars-form *ngIf="formRequest" [car] = "car" (goBack) = "setRequest($event)"></app-cars-form>
