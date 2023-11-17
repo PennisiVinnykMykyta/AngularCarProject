@@ -38,7 +38,7 @@ export class BookingsTableComponent implements  OnInit{
 
     if(this.bookings === undefined){
       console.log("Books are empty");
-      this.bookings = [];
+      this.setBookings();
     }
 
     if(this.role === Roles.Admin){
@@ -47,7 +47,6 @@ export class BookingsTableComponent implements  OnInit{
       this.tableConfig = this.bookTableConfig.tableConfigUser;
     }
 
-    this.setBookings();
   }
 
   setBookings(){

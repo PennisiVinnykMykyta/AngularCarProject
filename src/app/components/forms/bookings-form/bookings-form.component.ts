@@ -7,7 +7,6 @@ import {CarTemplate} from "../../templates/dto-templates/car-template";
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
 import {BookingDisplayTemplate} from "../../templates/dto-templates/booking-display-template";
-import {UserDisplayTemplate} from "../../templates/dto-templates/user-display-template";
 import {BookingRequestTemplate} from "../../templates/dto-templates/booking-request-template";
 
 @Component({
@@ -18,7 +17,6 @@ import {BookingRequestTemplate} from "../../templates/dto-templates/booking-requ
 export class BookingsFormComponent implements  OnInit{
 
   protected readonly faArrowAltCircleLeft = faArrowAltCircleLeft;
-  protected readonly faCheck = faCheck;
 
   @Input('book') book!: BookingDisplayTemplate;
   @Input('userId') userData?: string | null;
@@ -29,7 +27,7 @@ export class BookingsFormComponent implements  OnInit{
   carTableConfig!: CustomTableConfig;
   requestBook!: BookingRequestTemplate;
 
-  availableCars: CarTemplate[] = [];
+  availableCars!: CarTemplate[];
   constructor(private router: Router, private bookService:BookingsService,private carService: CarsService) {
   }
   ngOnInit() {
@@ -59,18 +57,20 @@ export class BookingsFormComponent implements  OnInit{
   }
 
   setTableConfig(){
-    this.carService.getAvailableCars(this.book.startDate!,this.book.endDate!).subscribe(cars =>
-    {
-      this.availableCars = cars;
-      if((this.book.car !== undefined && this.book.car !== null) && !(this.availableCars.includes(this.book.car))){
-        this.availableCars.push(this.book.car);
-       /* if(this.book.car === undefined){
-          this.availableCars.pop();
-        }*/
-      }
+    if(this.availableCars === undefined){
+      this.carService.getAvailableCars(this.book.startDate!,this.book.endDate!).subscribe(cars =>
+        {
+          this.availableCars = cars;
+          if((this.book.car !== undefined && this.book.car !== null) && !(this.availableCars.includes(this.book.car))){
+            this.availableCars.push(this.book.car);
+          }
+          console.log("these are the available cars")
+          console.log(this.availableCars);
+        }
+      )
     }
-    )
-    console.log(this.availableCars);
+
+
     this.carTableConfig = {
       headers:[
         {key: "brand", label: "Brand"},
@@ -101,5 +101,9 @@ export class BookingsFormComponent implements  OnInit{
 
   back(){
     this.goBack.emit(true);
+  }
+
+  reselectDates(){
+    this.datesSelected = false;
   }
 }

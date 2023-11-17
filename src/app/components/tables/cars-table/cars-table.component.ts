@@ -19,13 +19,16 @@ export class CarsTableComponent implements OnInit{
 
   car!: any;
   tableConfig!: CustomTableConfig;
-  cars: CarTemplate[] = [];
+  cars!: CarTemplate[];
   formRequest!: boolean;
   constructor(private carService:CarsService, private carTableConfig: CarsTableConfig) {
   }
   ngOnInit() {
     this.formRequest = false;
-    this.setCars();
+    if(this.cars === undefined){
+      this.setCars();
+    }
+
     this.tableConfig = this.carTableConfig.tableConfig;
   }
 
