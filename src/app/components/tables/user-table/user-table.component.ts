@@ -44,20 +44,14 @@ export class UserTableComponent implements  OnInit{
       this.setUsers();
     }
 
-    console.log(this.users);
-
   }
 
   setUsers(){
-    console.log("User Role is:")
-    console.log(this.role)
     if(this.role === Roles.User){
       this.userService.getUserByEmail(this.userId).subscribe(user => {
         this.users = [];
         this.users.push(user);
 
-
-        console.log(this.users);
       })
 
     }else{
@@ -73,22 +67,17 @@ export class UserTableComponent implements  OnInit{
   clickAction($event: { obj: any; action: any }) {
     switch ($event.action.action) {
       case MyTableActionEnum.NEW_ROW:
-        console.log("clicked:" + $event.action.text)
         this.formRequest = true;
         this.user = {userType: Roles.User} as UserDisplayTemplate;
         break;
       case MyTableActionEnum.DELETE:
-        console.log("clicked:" + $event.action.text)
         this.userService.deleteUser($event.obj.id).subscribe(() => this.setUsers());
         break;
       case MyTableActionEnum.EDIT:
-        console.log("clicked:" + $event.action.text)
         this.formRequest = true;
         this.user = $event.obj
         break;
       case MyTableActionEnum.UBOOKINGS:
-        console.log("clicked:" + $event.action.text)
-        this.bookService.getUserBookings($event.obj.email);
         void this.router.navigate(['userBookings', $event.obj.email])
         break;
     }

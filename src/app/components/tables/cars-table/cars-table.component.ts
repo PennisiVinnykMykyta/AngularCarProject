@@ -41,20 +41,16 @@ export class CarsTableComponent implements OnInit{
   }
 
   clickAction($event: { obj: any; action: any }) {
-    console.log($event.action)
     switch ($event.action.action) {
       case MyTableActionEnum.NEW_ROW:
-        console.log("clicked:" + $event.action.text)
         this.formRequest = true;
         this.car = {} as CarTemplate;
         break;
 
       case MyTableActionEnum.DELETE:
-        console.log("clicked:" + $event.action.text)
         this.carService.deleteCar($event.obj.id).subscribe(() => this.setCars());
         break;
       case MyTableActionEnum.EDIT:
-        console.log("clicked:" + $event.action.text)
         this.formRequest = true;
         this.car = $event.obj
         break;

@@ -9,7 +9,7 @@ import {UserDisplayTemplate} from "../../templates/dto-templates/user-display-te
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css']
 })
-export class UserFormComponent implements  OnInit{
+export class UserFormComponent{
 
   protected readonly faArrowAltCircleLeft = faArrowAltCircleLeft;
   protected readonly faCheck = faCheck;
@@ -20,13 +20,8 @@ export class UserFormComponent implements  OnInit{
 
   constructor(private userService: UserService) {
   }
-  ngOnInit() {
-    console.log(this.user);
 
-  }
-
-  updateUser($event: any) {
-    console.log(this.user);
+  updateUser() {
     this.userService.addOrUpdateUser(this.user).subscribe(() => this.back());
   }
 

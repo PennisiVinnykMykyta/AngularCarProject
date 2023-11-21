@@ -7,6 +7,7 @@ import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-a
 import {AuthenticationService} from "../../services/authentication.service";
 import {BookingsTableConfig} from "./bookings-table.config";
 import {Roles} from "../../templates/dto-templates/roles";
+import {Observable} from "rxjs";
 
 
 @Injectable({
@@ -31,10 +32,9 @@ export class BookingsTableComponent implements  OnInit{
   constructor(private bookingService: BookingsService, private bookTableConfig: BookingsTableConfig, private route:ActivatedRoute, private authService: AuthenticationService) {
   }
   ngOnInit() {
-    this.userId = this.authService.getUserId()!; //current user
-    this.role = this.authService.getRole()!; //current users role
-    console.log(this.userId);
-    console.log(this.role);
+
+    this.userId = this.authService.getUserId()!;
+    this.role = this.authService.getRole()!;
 
     if(this.bookings === undefined){
       this.setBookings();
@@ -49,55 +49,37 @@ export class BookingsTableComponent implements  OnInit{
   }
 
   setBookings(){
+    let books: Observable<BookingDisplayTemplate[]>;
+    let email: string | null = this.route.snapshot.paramMap.get('email');
 
-    if(this.role === Roles.Admin){
-
-      if(this.route.snapshot.paramMap.get('email') !== null){
-        let email: string = this.route.snapshot.paramMap.get('email')!;
-        console.log("Received id:")
-        console.log(email);
-        this.bookingService.getUserBookings(email).subscribe(books => {
-          this.bookings = books;
-          this.formRequest = false;
-        });
-
-      }else{
-        this.bookingService.getAllBookings().subscribe(books => {
-          this.bookings = books;
-          this.formRequest = false;
-        });
-      }
-
-    }else if(this.role === Roles.User){
-
-      this.bookingService.getUserBookings(this.userId).subscribe(books => {
-        this.bookings = books;
-        this.formRequest = false;
-      });
+    if(email !== null){
+      books = this.bookingService.getUserBookings(email);
+    }else if(this.role === Roles.Admin){
+      books = this.bookingService.getAllBookings();
+    }else{
+      books = this.bookingService.getUserBookings(this.userId);
     }
+
+    books.subscribe(book => this.bookings = book);
+    this.formRequest = false;
   }
 
   clickAction($event: { obj: any; action: any }){
     switch ($event.action.action){
       case MyTableActionEnum.NEW_ROW:
-        console.log("clicked:" + $event.action.text, $event.obj);
         this.formRequest = true;
         this.book = {} as BookingDisplayTemplate;
         break;
       case MyTableActionEnum.DELETE:
-        console.log("clicked:" + $event.action.text)
         this.bookingService.deleteBooking($event.obj.id).subscribe(()=>this.setBookings());
         break;
       case MyTableActionEnum.EDIT:
-        console.log("clicked:" + $event.action.text)
         this.formRequest = true;
         this.book = $event.obj
         break;
       case MyTableActionEnum.APPROVE:
-        console.log("clicked:" + $event.action.text)
         this.bookingService.validateOrDecline($event.obj.id).subscribe(() => this.setBookings());
     }
-    console.log($event.obj,$event.action)
   }
 
   setRequest($event: boolean) {

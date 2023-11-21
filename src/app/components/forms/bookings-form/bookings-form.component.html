@@ -1,4 +1,4 @@
-
+<!-- Dates Selection -->
 <div *ngIf ="!datesSelected">
   <h2>Please Select the Dates</h2>
   <!--dates selector-->
@@ -15,9 +15,10 @@
   <app-custom-button *ngIf = "book.startDate != undefined && book.endDate != undefined" [buttonConfig] = "{text:'Select'}" (click)="confirmDates()"></app-custom-button>
 </div>
 
+<!-- Cars Selection -->
 <div *ngIf="datesSelected && availableCars!=undefined" >
   <h2>Please Select your car now</h2>
-  <!--available cars-->
+
   <app-custom-table  [tableConfig]="carTableConfig" [data]="availableCars" (getTableData)="clickAction($event)"></app-custom-table>
 
   <app-custom-button [buttonConfig] = "{text: 'Select Other Dates'}" (click)="reselectDates()"></app-custom-button>

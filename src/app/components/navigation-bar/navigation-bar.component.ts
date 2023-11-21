@@ -17,7 +17,6 @@ export class NavigationBarComponent{
   }
 
   clickAction(str: string ){
-    console.log("action clicked",str);
     if(str === '/'){
       this.logOut.emit(true);
     }

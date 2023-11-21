@@ -8,7 +8,7 @@ import {CarTemplate} from "../../templates/dto-templates/car-template";
   templateUrl: './cars-form.component.html',
   styleUrls: ['./cars-form.component.css']
 })
-export class CarsFormComponent implements  OnInit{
+export class CarsFormComponent{
 
   protected readonly faArrowAltCircleLeft = faArrowAltCircleLeft;
   protected readonly faCheck = faCheck;
@@ -19,9 +19,6 @@ export class CarsFormComponent implements  OnInit{
   constructor(private carService: CarsService) {
   }
 
-  ngOnInit() {
-    console.log(this.car);
-  }
 
   clickAction(action?:string){
     if(action !== 'back'){

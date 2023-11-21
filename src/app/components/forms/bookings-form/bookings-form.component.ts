@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {faArrowAltCircleLeft, faCheck, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faArrowAltCircleLeft, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {BookingsService} from "../../services/bookings.service";
 import {CarsService} from "../../services/cars.service";
@@ -31,7 +31,6 @@ export class BookingsFormComponent implements  OnInit{
   constructor(private router: Router, private bookService:BookingsService,private carService: CarsService) {
   }
   ngOnInit() {
-    console.log(this.userData);
     this.datesSelected = false;
   }
 
@@ -44,14 +43,11 @@ export class BookingsFormComponent implements  OnInit{
       endDate: this.book.endDate
     }
 
-    console.log(this.requestBook);
-
     this.bookService.addOrUpdateBooking(this.requestBook).subscribe(() =>this.back());
   }
 
   confirmDates() {
     this.datesSelected = true;
-    console.log(this.book.startDate,this.book.endDate);
     this.setTableConfig();
 
   }
@@ -64,8 +60,6 @@ export class BookingsFormComponent implements  OnInit{
           if((this.book.car !== undefined && this.book.car !== null) && !(this.availableCars.includes(this.book.car))){
             this.availableCars.push(this.book.car);
           }
-          console.log("these are the available cars")
-          console.log(this.availableCars);
         }
       )
     }

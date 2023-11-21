@@ -12,11 +12,11 @@ export class RouteGuardService implements CanActivate{
   constructor(private authService:AuthenticationService,private router:Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state:RouterStateSnapshot){
-    let type: string = this.authService.getRole(); //fixare string null dentro get Role
+    let type: string = this.authService.getRole();
     this.userType.push(type);
 
     if(!this.authService.loggedIn()){
-      void this.router.navigate(['/']); //if uer is not logged in we redirect to the homepage
+      void this.router.navigate(['/']); //if user is not logged in we redirect to the homepage
       return false;
 
     }else{

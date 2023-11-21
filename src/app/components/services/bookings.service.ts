@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BookingDisplayTemplate} from "../templates/dto-templates/booking-display-template";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {BookingRequestTemplate} from "../templates/dto-templates/booking-request-template";
 
@@ -8,8 +8,6 @@ import {BookingRequestTemplate} from "../templates/dto-templates/booking-request
   providedIn: 'root'
 })
 export class BookingsService {
-  //il caso in cui il user non ha alcun booking prenotato, senza il databse è il caso default
-  emptyBookings : BookingDisplayTemplate[] = []
 
   constructor(private http: HttpClient) { }
 

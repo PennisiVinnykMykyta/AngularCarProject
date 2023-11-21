@@ -2,7 +2,6 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
 import {UserDisplayTemplate} from "../../templates/dto-templates/user-display-template";
 import {AuthenticationService} from "../../services/authentication.service";
-import {UserDetailsToSendDto} from "../../templates/dto-templates/user-details-to-send-dto";
 import {UserService} from "../../services/user.service";
 
 @Component({
@@ -13,8 +12,6 @@ import {UserService} from "../../services/user.service";
 export class LoginFormComponent {
   email?: string;
   password?: string;
-  userInfo!: UserDetailsToSendDto;
-  message?: string;
 
   @Output() userData: EventEmitter<UserDisplayTemplate> = new EventEmitter<UserDisplayTemplate>();
 
@@ -29,14 +26,11 @@ export class LoginFormComponent {
 
     if((this.email !== "" && this.email !== undefined) && (this.password !== "" && this.password !== undefined)){
       this.authService.authUser(this.email!,this.password!).subscribe(info => {
-        console.log(info)
         if(info !== null && info!==undefined){
-          //setto il token e il tipo del user nella sessione
+
           sessionStorage.setItem("token", info.token!);
           sessionStorage.setItem("type",info.userType!);
 
-
-          //se il user è stato autenticato, mi trovo il user e salvo le sue info importanti
           this.userService.getUserByEmail(this.email!).subscribe(user =>{
             if(user !== null && user!==undefined){
               sessionStorage.setItem('userId',String(user.email));

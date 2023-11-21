@@ -1,3 +1,4 @@
+<!-- SearchBar -->
 <div *ngIf = "data != null">
 
   <select *ngIf = "data.length > 1" [(ngModel)]="filterKey">
@@ -11,10 +12,12 @@
 
 </div>
 
-<ng-container *ngFor ="let action of tableConfig.actions"> <!---->
+<!--Add Button-->
+<ng-container *ngFor ="let action of tableConfig.actions">
   <app-custom-button *ngIf="!action.rowAction" [buttonConfig]="{text:action.text, icon:action.icon}" (click)="actionMethod(null,action)"></app-custom-button>
 </ng-container>
 
+<!-- Main Table -->
 <div *ngIf = "data == null">
   The table is Empty
 </div>
@@ -49,7 +52,6 @@
 
 </table>
 
-  <!-- espandere le pagine totali da visualizzare  3slice?-->
 
 <!-- Previous Page -->
 <app-custom-button *ngIf = "data.length > 1 && totalPages.length>1 && currentPage!=1" style="padding-right: 10px" [buttonConfig]="previousButtonConfig" (click)="movePage(false)"></app-custom-button>

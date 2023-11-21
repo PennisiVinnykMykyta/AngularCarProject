@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {UserDisplayTemplate} from "../templates/dto-templates/user-display-template";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +21,6 @@ export class UserService {
   addOrUpdateUser(obj: any): Observable<any> {
     return this.http.post(`http://localhost:8080/api/user/add-or-update`,obj);
 
-  }
-
-  getUser(id:number): Observable<UserDisplayTemplate>{
-    return this.http.get<UserDisplayTemplate>(`http://localhost:8080/api/user/get/${id}`);
   }
 
   getUserByEmail(email: string): Observable<UserDisplayTemplate>{

@@ -4,7 +4,6 @@ import {CarsTableComponent} from "./components/tables/cars-table/cars-table.comp
 import {BookingsTableComponent} from "./components/tables/bookings-table/bookings-table.component";
 import {UserTableComponent} from "./components/tables/user-table/user-table.component";
 import {Roles} from "./components/templates/dto-templates/roles";
-import {RouteGuardService} from "./components/services/route-guard.service";
 
 
 const routes: Routes = [ //, canActivate: [RouteGuardService]

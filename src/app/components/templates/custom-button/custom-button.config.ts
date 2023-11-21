@@ -1,7 +1,7 @@
-import {faArrowAltCircleLeft, faArrowLeft, faArrowRight, faCancel,faUserPlus,faUserEdit,faTrashCan,faPlus,faGear} from "@fortawesome/free-solid-svg-icons";
+import {faArrowAltCircleLeft, faArrowLeft, faArrowRight, faCancel} from "@fortawesome/free-solid-svg-icons";
 import {IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
-export class CustomButtonConfig{ //make sure the button gets all of its components
+export class CustomButtonConfig{
   customCssClass?: string;
   text?: string;
   icon?: IconDefinition;
@@ -28,32 +28,3 @@ export  const previous: CustomButtonConfig = {
   icon: faArrowLeft
 }
 
-export const addCar: CustomButtonConfig = {
-  text: "Book Car",
-  icon: faPlus
-}
-
-export const addUser: CustomButtonConfig = {
-  text: "Add New User",
-  icon: faUserPlus
-}
-
-export const cancelBooking: CustomButtonConfig = {
-  text: "Cancel Booking",
-  icon: faCancel
-}
-
-export const deleteUser: CustomButtonConfig = {
-  text: "Close Account",
-  icon:  faTrashCan
-}
-
-export const modifyBooking: CustomButtonConfig = {
-  text: "Modify Booking",
-  icon: faGear
-}
-
-export const changeUserInfo: CustomButtonConfig = {
-  text: "Modify Account",
-  icon: faUserEdit
-}

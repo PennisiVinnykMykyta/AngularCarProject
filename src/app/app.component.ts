@@ -35,12 +35,15 @@ export class AppComponent{
       this.getNavConfig();
     }
 
+    /*
+    user1 admin
     //admin@admin.com
     //admin
 
+    user2 customer
     //email
     //pass
-
+    */
   }
 
   quitSession($event: boolean) {

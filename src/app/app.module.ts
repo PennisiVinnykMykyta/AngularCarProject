@@ -21,7 +21,6 @@ import { BookingsFormComponent } from './components/forms/bookings-form/bookings
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LoginFormComponent} from "./components/forms/login-form/login-form.component";
 import {AuthenticationService} from "./components/services/authentication.service";
-import {RouteGuardService} from "./components/services/route-guard.service";
 import {InterceptorService} from "./components/services/interceptor.service";
 
 @NgModule({

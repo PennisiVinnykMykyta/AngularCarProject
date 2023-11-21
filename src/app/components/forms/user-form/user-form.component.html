@@ -1,4 +1,4 @@
-<form #ngForm="ngForm" (ngSubmit)="updateUser($event)" >
+<form #ngForm="ngForm" (ngSubmit)="updateUser()" >
   <tr>
     <label>Name:</label>
     <input name="FirstName" id="name"  type="text" [(ngModel)] = "user.firstName">

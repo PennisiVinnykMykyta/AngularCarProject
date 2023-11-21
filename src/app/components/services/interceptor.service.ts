@@ -9,7 +9,6 @@ import {AuthenticationService} from "./authentication.service";
 export class InterceptorService implements HttpInterceptor{
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("Setting headers");
     let request = req.clone(
       {
         setHeaders: {

@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
-import {UserDisplayTemplate} from "../templates/dto-templates/user-display-template";
-import {Observable, of} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 import {UserDetailsToSendDto} from "../templates/dto-templates/user-details-to-send-dto";
 import {UserRecievedDetailsDto} from "../templates/dto-templates/user-recieved-details-dto";
 
@@ -37,20 +36,18 @@ export class AuthenticationService {
     {
       return type
     } else{
-      return "";
+      return "CUSTOMER";
     }
   }
 
   getUserId(): string | null{
-    let id = sessionStorage.getItem("userId");
-    return id
+    return sessionStorage.getItem("userId")
   }
 
  logout(): void{
     sessionStorage.removeItem("type");
     sessionStorage.removeItem("userId");
     sessionStorage.removeItem("token");
-    //chiamata al backend
 }
 
 
