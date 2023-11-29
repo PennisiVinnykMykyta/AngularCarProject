@@ -47,7 +47,7 @@ import {InterceptorService} from "./components/services/interceptor.service";
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [AuthenticationService,
     {

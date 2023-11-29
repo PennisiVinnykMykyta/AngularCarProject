@@ -1,5 +1,13 @@
+
 <app-login-form *ngIf = "user === null || user === undefined" (userData)="setUser($event)" ></app-login-form>
+
 <div *ngIf = "user !== null && user!== undefined">
-  <app-navigation-bar [userBarConfig] = "getNavConfig()" (logOut)="quitSession($event)" ></app-navigation-bar>
+
+    <h3>
+      <div *ngIf="message !==undefined ">{{message}}</div>
+    </h3>
+    <app-navigation-bar [userBarConfig] = "getNavConfig()" [profilePic]="''" (logOut)="quitSession($event)" ></app-navigation-bar>
+
   <router-outlet></router-outlet>
 </div>
+

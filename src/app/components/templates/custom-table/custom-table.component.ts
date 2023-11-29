@@ -104,8 +104,7 @@ export class CustomTableComponent implements OnInit {
       this.pages = [this.currentPage]
     }
 
-  }
-  else{//  ci sono meno di tre pagine
+  } else{//  ci sono meno di tre pagine
     this.pages = [];
   }
   }

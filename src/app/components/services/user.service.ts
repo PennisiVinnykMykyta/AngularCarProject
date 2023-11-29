@@ -27,4 +27,12 @@ export class UserService {
     return this.http.get<UserDisplayTemplate>(`http://localhost:8080/api/user/get/${email}`);
   }
 
+  uploadProfilePic(obj:any): Observable<any>{
+    return this.http.post(`http://localhost:8080/api/user/profile-pic/upload`,obj);
+  }
+
+  downloadProfilePic(userId: number){
+    return this.http.get(`http://localhost:8080/api/user/profile-pic/download/${userId}`);
+  }
+
 }

@@ -59,7 +59,7 @@
 <!-- Range of Pages -->
 
 <app-custom-button *ngIf = "data.length >1 && totalPages.length>1" style="padding-right: 10px" [buttonConfig]="{text:'1'}"  (click)="setPage(1)" [enabled]="1 !== currentPage" ></app-custom-button>
-
+<ng-container *ngIf="currentPage>3">...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ng-container>
 
 <ng-container  *ngFor="let page of pages" >
 
@@ -67,6 +67,7 @@
 
 </ng-container>
 
+<ng-container *ngIf="currentPage<totalPages.length-2">...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ng-container>
 
 <app-custom-button *ngIf = "data.length >1 && totalPages.length>1" style="padding-right: 10px" [buttonConfig]="{text:totalPages.length.toString()}"  (click)="setPage(totalPages.length)" [enabled]="totalPages.length !== currentPage" ></app-custom-button>
 

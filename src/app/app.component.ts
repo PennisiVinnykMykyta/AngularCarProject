@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Roles} from "./components/templates/dto-templates/roles";
 import {AuthenticationService} from "./components/services/authentication.service";
 import {AppConfig} from "./app.config";
@@ -12,6 +12,7 @@ import {UserDisplayTemplate} from "./components/templates/dto-templates/user-dis
 export class AppComponent{
 
   public user?: UserDisplayTemplate;
+  public message?: string;
 
   constructor(private authService: AuthenticationService, private appConfig: AppConfig) {
   }
@@ -32,6 +33,8 @@ export class AppComponent{
   setUser($event: UserDisplayTemplate) {
     if($event !== null && $event !== undefined){
       this.user = $event;
+      this.message = "Welcome " + this.user.firstName!+" "+this.user.lastName;
+      console.log(this.message)
       this.getNavConfig();
     }
 
@@ -50,6 +53,7 @@ export class AppComponent{
     if($event){
       this.user = undefined;
       this.authService.logout();
+      this.message = undefined;
     }
   }
 }
