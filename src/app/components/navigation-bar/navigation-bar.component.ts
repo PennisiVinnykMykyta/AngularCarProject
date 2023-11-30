@@ -31,6 +31,7 @@ deletePic(){
 
   ngOnInit() {
     this.getImage();
+
   }
 
   addingOverlay: boolean = false;
@@ -65,10 +66,11 @@ deletePic(){
        console.log("downloaded")
        console.log(image);
        this.retrievedImage = image.image;
+       if(this.retrievedImage !== null){
+         this.retrievedImage = 'data:image/png;base64,' + this.retrievedImage; //DEVO FARE RESIZE!!!
+       }
 
-       this.retrievedImage = 'data:image/png;base64,' + this.retrievedImage; //DEVO FARE RESIZE!!!
        console.log(this.retrievedImage);
-
 
      });
    }
