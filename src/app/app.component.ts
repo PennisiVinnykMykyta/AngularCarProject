@@ -13,6 +13,7 @@ export class AppComponent{
 
   public user?: UserDisplayTemplate;
   public message?: string;
+  public  userId!: number;
 
   constructor(private authService: AuthenticationService, private appConfig: AppConfig) {
   }
@@ -33,6 +34,7 @@ export class AppComponent{
   setUser($event: UserDisplayTemplate) {
     if($event !== null && $event !== undefined){
       this.user = $event;
+      this.userId = this.user.id;
       this.message = "Welcome " + this.user.firstName!+" "+this.user.lastName;
       console.log(this.message)
       this.getNavConfig();

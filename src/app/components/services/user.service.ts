@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {UserDisplayTemplate} from "../templates/dto-templates/user-display-template";
 import {HttpClient} from "@angular/common/http";
+import {EncodedImage} from "../templates/dto-templates/encoded-image";
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,8 @@ export class UserService {
     return this.http.post(`http://localhost:8080/api/user/profile-pic/upload`,obj);
   }
 
-  downloadProfilePic(userId: number){
-    return this.http.get(`http://localhost:8080/api/user/profile-pic/download/${userId}`);
+  downloadProfilePic(userId: number): Observable<any>{
+    return this.http.get<any>(`http://localhost:8080/api/user/profile-pic/download/${userId}`);
   }
 
 }

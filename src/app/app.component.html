@@ -6,7 +6,7 @@
     <h3>
       <div *ngIf="message !==undefined ">{{message}}</div>
     </h3>
-    <app-navigation-bar [userBarConfig] = "getNavConfig()" [profilePic]="''" (logOut)="quitSession($event)" ></app-navigation-bar>
+    <app-navigation-bar [userBarConfig] = "getNavConfig()" [profilePic]="''" [id] = "userId" (logOut)="quitSession($event)" ></app-navigation-bar>
 
   <router-outlet></router-outlet>
 </div>
