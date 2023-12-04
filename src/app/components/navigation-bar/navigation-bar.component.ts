@@ -59,12 +59,13 @@ deletePic(){
    public getImage(){
 
      this.userService.downloadProfilePic(this.id).subscribe(image => {
-       this.retrievedImage = image.image;
-       this.imageType = image.imageType;
-       if(this.retrievedImage !== null){
+       if(image!==null){
+         this.retrievedImage = image.image;
+         this.imageType = image.imageType;
+
          this.retrievedImage = 'data:image/'+this.imageType+';base64,' + this.retrievedImage;
-         //DEVO FARE RESIZE ED IMPLEMENTARE DELETE BUTTON!!!
          this.resizeImage(this.retrievedImage).then(resolve => this.retrievedImage = resolve);
+
        }
 
      });
@@ -73,16 +74,16 @@ deletePic(){
 
   resizeImage(imageURL: any): Promise<any> {
     return new Promise((resolve) => {
-      const image = new Image();
-      image.onload = function () {
-        const canvas = document.createElement('canvas');
+      const image: HTMLImageElement = new Image();
+      image.onload = function () : void {
+        const canvas : HTMLCanvasElement = document.createElement('canvas');
         canvas.width = 150;
         canvas.height = 150;
-        const ctx = canvas.getContext('2d');
+        const ctx : CanvasRenderingContext2D | null = canvas.getContext('2d');
         if (ctx != null) {
           ctx.drawImage(image, 0, 0, 150, 150);
         }
-        const data = canvas.toDataURL('image/jpeg', 1);
+        const data :string = canvas.toDataURL('image/jpeg', 1);
         resolve(data);
       };
       image.src = imageURL;

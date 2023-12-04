@@ -1,11 +1,6 @@
 <div class="container row">
   <div class="col-md-12">
-    <div *ngIf="retrievedImage !== null && retrievedImage !== undefined && retrievedImage !== baseImageUrl ">
       <img [src]="retrievedImage" (mouseenter)="addingOverlay = true">
-    </div>
-    <div *ngIf="retrievedImage === null || retrievedImage === undefined || retrievedImage === baseImageUrl">
-      <img [src]="baseImageUrl" (mouseenter)="addingOverlay = true">
-    </div>
   </div>
 </div>
 
