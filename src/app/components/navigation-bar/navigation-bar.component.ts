@@ -1,9 +1,8 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
 
 import {NavigationBarConfig} from "./navigation-bar.config";
 import {UserService} from "../services/user.service";
-import {ImageInfoDto} from "../templates/dto-templates/image-info-dto";
 
 @Component({
   selector: 'app-navigation-bar',
@@ -31,15 +30,13 @@ deletePic(){
 
   ngOnInit() {
     this.getImage();
-
   }
 
   addingOverlay: boolean = false;
 
    selectedFile!: File;
    retrievedImage: any;
-   base64Data: any;
-   imageName!: string;
+   imageType!: string;
    baseImageUrl: string = "https://icon-library.net/images/no-image-available-icon/no-image-available-icon-6.jpg"
 
    public onFileChanged(event: any){
@@ -54,28 +51,43 @@ deletePic(){
    public onUpload(){
      const uploadImageData: FormData = new FormData();
 
-     const fileString: string = this.id.toString()+"_"+this.selectedFile.name
-     uploadImageData.append('imageFile',this.selectedFile, fileString);
+     uploadImageData.append('imageFile',this.selectedFile, this.selectedFile.name);
 
-     this.userService.uploadProfilePic(uploadImageData).subscribe(() => this.getImage());
+     this.userService.uploadProfilePic(uploadImageData,this.id).subscribe(() => this.getImage());
    }
 
    public getImage(){
 
      this.userService.downloadProfilePic(this.id).subscribe(image => {
-       console.log("downloaded")
-       console.log(image);
        this.retrievedImage = image.image;
+       this.imageType = image.imageType;
        if(this.retrievedImage !== null){
-         this.retrievedImage = 'data:image/png;base64,' + this.retrievedImage; //DEVO FARE RESIZE!!!
+         this.retrievedImage = 'data:image/'+this.imageType+';base64,' + this.retrievedImage;
+         //DEVO FARE RESIZE ED IMPLEMENTARE DELETE BUTTON!!!
+         this.resizeImage(this.retrievedImage).then(resolve => this.retrievedImage = resolve);
        }
 
-       console.log(this.retrievedImage);
-
      });
+
    }
 
-
+  resizeImage(imageURL: any): Promise<any> {
+    return new Promise((resolve) => {
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = 150;
+        canvas.height = 150;
+        const ctx = canvas.getContext('2d');
+        if (ctx != null) {
+          ctx.drawImage(image, 0, 0, 150, 150);
+        }
+        const data = canvas.toDataURL('image/jpeg', 1);
+        resolve(data);
+      };
+      image.src = imageURL;
+    });
+  }
 
   constructor(private router: Router,private userService: UserService) {
   }

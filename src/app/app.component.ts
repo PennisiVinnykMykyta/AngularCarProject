@@ -36,7 +36,6 @@ export class AppComponent{
       this.user = $event;
       this.userId = this.user.id;
       this.message = "Welcome " + this.user.firstName!+" "+this.user.lastName;
-      console.log(this.message)
       this.getNavConfig();
     }
 
@@ -56,6 +55,7 @@ export class AppComponent{
       this.user = undefined;
       this.authService.logout();
       this.message = undefined;
+     // this.userId = undefined;
     }
   }
 }
