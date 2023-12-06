@@ -10,18 +10,21 @@ export class BookingsTableConfig{
 
   adminBookActions: MyActionEvent[] = [
     {
+      customCssClass:'btn btn-danger btn-sm',
       action: MyTableActionEnum.DELETE,
       rowAction:true,
       text:"Cancel Booking",
       icon: faCancel
     },
     {
+      customCssClass:'btn btn-warning btn-sm',
       action: MyTableActionEnum.EDIT,
       rowAction:true,
       text:"Change Booking",
       icon: faGear
     },
     {
+      customCssClass:'btn btn-warning btn-sm',
       action: MyTableActionEnum.APPROVE,
       rowAction: true,
       text: "Approve/Disapprove",
@@ -37,12 +40,14 @@ export class BookingsTableConfig{
       icon: faPlus
     },
     {
+      customCssClass:'btn btn-danger btn-sm',
       action: MyTableActionEnum.DELETE,
       rowAction:true,
       text:"Cancel Booking",
       icon: faCancel
     },
     {
+      customCssClass:'btn btn-warning btn-sm',
       action: MyTableActionEnum.EDIT,
       rowAction:true,
       text:"Change Booking",

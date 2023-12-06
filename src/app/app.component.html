@@ -3,9 +3,11 @@
 
 <div *ngIf = "user !== null && user!== undefined">
 
-    <h3>
-      <div *ngIf="message !==undefined ">{{message}}</div>
-    </h3>
+  <h3>
+    <div *ngIf="message !==undefined ">{{message}}</div>
+  </h3>
+
+
     <app-navigation-bar [userBarConfig] = "getNavConfig()" [profilePic]="''" [id] = "userId" (logOut)="quitSession($event)" ></app-navigation-bar>
 
   <router-outlet></router-outlet>

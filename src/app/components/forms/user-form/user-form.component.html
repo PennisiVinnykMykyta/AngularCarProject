@@ -1,36 +1,36 @@
 <form #ngForm="ngForm" (ngSubmit)="updateUser()" >
   <tr>
     <label>Name:</label>
-    <input name="FirstName" id="name"  type="text" [(ngModel)] = "user.firstName">
+    <input class="form-control" name="FirstName" id="name"  type="text" [(ngModel)] = "user.firstName">
   </tr>
 
   <tr>
     <label>Surname:</label>
-    <input name="LastName" id="lastName"  type="text" [(ngModel)] = "user.lastName">
+    <input class="form-control" name="LastName" id="lastName"  type="text" [(ngModel)] = "user.lastName">
   </tr>
 
   <tr>
     <label>Email:</label>
-    <input name="Email" id="email"  type="text" [(ngModel)] = "user.email">
+    <input class="form-control" name="Email" id="email"  type="text" [(ngModel)] = "user.email">
   </tr>
 
   <tr>
     <label>Password:</label>
-    <input name="Password" id="password"  type="text" [(ngModel)] = "user.password">
+    <input class="form-control" name="Password" id="password"  type="text" [(ngModel)] = "user.password">
   </tr>
 
   <tr>
     <label>Birthday:</label>
-    <input name="BirtDate" id="birthDate"  type="Date" [(ngModel)] = "user.birthDate">
+    <input class="form-control" name="BirtDate" id="birthDate"  type="Date" [(ngModel)] = "user.birthDate">
   </tr>
 
-  <app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit'}"></app-custom-button>
+  <app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit', customCssClass:'btn btn-secondary btn-sm'}"></app-custom-button>
 
 </form>
 
 <div>
 
-  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft}" (click)="back()"></app-custom-button>
+  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft, customCssClass:'btn btn-primary btn-sm'}" (click)="back()"></app-custom-button>
 
 </div>
 

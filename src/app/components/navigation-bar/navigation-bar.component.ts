@@ -18,15 +18,6 @@ export class NavigationBarComponent implements  OnInit{
    @Input() id!: number
    @Output() logOut: EventEmitter<boolean> = new EventEmitter<boolean>();
 
- /*
-
-deletePic(){
-    this.profilePic = 'https://icon-library.net/images/no-image-available-icon/no-image-available-icon-6.jpg' ;
-  }
-}
-
-   */
-
 
   ngOnInit() {
     this.getImage();
@@ -37,7 +28,6 @@ deletePic(){
    selectedFile!: File;
    retrievedImage: any;
    imageType!: string;
-   baseImageUrl: string = "https://icon-library.net/images/no-image-available-icon/no-image-available-icon-6.jpg"
 
    public onFileChanged(event: any){
      this.selectedFile = event.target.files[0];
@@ -73,7 +63,7 @@ deletePic(){
    }
 
   resizeImage(imageURL: any): Promise<any> {
-    return new Promise((resolve) => {
+    return new Promise((resolve):void  => {
       const image: HTMLImageElement = new Image();
       image.onload = function () : void {
         const canvas : HTMLCanvasElement = document.createElement('canvas');

@@ -15,18 +15,21 @@ export  class UserTableConfig{
       icon: faUserPlus
     },
     {
+      customCssClass:'btn btn-danger btn-sm',
       action: MyTableActionEnum.DELETE,
       rowAction:true,
       text:"Delete User",
       icon: faCancel
     },
     {
+      customCssClass:'btn btn-warning btn-sm',
       action: MyTableActionEnum.EDIT,
       rowAction: true,
       text: "Change User Info",
       icon: faUserGear
     },
     {
+      customCssClass:'btn btn-secondary btn-sm',
       action: MyTableActionEnum.UBOOKINGS,
       rowAction: true,
       text: "View User Bookings",
@@ -35,6 +38,7 @@ export  class UserTableConfig{
   ]
   userActions: MyActionEvent[] = [
     {
+      customCssClass:'btn btn-warning btn-sm',
       action: MyTableActionEnum.EDIT,
       rowAction: true,
       text: "Change User Info",

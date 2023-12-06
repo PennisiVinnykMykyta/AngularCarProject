@@ -4,15 +4,15 @@
   <!--dates selector-->
   <tr>
     <label>Start Date</label>
-    <input type="date" name="StartDate" [(ngModel)] = "book.startDate">
+    <input class="form-control" type="date" name="StartDate" [(ngModel)] = "book.startDate">
   </tr>
 
   <tr>
     <label>End Date</label>
-    <input type="date" name="EndDate" [(ngModel)] = "book.endDate">
+    <input class="form-control" type="date" name="EndDate" [(ngModel)] = "book.endDate">
   </tr>
 
-  <app-custom-button *ngIf = "book.startDate != undefined && book.endDate != undefined" [buttonConfig] = "{text:'Select'}" (click)="confirmDates()"></app-custom-button>
+  <app-custom-button *ngIf = "book.startDate != undefined && book.endDate != undefined" [buttonConfig] = "{text:'Select', customCssClass:'btn btn-secondary btn-sm'}" (click)="confirmDates()"></app-custom-button>
 </div>
 
 <!-- Cars Selection -->
@@ -21,12 +21,12 @@
 
   <app-custom-table  [tableConfig]="carTableConfig" [data]="availableCars" (getTableData)="clickAction($event)"></app-custom-table>
 
-  <app-custom-button [buttonConfig] = "{text: 'Select Other Dates'}" (click)="reselectDates()"></app-custom-button>
+  <app-custom-button [buttonConfig] = "{text: 'Select Other Dates', customCssClass:'btn btn-warning btn-sm'}" (click)="reselectDates()"></app-custom-button>
 
 </div>
 
 <div>
-  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft}" (click)="back()"></app-custom-button>
+  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft, customCssClass:'btn btn-primary btn-sm'}" (click)="back()"></app-custom-button>
 </div>
 
 

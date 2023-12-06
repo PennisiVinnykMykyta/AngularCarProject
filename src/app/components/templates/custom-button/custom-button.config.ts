@@ -10,20 +10,24 @@ export class CustomButtonConfig{
 }
 
 export const back: CustomButtonConfig = {
+  customCssClass: "btn btn-dark btn-sm",
   text: "Go Back",
   icon: faArrowAltCircleLeft
 }
 
 export  const cancel: CustomButtonConfig = {
+  customCssClass: "btn btn-warning btn-sm",
   text: "Cancel",
   icon: faCancel
 }
 
 export  const next: CustomButtonConfig = {
+  customCssClass: "btn btn-dark btn-sm",
   text: "Next",
   icon: faArrowRight
 }
 export  const previous: CustomButtonConfig = {
+  customCssClass: "btn btn-dark btn-sm",
   text: "Previous",
   icon: faArrowLeft
 }

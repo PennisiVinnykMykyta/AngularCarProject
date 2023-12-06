@@ -1,30 +1,30 @@
 <form #ngForm="ngForm" (ngSubmit)="clickAction()">
 <tr>
   <label>Brand:</label>
-  <input name = ">Brand" type="text" [(ngModel)] = "car.brand">
+  <input class="form-control" name = ">Brand" type="text" [(ngModel)] = "car.brand">
 </tr>
 
 <tr>
   <label>Model:</label>
-  <input name="Model"  type="text" [(ngModel)] = "car.model">
+  <input class="form-control" name="Model"  type="text" [(ngModel)] = "car.model">
 </tr>
 
 <tr>
   <label>Color:</label>
-  <input name="Color" type="text" [(ngModel)] = "car.color">
+  <input class="form-control" name="Color" type="text" [(ngModel)] = "car.color">
 </tr>
 
 <tr>
   <label>Plate Number:</label>
-  <input name="numberPlate" type="text" [(ngModel)] = "car.numberPlate">
+  <input class="form-control" name="numberPlate" type="text" [(ngModel)] = "car.numberPlate">
 </tr>
 
-<app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit'}"></app-custom-button>
+<app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit', customCssClass:'btn btn-secondary btn-sm'}"></app-custom-button>
 
 </form>
 
 
 <div>
-  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft}" (click)="clickAction('back')"></app-custom-button>
+  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft, customCssClass:'btn btn-primary btn-sm'}" (click)="clickAction('back')"></app-custom-button>
 
 </div>

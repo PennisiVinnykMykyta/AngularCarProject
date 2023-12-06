@@ -1,15 +1,21 @@
-<p>Please enter your email and  password to log in</p>
+<h3>
+  <p>Please enter your credentials to log in</p>
+</h3>
+
+<form>
 
 <tr>
   <label>Email:</label>
-  <input name="email" [(ngModel)]="email">
+  <input name="email" class="form-control" [(ngModel)]="email" placeholder="Enter your Email">
 </tr>
 <tr>
   <label>Password:</label>
-  <input name="password" [(ngModel)] = "password">
+  <input name="password" class="form-control" [(ngModel)] = "password" placeholder="Enter your password">
 </tr>
 
+</form>
+
 <div>
-  <app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit'}" (click)="verify()"></app-custom-button>
+  <app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit', customCssClass:'btn btn-primary btn-sm',}" (click)="verify()"></app-custom-button>
 </div>
 

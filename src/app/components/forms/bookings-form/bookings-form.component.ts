@@ -84,7 +84,9 @@ export class BookingsFormComponent implements  OnInit{
         ]
       },
       actions: [
-        { action: MyTableActionEnum.NEW_ROW,
+        {
+          customCssClass: "btn btn-primary btn-sm",
+          action: MyTableActionEnum.NEW_ROW,
           rowAction:true,
           text: "Book Car",
           icon:faPlus

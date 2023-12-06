@@ -51,8 +51,10 @@ export class CustomTableComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log(this.tableConfig.headers[0].key)
 
-    this.key = this.tableConfig.order.defaultColumn;      //need to initialize these variable on the start
+    this.filterKey=this.tableConfig.headers[0].key;
+    this.key = this.tableConfig.order.defaultColumn;
     this.orderType = this.tableConfig.order.orderType;
     this.currentPage = 1;
     this.pageItems = this.tableConfig.pagination.itemPerPage;

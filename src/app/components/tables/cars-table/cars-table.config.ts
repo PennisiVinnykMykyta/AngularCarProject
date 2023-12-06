@@ -15,12 +15,14 @@ export  class CarsTableConfig{
       icon: faPlus
     },
     {
+      customCssClass:'btn btn-danger btn-sm',
       action: MyTableActionEnum.DELETE,
       rowAction:true,
       text:"Delete Car",
       icon: faCancel
     },
     {
+      customCssClass:'btn btn-warning btn-sm',
       action: MyTableActionEnum.EDIT,
       rowAction: true,
       text: "Change Car Info",

@@ -1,4 +1,4 @@
-<button type="{{buttonConfig.type ? buttonConfig.type : 'text'}}" [ngClass] = "buttonConfig.customCssClass" [disabled]="!enabled" >
+<button type="{{buttonConfig.type ? buttonConfig.type : 'text'}}" class="{{buttonConfig.customCssClass}}" [ngClass] = "buttonConfig.customCssClass" [disabled]="!enabled" >
   <i *ngIf="buttonConfig.icon"><fa-icon [icon]=buttonConfig.icon></fa-icon></i>
   {{buttonConfig.text}}
 </button>
