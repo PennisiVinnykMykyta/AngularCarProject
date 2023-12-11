@@ -8,6 +8,8 @@ import {
   previous
 } from "../custom-button/custom-button.config";
 import * as _ from "lodash";
+import {MyActionEvent} from "./table-details/my-action-event";
+
 export interface TableEmit{
   obj: any;
   action: any;
@@ -20,6 +22,7 @@ export interface TableEmit{
 })
 export class CustomTableComponent implements OnInit {
   @Input() tableConfig!: CustomTableConfig;
+  @Input() dynamicActions?: MyActionEvent[];
 
   @Input() data!: any[];
 
@@ -51,7 +54,8 @@ export class CustomTableComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log(this.tableConfig.headers[0].key)
+
+    console.log(this.dynamicActions)
 
     this.filterKey=this.tableConfig.headers[0].key;
     this.key = this.tableConfig.order.defaultColumn;

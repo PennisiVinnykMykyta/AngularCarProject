@@ -22,14 +22,7 @@ export class BookingsTableConfig{
       rowAction:true,
       text:"Change Booking",
       icon: faGear
-    },
-    {
-      customCssClass:'btn btn-warning btn-sm',
-      action: MyTableActionEnum.APPROVE,
-      rowAction: true,
-      text: "Approve/Disapprove",
-      icon: faBookBookmark
-    },
+    }
   ]
 
   userBookActions: MyActionEvent[] = [

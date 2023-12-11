@@ -8,6 +8,8 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {BookingsTableConfig} from "./bookings-table.config";
 import {Roles} from "../../templates/dto-templates/roles";
 import {Observable} from "rxjs";
+import {MyActionEvent} from "../../templates/custom-table/table-details/my-action-event";
+import {faBookBookmark} from "@fortawesome/free-solid-svg-icons";
 
 
 @Injectable({
@@ -27,11 +29,29 @@ export class BookingsTableComponent implements  OnInit{
   book!: any;
   bookings!: BookingDisplayTemplate[];
   tableConfig!: CustomTableConfig;
+  dynamicActions: MyActionEvent[] =[];
+
+  TrueAction: MyActionEvent = {
+    customCssClass:'btn btn-warning btn-sm',
+    action: MyTableActionEnum.APPROVE,
+    rowAction: true,
+    text: "Disapprove",
+    icon: faBookBookmark
+  }
+  FalseAction: MyActionEvent = {
+    customCssClass:'btn btn-warning btn-sm',
+    action: MyTableActionEnum.APPROVE,
+    rowAction: true,
+    text: "Approve",
+    icon: faBookBookmark
+  }
+
 
 
   constructor(private bookingService: BookingsService, private bookTableConfig: BookingsTableConfig, private route:ActivatedRoute, private authService: AuthenticationService) {
   }
   ngOnInit() {
+
 
     this.userId = this.authService.getUserId()!;
     this.role = this.authService.getRole()!;
@@ -46,9 +66,11 @@ export class BookingsTableComponent implements  OnInit{
       this.tableConfig = this.bookTableConfig.tableConfigUser;
     }
 
+
   }
 
   setBookings(){
+    this.dynamicActions = [];
     let books: Observable<BookingDisplayTemplate[]>;
     let email: string | null = this.route.snapshot.paramMap.get('email');
 
@@ -60,7 +82,18 @@ export class BookingsTableComponent implements  OnInit{
       books = this.bookingService.getUserBookings(this.userId);
     }
 
-    books.subscribe(book => this.bookings = book);
+    books.subscribe(book => {
+      this.bookings = book;
+
+      for(let index: number = 0; index< this.bookings.length; index++){
+         if(this.bookings[index].valid){
+           this.dynamicActions.push(this.TrueAction)
+         }else{
+           this.dynamicActions.push(this.FalseAction)
+         }
+      }
+
+    });
     this.formRequest = false;
   }
 

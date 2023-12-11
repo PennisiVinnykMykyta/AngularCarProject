@@ -4,26 +4,32 @@
     <p>Search by</p>
   </h5>
 
-  <select *ngIf = "data.length > 1" [(ngModel)]="filterKey">
-    <option selected="selected" [ngValue]="tableConfig.headers[0].key">
-      {{tableConfig.headers[0].label}}
-    </option>
-    <option *ngFor="let column of tableConfig.headers  | slice:1:tableConfig.headers.length" [ngValue]="column.key">
-      {{column.label}}
-    </option>
-  </select>
+
+  <div class="row">
+    <select class="col-sm-2" *ngIf = "data.length > 1" [(ngModel)]="filterKey">
+      <option selected="selected" [ngValue]="tableConfig.headers[0].key">
+        {{tableConfig.headers[0].label}}
+      </option>
+      <option class="col-md-2" *ngFor="let column of tableConfig.headers  | slice:1:tableConfig.headers.length" [ngValue]="column.key">
+        {{column.label}}
+      </option>
+    </select>
+
+    <input class="col-md-1" *ngIf = "data.length > 1"  type="search" [(ngModel)]="filter" class="form-control w-25 p-2" placeholder="Search">
+  </div>
 
 
-  <input class="form-control w-25 p-2" *ngIf = "data.length > 1"  type="search" [(ngModel)]="filter" placeholder="Search">
+    <app-custom-button *ngIf = "data.length > 1 && filter!==undefined && filter !==''" [buttonConfig]="cancelButtonConfig" (click)="filter=undefined"></app-custom-button>
 
-  <app-custom-button *ngIf = "data.length > 1 && filter!==undefined" [buttonConfig]="cancelButtonConfig" (click)="filter=undefined"></app-custom-button>
 
 </div>
 
+<div style="float: right">
 <!--Add Button-->
 <ng-container *ngFor ="let action of tableConfig.actions">
   <app-custom-button *ngIf="!action.rowAction" [buttonConfig]="{text:action.text, icon:action.icon, customCssClass:'btn btn-primary btn-sm'}" (click)="actionMethod(null,action)"></app-custom-button>
 </ng-container>
+</div>
 
 <!-- Main Table -->
 <div *ngIf = "data == null">
@@ -50,13 +56,19 @@
   </thead>
 
   <tbody>
-  <tr *ngFor="let obj of data | searchingPipe : filter : filterKey | paginationPipe :currentPage :pageItems | sortingPipe : key : orderType">
+  <tr *ngFor="let obj of data | searchingPipe : filter : filterKey | paginationPipe :currentPage :pageItems | sortingPipe : key : orderType; let objIndex=index">
     <td *ngFor="let header of tableConfig.headers">
       {{getValue(obj,header.key)}}
     </td>
     <td >
       <span *ngFor =" let action of tableConfig.actions">
         <app-custom-button *ngIf =" action.rowAction" [buttonConfig] ="{text:action.text, icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
+      </span>
+
+      <span *ngIf="dynamicActions != undefined">
+        <span *ngFor="let action of dynamicActions | paginationPipe :currentPage :pageItems | slice: objIndex:objIndex+1">
+           <app-custom-button *ngIf =" action.rowAction" [buttonConfig] ="{text:action.text, icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
+        </span>
       </span>
     </td>
   </tr>

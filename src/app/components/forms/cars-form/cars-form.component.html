@@ -1,23 +1,31 @@
 <form #ngForm="ngForm" (ngSubmit)="clickAction()">
-<tr>
-  <label>Brand:</label>
-  <input class="form-control" name = ">Brand" type="text" [(ngModel)] = "car.brand">
-</tr>
+<div class="form-group row">
+  <label class="col-sm-1">Brand:</label>
+  <div class="col-sm-10">
+  <input class="form-control" name = ">Brand" type="text" [(ngModel)] = "car.brand" placeholder="Enter CarBrand">
+  </div>
+</div>
 
-<tr>
-  <label>Model:</label>
-  <input class="form-control" name="Model"  type="text" [(ngModel)] = "car.model">
-</tr>
+<div class="form-group row">
+  <label class="col-sm-1">Model:</label>
+  <div class="col-sm-10">
+  <input class="form-control" name="Model"  type="text" [(ngModel)] = "car.model" placeholder="Enter CarModel">
+  </div>
+</div>
 
-<tr>
-  <label>Color:</label>
-  <input class="form-control" name="Color" type="text" [(ngModel)] = "car.color">
-</tr>
+<div class="form-group row">
+  <label class="col-sm-1">Color:</label>
+  <div class="col-sm-10">
+  <input class="form-control" name="Color" type="text" [(ngModel)] = "car.color" placeholder="Enter CarColor">
+  </div>
+</div>
 
-<tr>
-  <label>Plate Number:</label>
-  <input class="form-control" name="numberPlate" type="text" [(ngModel)] = "car.numberPlate">
-</tr>
+<div class="form-group row">
+  <label class="col-sm-1">Plate Number:</label>
+  <div class="col-sm-10">
+  <input class="form-control" name="numberPlate" type="text" [(ngModel)] = "car.numberPlate" placeholder="Enter PlateNumber">
+  </div>
+</div>
 
 <app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit', customCssClass:'btn btn-secondary btn-sm'}"></app-custom-button>
 

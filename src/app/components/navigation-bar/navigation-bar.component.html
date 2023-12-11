@@ -4,14 +4,15 @@
   </div>
 </div>
 
+
 <div *ngIf = "addingOverlay" (mouseleave)="addingOverlay = false">
   <app-custom-button [buttonConfig] ="{text:'Select Your Profile Picture', customCssClass:'btn btn-primary btn-sm'}" (click)="openFile(fileInput)" ></app-custom-button>
   <input hidden="hidden" #fileInput type="file" (change) = "onFileChanged($event)" name="avatar" accept="image/*">
 </div>
 
-
 <span *ngFor = "let button of userBarConfig.buttonsConfig">
   <app-custom-button [buttonConfig] = "button" (click) = "clickAction(button.path!)"></app-custom-button>
 </span>
+
 
 
