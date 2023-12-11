@@ -7,14 +7,26 @@ export class SearchingPipe implements PipeTransform {
     if (data.length === 0 || !filter || !key){
       return data;
     }
+
     let filteredData: any[] = [];
-    console.log(filter,key,data);
-    for(let object of data){
-      if (object[key].toString().toLowerCase().includes(filter.toLowerCase())) {
-        filteredData.push(object);
+    let innerKey: string = key.substring(0,key.indexOf('.'));
+
+    if(innerKey === "user" || key === "car"){
+      let innerKeySpec: string = key.substring(key.indexOf('.')+1);
+      for(let object of data){
+        if (object[innerKey][innerKeySpec].toString().toLowerCase().includes(filter.toLowerCase())) {
+          filteredData.push(object);
+        }
+      }
+    }else{
+      for(let object of data){
+        if (object[key].toString().toLowerCase().includes(filter.toLowerCase())) {
+          filteredData.push(object);
+        }
       }
     }
-    console.log(filter,key,filteredData);
+
+
     return filteredData;
   }
 }

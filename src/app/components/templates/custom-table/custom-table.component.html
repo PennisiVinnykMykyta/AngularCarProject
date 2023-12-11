@@ -1,12 +1,11 @@
 <!-- SearchBar -->
 <div *ngIf = "data != null">
-  <h5>
-    <p>Search by</p>
-  </h5>
 
-
-  <div class="row">
-    <select class="col-sm-2" *ngIf = "data.length > 1" [(ngModel)]="filterKey">
+  <div *ngIf = "data.length > 1" class="row">
+    <h5>
+      <p>Search by</p>
+    </h5>
+    <select class="col-sm-2" [(ngModel)]="filterKey">
       <option selected="selected" [ngValue]="tableConfig.headers[0].key">
         {{tableConfig.headers[0].label}}
       </option>
@@ -62,14 +61,13 @@
     </td>
     <td >
       <span *ngFor =" let action of tableConfig.actions">
-        <app-custom-button *ngIf =" action.rowAction" [buttonConfig] ="{text:action.text, icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
+
+        <app-custom-button *ngIf =" action.rowAction && action.dynamicAction === undefined" [buttonConfig] ="{text:action.text, icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
+
+        <app-custom-button *ngIf =" action.rowAction && action.dynamicAction === true" [buttonConfig] ="{text:action.text, icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
+
       </span>
 
-      <span *ngIf="dynamicActions != undefined">
-        <span *ngFor="let action of dynamicActions | paginationPipe :currentPage :pageItems | slice: objIndex:objIndex+1">
-           <app-custom-button *ngIf =" action.rowAction" [buttonConfig] ="{text:action.text, icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
-        </span>
-      </span>
     </td>
   </tr>
   </tbody>

@@ -55,8 +55,6 @@ export class CustomTableComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(this.dynamicActions)
-
     this.filterKey=this.tableConfig.headers[0].key;
     this.key = this.tableConfig.order.defaultColumn;
     this.orderType = this.tableConfig.order.orderType;
@@ -73,7 +71,7 @@ export class CustomTableComponent implements OnInit {
 
 
 //table methods
-  sort(key: any) {
+  sort(key: any): void {
     if (key !== this.key || this.orderType == 'desc') {
       this.key = key
       this.orderType = 'asc'
@@ -115,7 +113,7 @@ export class CustomTableComponent implements OnInit {
   }
   }
 
-  setPage(number: number) {
+  setPage(number: number) : void {
 
     if(number <= this.totalPages.length && number >= 1){
       this.currentPage = number;
@@ -124,7 +122,7 @@ export class CustomTableComponent implements OnInit {
   }
 
   //metodo per muoversi avanti e indietro
-  movePage(moveForward: boolean) {
+  movePage(moveForward: boolean): void {
     if (moveForward && this.currentPage <= this.totalPages.length) {
       let nextPage = this.currentPage + 1;
       this.setPage(nextPage);
@@ -135,11 +133,11 @@ export class CustomTableComponent implements OnInit {
   }
 
   //metodo per ricavare gli Item
-  actionMethod(object : any | null,action: any){
+  actionMethod(object : any | null,action: any): void{
     this.getTableData.emit({obj:object,action:action});
   }
 
-  getValue(obj:any, str:any){
+  getValue(obj:any, str:any): any{
     return _.get(obj,str);
   }
 
