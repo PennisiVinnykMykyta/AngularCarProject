@@ -8,7 +8,6 @@ import {
   previous
 } from "../custom-button/custom-button.config";
 import * as _ from "lodash";
-import {MyActionEvent} from "./table-details/my-action-event";
 
 export interface TableEmit{
   obj: any;
@@ -22,7 +21,6 @@ export interface TableEmit{
 })
 export class CustomTableComponent implements OnInit {
   @Input() tableConfig!: CustomTableConfig;
-  @Input() dynamicActions?: MyActionEvent[];
 
   @Input() data!: any[];
 
@@ -138,6 +136,7 @@ export class CustomTableComponent implements OnInit {
   }
 
   getValue(obj:any, str:any): any{
+
     return _.get(obj,str);
   }
 

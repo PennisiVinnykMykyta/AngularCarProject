@@ -7,4 +7,7 @@ export class MyActionEvent{
   rowAction?: boolean;
   text?: string;
   icon?: IconDefinition;
+  dynamicAction?: boolean;
+  dynamicText? (val: boolean) : string;
+
 }

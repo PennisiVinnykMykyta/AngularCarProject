@@ -29,23 +29,6 @@ export class BookingsTableComponent implements  OnInit{
   book!: any;
   bookings!: BookingDisplayTemplate[];
   tableConfig!: CustomTableConfig;
-  dynamicActions: MyActionEvent[] =[];
-
-  TrueAction: MyActionEvent = {
-    customCssClass:'btn btn-warning btn-sm',
-    action: MyTableActionEnum.APPROVE,
-    rowAction: true,
-    text: "Disapprove",
-    icon: faBookBookmark
-  }
-  FalseAction: MyActionEvent = {
-    customCssClass:'btn btn-warning btn-sm',
-    action: MyTableActionEnum.APPROVE,
-    rowAction: true,
-    text: "Approve",
-    icon: faBookBookmark
-  }
-
 
 
   constructor(private bookingService: BookingsService, private bookTableConfig: BookingsTableConfig, private route:ActivatedRoute, private authService: AuthenticationService) {
@@ -69,8 +52,7 @@ export class BookingsTableComponent implements  OnInit{
 
   }
 
-  setBookings(){
-    this.dynamicActions = [];
+  setBookings(): void{
     let books: Observable<BookingDisplayTemplate[]>;
     let email: string | null = this.route.snapshot.paramMap.get('email');
 
@@ -84,14 +66,6 @@ export class BookingsTableComponent implements  OnInit{
 
     books.subscribe(book => {
       this.bookings = book;
-
-      for(let index: number = 0; index< this.bookings.length; index++){
-         if(this.bookings[index].valid){
-           this.dynamicActions.push(this.TrueAction)
-         }else{
-           this.dynamicActions.push(this.FalseAction)
-         }
-      }
 
     });
     this.formRequest = false;
