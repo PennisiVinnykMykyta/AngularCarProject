@@ -8,8 +8,6 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {BookingsTableConfig} from "./bookings-table.config";
 import {Roles} from "../../templates/dto-templates/roles";
 import {Observable} from "rxjs";
-import {MyActionEvent} from "../../templates/custom-table/table-details/my-action-event";
-import {faBookBookmark} from "@fortawesome/free-solid-svg-icons";
 
 
 @Injectable({
@@ -85,7 +83,10 @@ export class BookingsTableComponent implements  OnInit{
         this.book = $event.obj
         break;
       case MyTableActionEnum.APPROVE:
-        this.bookingService.validateOrDecline($event.obj.id).subscribe(() => this.setBookings());
+        this.bookingService.acceptBooking($event.obj.id).subscribe(() => this.setBookings());
+        break;
+      case MyTableActionEnum.DISAPPROVE:
+        this.bookingService.declineBooking($event.obj.id).subscribe(() => this.setBookings());
     }
   }
 

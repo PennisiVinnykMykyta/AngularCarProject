@@ -7,5 +7,5 @@ export class BookingDisplayTemplate {
   car!: CarTemplate;
   startDate!: Date;
   endDate!: Date;
-  valid!: boolean;
+  bookState!: string;
 }

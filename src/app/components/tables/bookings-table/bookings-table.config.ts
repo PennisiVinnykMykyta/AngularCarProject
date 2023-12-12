@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {MyActionEvent} from "../../templates/custom-table/table-details/my-action-event";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
-import {faBookBookmark, faCancel, faGear, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faCancel, faCheck, faGear, faPlus, faX} from "@fortawesome/free-solid-svg-icons";
 
 @Injectable({
   providedIn: 'root'
@@ -27,15 +27,18 @@ export class BookingsTableConfig{
       customCssClass: 'btn btn-warning btn-sm',
       action: MyTableActionEnum.APPROVE,
       rowAction: true,
-      icon: faBookBookmark,
-      dynamicAction: true,
-      dynamicText(val: boolean): string{
-        if(val){
-        return "Disapprove"
-        }
-        return "Approve"
-      }
+      text: 'Approve',
+      icon: faCheck,
+      dynamicAction: true
     },
+    {
+      customCssClass: 'btn btn-warning btn-sm',
+      action: MyTableActionEnum.DISAPPROVE,
+      rowAction: true,
+      text: 'Disapprove',
+      icon: faX,
+      dynamicAction: true
+    }
 
   ]
 
@@ -73,7 +76,7 @@ export class BookingsTableConfig{
       {key: "car.color", label: "Car Color"},
       {key: "startDate", label: "Start Date"},
       {key: "endDate", label: "End Date"},
-      {key: "valid", label: "Approval"}
+      {key: "bookState", label: "Approval"}
     ],
     order: {
       orderType: "desc",
@@ -100,7 +103,7 @@ export class BookingsTableConfig{
       {key: "car.color", label: "Car Color"},
       {key: "startDate", label: "Start Date"},
       {key: "endDate", label: "End Date"},
-      {key: "valid", label: "Approval"}
+      {key: "bookState", label: "Approval"}
     ],
     order: {
       orderType: "desc",

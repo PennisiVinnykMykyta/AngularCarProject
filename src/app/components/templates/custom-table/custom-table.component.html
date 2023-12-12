@@ -64,7 +64,7 @@
 
         <app-custom-button *ngIf =" action.rowAction && action.dynamicAction === undefined" [buttonConfig] ="{text:action.text, icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
 
-        <app-custom-button *ngIf =" action.rowAction && action.dynamicAction === true && obj.valid !== undefined" [buttonConfig] ="{text:action.dynamicText!(obj.valid), icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
+        <app-custom-button *ngIf =" action.rowAction  && action.dynamicAction && obj.bookState !== undefined && obj.bookState === 'STANDBY'"  [buttonConfig] ="{text:action.text, icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
 
       </span>
 

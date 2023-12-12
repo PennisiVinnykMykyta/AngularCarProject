@@ -23,8 +23,12 @@ export class BookingsService {
     return this.http.delete(`http://localhost:8080/api/booking/delete/${id}`);
   }
 
-  validateOrDecline(bookId: number): Observable<any>{
-    return this.http.post(`http://localhost:8080/api/booking/accept-or-decline`,bookId);
+  acceptBooking(bookId: number): Observable<any>{
+    return this.http.post(`http://localhost:8080/api/booking/accept`,bookId);
+  }
+
+  declineBooking(bookId: number): Observable<any>{
+    return this.http.post(`http://localhost:8080/api/booking/decline`,bookId);
   }
 
   addOrUpdateBooking(book: BookingRequestTemplate): Observable<any> {
