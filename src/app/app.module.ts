@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { CustomTableComponent } from './components/templates/custom-table/custom-table.component';
@@ -49,6 +49,8 @@ import {InterceptorService} from "./components/services/interceptor.service";
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
+    ReactiveFormsModule,
+
   ],
   providers: [AuthenticationService,
     {

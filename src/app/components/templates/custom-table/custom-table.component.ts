@@ -32,10 +32,13 @@ export class CustomTableComponent implements OnInit {
   orderType!: string;
   filter?: string;
   filterKey?: string;
+  categoryFilterKey?: string;
+  categoryFilter?: string;
   pageItems!: number;
   currentPage!: number;
   totalPages!: number[];
   pages!: number[];
+  noCategoryFilterMatch: boolean = false;
 
   //table icons
   faArrowUp = faArrowUp;
@@ -46,6 +49,16 @@ export class CustomTableComponent implements OnInit {
   nextButtonConfig: CustomButtonConfig = next;
   previousButtonConfig: CustomButtonConfig = previous;
 
+  categoryFilterKeyCheck(filterValue: string){
+    for(let header of this.tableConfig.headers){
+      if(this.categoryFilterKey === header.label){
+        this.categoryFilter = this.categoryFilterKey
+        return this.noCategoryFilterMatch = true;
+      }
+    }
+    this.categoryFilter = '';
+    return this.noCategoryFilterMatch = false;
+  }
 
   constructor() {
   }
@@ -53,6 +66,8 @@ export class CustomTableComponent implements OnInit {
 
   ngOnInit() {
 
+
+    this.categoryFilterKey = ''
     this.filterKey=this.tableConfig.headers[0].key;
     this.key = this.tableConfig.order.defaultColumn;
     this.orderType = this.tableConfig.order.orderType;
@@ -139,5 +154,6 @@ export class CustomTableComponent implements OnInit {
 
     return _.get(obj,str);
   }
+
 
 }
