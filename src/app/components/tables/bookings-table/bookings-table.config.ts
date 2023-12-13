@@ -39,7 +39,6 @@ export class BookingsTableConfig{
       icon: faX,
       dynamicAction: true
     }
-
   ]
 
   userBookActions: MyActionEvent[] = [

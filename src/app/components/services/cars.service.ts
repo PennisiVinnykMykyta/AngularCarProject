@@ -27,4 +27,11 @@ export class CarsService {
     return this.http.post(`http://localhost:8080/api/car/add-or-update`,car);
   }
 
+  addCategory(category : string): Observable<any>{
+    return this.http.post(`http://localhost:8080/api/user/category/add`,category)
+  }
+  deleteCategory(category : string): Observable<any>{
+    return this.http.delete(`http://localhost:8080/api/user/category/delete/${category}`)
+  }
+
 }

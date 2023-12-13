@@ -11,8 +11,8 @@
     </option>
   </datalist>
 
-  <app-custom-button *ngIf = "categoryFilterKey !== '' && categoryFilterKey !== undefined && !noCategoryFilterMatch " [buttonConfig]="{text:'Add New Category'}" (click)="filter=undefined"></app-custom-button>
-  <app-custom-button *ngIf = "categoryFilterKey !== '' && categoryFilterKey !== undefined && noCategoryFilterMatch " [buttonConfig]="{text:'Delete Category'}" (click)="filter=undefined"></app-custom-button>
+  <app-custom-button *ngIf = "categoryFilterKey !== '' && categoryFilterKey !== undefined && !noCategoryFilterMatch && tableConfig.addCategoryAction!==undefined" [buttonConfig]="{text:'Add New Category'}" (click)="actionMethod(categoryFilterKey,tableConfig.addCategoryAction)"></app-custom-button>
+  <app-custom-button *ngIf = "categoryFilterKey !== '' && categoryFilterKey !== undefined && noCategoryFilterMatch && tableConfig.deleteCategoryAction!==undefined" [buttonConfig]="{text:'Delete Category'}" (click)="actionMethod(categoryFilter,tableConfig.deleteCategoryAction)"></app-custom-button>
 
 
 </div>

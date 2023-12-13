@@ -8,4 +8,8 @@ export class  CustomTableConfig{
   order!: MyOrder;
   pagination!: MyPagination;
   actions!: MyActionEvent[];
+
+  addCategoryAction?: MyActionEvent;
+  deleteCategoryAction?: MyActionEvent;
+
 }

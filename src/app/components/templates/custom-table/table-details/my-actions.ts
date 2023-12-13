@@ -4,5 +4,7 @@ export enum MyTableActionEnum{
  DELETE = "Delete",
  UBOOKINGS = "UserBookings",
  APPROVE = "Approve",
- DISAPPROVE = "Disapprove"
+ DISAPPROVE = "Disapprove",
+ NEW_CATEGORY = "AddCategory",
+ DELETE_CATEGORY = "DeleteCategory"
 }

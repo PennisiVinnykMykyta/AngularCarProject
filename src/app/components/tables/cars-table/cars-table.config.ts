@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-actions";
 import {faCancel, faCarSide, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {MyActionEvent} from "../../templates/custom-table/table-details/my-action-event";
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,14 @@ export  class CarsTableConfig{
       rowAction: true,
       text: "Change Car Info",
       icon: faCarSide
+    },
+    {
+      action: MyTableActionEnum.NEW_CATEGORY,
+      rowAction: false
+    },
+    {
+      action: MyTableActionEnum.DELETE_CATEGORY,
+      rowAction: false
     }
   ]
 

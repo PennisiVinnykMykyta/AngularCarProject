@@ -147,6 +147,7 @@ export class CustomTableComponent implements OnInit {
 
   //metodo per ricavare gli Item
   actionMethod(object : any | null,action: any): void{
+    this.filter = undefined;
     this.getTableData.emit({obj:object,action:action});
   }
 

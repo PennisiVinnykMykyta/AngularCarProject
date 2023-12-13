@@ -30,6 +30,12 @@ export class CarsTableComponent implements OnInit{
     }
 
     this.tableConfig = this.carTableConfig.tableConfig;
+    this.tableConfig.addCategoryAction = {
+      action: MyTableActionEnum.NEW_CATEGORY,
+    }
+    this.tableConfig.deleteCategoryAction ={
+      action: MyTableActionEnum.DELETE_CATEGORY,
+    }
   }
 
   setCars(){
@@ -53,6 +59,14 @@ export class CarsTableComponent implements OnInit{
       case MyTableActionEnum.EDIT:
         this.formRequest = true;
         this.car = $event.obj
+        break;
+      case MyTableActionEnum.NEW_CATEGORY:
+        console.log("New Category Added with Name "+ $event.obj)
+        //this.carService.addCategory($event.obj).subscribe(() => this.setCars())
+        break;
+      case MyTableActionEnum.DELETE_CATEGORY:
+        console.log("Category Deleted "+ $event.obj)
+        //this.carService.deleteCategory($event.obj).subscribe(() => this.setCars())
         break;
     }
   }

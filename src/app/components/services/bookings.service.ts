@@ -34,5 +34,12 @@ export class BookingsService {
   addOrUpdateBooking(book: BookingRequestTemplate): Observable<any> {
     return this.http.post(`http://localhost:8080/api/booking/add-or-update`,book);
   }
+  addCategory(category : string): Observable<any>{
+    return this.http.post(`http://localhost:8080/api/user/category/add`,category)
+  }
+  deleteCategory(category : string): Observable<any>{
+    return this.http.delete(`http://localhost:8080/api/user/category/delete/${category}`)
+  }
+
 
 }

@@ -36,4 +36,11 @@ export class UserService {
     return this.http.get<any>(`http://localhost:8080/api/user/profile-pic/download/${userId}`);
   }
 
+  addCategory(category : string): Observable<any>{
+    return this.http.post(`http://localhost:8080/api/user/category/add`,category)
+  }
+  deleteCategory(category : string): Observable<any>{
+    return this.http.delete(`http://localhost:8080/api/user/category/delete/${category}`)
+  }
+
 }
