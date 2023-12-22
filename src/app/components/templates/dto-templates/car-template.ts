@@ -4,4 +4,6 @@ export class CarTemplate{
   brand!: string;
   numberPlate!: string;
   color!: string;
+  image!: string;
+  imageType!: string;
 }

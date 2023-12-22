@@ -1,0 +1,38 @@
+<span *ngIf="categories === undefined">
+<form #ngForm="ngForm" (ngSubmit)="clickAction('add')">
+  <div class="form-group row">
+    <label class="col-sm-1">Label:</label>
+    <div class="col-sm-10">
+      <input class="form-control" name = "Label" type="text" [(ngModel)] = "label" placeholder="Enter Category Label">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-1">Attribute:</label>
+    <div class="col-sm-10">
+      <input class="form-control" name="Attribute"  type="text" [(ngModel)] = "attribute" placeholder="Set Default Attribute">
+    </div>
+  </div>
+
+  <app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit', customCssClass:'btn btn-secondary btn-sm'}"></app-custom-button>
+
+</form>
+</span>
+
+<span *ngIf="categories !== undefined">
+  <input class="col-md-1" type="search" [(ngModel)]="label" list="categoryList" class="form-control w-25 p-2" placeholder="Select Category to Delete">
+  <datalist id="categoryList">
+    <option *ngFor="let obj of categories">
+      {{obj.label}}
+    </option>
+  </datalist>
+
+
+  <app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit', customCssClass:'btn btn-secondary btn-sm'}" (click)="clickAction('delete')"></app-custom-button>
+
+</span>
+
+<div>
+  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft, customCssClass:'btn btn-primary btn-sm'}" (click)="clickAction('back')"></app-custom-button>
+
+</div>

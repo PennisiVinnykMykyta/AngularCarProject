@@ -1,0 +1,24 @@
+<div *ngIf ="!attributeSet">
+  <h2>Set the {{label}} </h2>
+
+  <tr>
+    <label>{{label}}</label>
+    <input class="form-control" type="text" name="attribute" [(ngModel)] = "attribute" placeholder="{{label}}">
+  </tr>
+
+  <app-custom-button *ngIf = "attribute !== undefined" [buttonConfig] = "{text:'Confirm current Info', customCssClass:'btn btn-secondary btn-sm'}" (click)="confirmLabel()"></app-custom-button>
+</div>
+
+<div *ngIf="attributeSet && cars!=undefined" >
+  <h2>Please Select Car to include in this Category</h2>
+
+  <app-custom-table  [tableConfig]="carTableConfig" [data]="cars" (getTableData)="clickAction($event)"></app-custom-table>
+
+  <app-custom-button [buttonConfig] = "{text: 'Change Confirmed Info', customCssClass:'btn btn-warning btn-sm'}" (click)="confirmLabel()"></app-custom-button>
+
+
+</div>
+
+<div>
+  <app-custom-button [buttonConfig] = "{text:'Go Back', icon:faArrowAltCircleLeft, customCssClass:'btn btn-primary btn-sm'}" (click)="back()"></app-custom-button>
+</div>
