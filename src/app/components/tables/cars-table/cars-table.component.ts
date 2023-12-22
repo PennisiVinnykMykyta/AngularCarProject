@@ -4,6 +4,8 @@ import {MyTableActionEnum} from "../../templates/custom-table/table-details/my-a
 import {CustomTableConfig} from "../../templates/custom-table/custom-table.config";
 import {CarTemplate} from "../../templates/dto-templates/car-template";
 import {CarsTableConfig} from "./cars-table.config";
+import {CategoryTemplate} from "../../templates/dto-templates/category-template";
+import {CarCategoryDisplayTemplate} from "../../templates/dto-templates/car-category-display-template";
 
 
 @Injectable({
@@ -21,32 +23,48 @@ export class CarsTableComponent implements OnInit{
   tableConfig!: CustomTableConfig;
   cars!: CarTemplate[];
   formRequest!: boolean;
+  categoryFormRequest!: boolean;
+  carCategoryFormRequest!: boolean;
+  categoryLabel?: string;
+  categories?: CategoryTemplate[];
+  carCategories!: CarCategoryDisplayTemplate[];
+
+  labels?: string[];
+  attributes?: string[];
   constructor(private carService:CarsService, private carTableConfig: CarsTableConfig) {
   }
   ngOnInit() {
     this.formRequest = false;
+    this.categoryFormRequest = false;
     if(this.cars === undefined){
       this.setCars();
     }
 
     this.tableConfig = this.carTableConfig.tableConfig;
-    this.tableConfig.addCategoryAction = {
-      action: MyTableActionEnum.NEW_CATEGORY,
-    }
-    this.tableConfig.deleteCategoryAction ={
-      action: MyTableActionEnum.DELETE_CATEGORY,
-    }
+
   }
 
-  setCars(){
+  setCars():void{
     this.carService.getAllCars().subscribe(cars => {
         this.cars = cars;
         this.formRequest = false;
+        this.categoryFormRequest = false;
+        this.carCategoryFormRequest = false;
+        this.carService.getAllCategories().subscribe(categories => {
+          this.labels = [];
+          this.attributes = [];
+          for(let index=0; index<categories.length; index++){
+           if(!this.labels?.find(e => e === categories[index].label)){
+              this.labels?.push(categories[index].label);
+            }
+            this.attributes?.push(categories[index].attribute)
+          }
+        })
       }
     );
   }
 
-  clickAction($event: { obj: any; action: any }) {
+  clickAction($event: { obj: any; action: any }):void {
     switch ($event.action.action) {
       case MyTableActionEnum.NEW_ROW:
         this.formRequest = true;
@@ -59,18 +77,41 @@ export class CarsTableComponent implements OnInit{
       case MyTableActionEnum.EDIT:
         this.formRequest = true;
         this.car = $event.obj
+        this.carService.getCategoriesOfCar(this.car.id).subscribe( list => this.categories = list)
         break;
       case MyTableActionEnum.NEW_CATEGORY:
-        console.log("New Category Added with Name "+ $event.obj)
-        //this.carService.addCategory($event.obj).subscribe(() => this.setCars())
+        this.categories = undefined;
+        this.categoryFormRequest = true;
         break;
       case MyTableActionEnum.DELETE_CATEGORY:
-        console.log("Category Deleted "+ $event.obj)
-        //this.carService.deleteCategory($event.obj).subscribe(() => this.setCars())
+        this.categoryFormRequest = true;
+        this.carService.getAllCategories().subscribe(list =>{
+          this.categories = list;
+        })
+        break;
+      case MyTableActionEnum.NEW_CAR_CATEGORY:
+        console.log($event.obj)
+        this.carCategoryFormRequest = true;
+        this.categoryLabel = $event.obj;
+        break;
+      case MyTableActionEnum.DELETE_CAR_CATEGORY:
+        this.carService.deleteCarCategory($event.obj.id).subscribe(()=>this.setCars())
         break;
     }
   }
-  setRequest($event: boolean) {
+
+  uploadImage(event: { data:any, id:number }):void {
+    const uploadImageData: FormData = new FormData();
+
+    uploadImageData.append('imageFile',event.data, event.data.name);
+
+    this.carService.uploadCarPic(uploadImageData,event.id).subscribe(() =>{
+      this.setCars();
+    });
+
+  }
+
+  setRequest($event: boolean):void {
     if($event){
       this.setCars();
     }

@@ -34,14 +34,6 @@ export  class UserTableConfig{
       rowAction: true,
       text: "View User Bookings",
       icon: faBook
-    },
-    {
-      action: MyTableActionEnum.NEW_CATEGORY,
-      rowAction: false
-    },
-    {
-      action: MyTableActionEnum.DELETE_CATEGORY,
-      rowAction: false
     }
   ]
   userActions: MyActionEvent[] = [

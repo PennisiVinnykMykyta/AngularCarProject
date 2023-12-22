@@ -1,19 +1,31 @@
 <!-- Categories SearchBar -->
-<div *ngIf = "data != null && data != undefined">
+<div *ngIf = "data != null && data != undefined && categories !== undefined"> <!-- display If table config has categories-->
   <h5>
-    <p>Select specific column</p>
+    <p>Search by Car Attributes</p>
   </h5>
 
-  <input class="col-md-1" type="search" [(ngModel)]="categoryFilterKey" list="categoryList" (change)="categoryFilterKeyCheck(categoryFilterKey!)" class="form-control w-25 p-2" placeholder="Search Category">
-  <datalist id="categoryList">
-    <option *ngFor="let header of tableConfig.headers">
-      {{header.label}}
+  <select class="col-sm-2" [(ngModel)]="filterKey">
+    <option selected="selected" [ngValue]="categories[0].attribute">
+      {{categories[0].label}}
+    </option>
+    <option class="col-md-2" *ngFor="let column of categories  | slice:1:tableConfig.headers.length" [ngValue]="column.attribute">
+      {{column.label}}
+    </option>
+  </select>
+
+<!-- [(ngModel)]="categoryFilterKey" (change)="categoryFilterKeyCheck(categoryFilterKey!)" -->
+  <input class="col-md-1" type="search" list="categoryList" [(ngModel)]="filter" class="form-control w-25 p-2" placeholder="Search Category">
+  <datalist id="categoryList"> <!-- invece di prendere i header prenderemo le catgorie -->
+    <option *ngFor="let obj of categories">
+      {{obj.attribute}}
     </option>
   </datalist>
 
+  <app-custom-button *ngIf = "data.length > 1 && filter!==undefined && filter !==''" [buttonConfig]="cancelButtonConfig" (click)="filter=undefined"></app-custom-button>
+
+
   <app-custom-button *ngIf = "categoryFilterKey !== '' && categoryFilterKey !== undefined && !noCategoryFilterMatch && tableConfig.addCategoryAction!==undefined" [buttonConfig]="{text:'Add New Category'}" (click)="actionMethod(categoryFilterKey,tableConfig.addCategoryAction)"></app-custom-button>
   <app-custom-button *ngIf = "categoryFilterKey !== '' && categoryFilterKey !== undefined && noCategoryFilterMatch && tableConfig.deleteCategoryAction!==undefined" [buttonConfig]="{text:'Delete Category'}" (click)="actionMethod(categoryFilter,tableConfig.deleteCategoryAction)"></app-custom-button>
-
 
 </div>
 
@@ -45,8 +57,15 @@
 <div style="float: right" *ngIf="categoryFilter === undefined || categoryFilter === ''">
 
 <ng-container *ngFor ="let action of tableConfig.actions">
-  <app-custom-button *ngIf="!action.rowAction" [buttonConfig]="{text:action.text, icon:action.icon, customCssClass:'btn btn-primary btn-sm'}" (click)="actionMethod(null,action)"></app-custom-button>
+  <app-custom-button *ngIf="action.rowAction !== undefined && action.rowAction!==true && action.dynamicAction !== true" [buttonConfig]="{text:action.text, icon:action.icon, customCssClass:'btn btn-primary btn-sm'}" (click)="actionMethod(null,action)"></app-custom-button>
 </ng-container>
+</div>
+
+<div style="float: right" *ngIf="categoryFilter !== undefined && categoryFilter !== ''">
+
+  <ng-container *ngFor ="let action of tableConfig.actions">
+    <app-custom-button *ngIf="action.rowAction !== undefined && action.rowAction!==true && action.dynamicAction === true" [buttonConfig]="{text:action.text, icon:action.icon, customCssClass:'btn btn-primary btn-sm'}" (click)="actionMethod(categoryFilter,action)"></app-custom-button>
+  </ng-container>
 </div>
 
 <!-- Main Table Empty-->
@@ -54,100 +73,62 @@
  <h3>The table is Empty</h3>
 </div>
 
-<!-- Main Table Based on Category-->
-<div *ngIf = "data != null && data != undefined && categoryFilter !== undefined && categoryFilter !== '' && noCategoryFilterMatch">
-  <table class="table table-striped table-light table-bordered">
-    <thead class="table-dark">
-    <tr>
-      <th scope="col">
-        {{categoryFilterKey}}
-        <i *ngIf="orderType === 'asc' && data.length>1">
-          <fa-icon [icon]="faArrowUp "></fa-icon>
-        </i>
-        <i *ngIf="orderType === 'desc' && data.length>1">
-          <fa-icon [icon]="faArrowDown"></fa-icon>
-        </i>
-      </th>
-      <th scope="col" *ngIf = "tableConfig.actions && tableConfig.actions.length>0">
-        opzioni
-      </th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr *ngFor="let obj of data | paginationPipe :currentPage :pageItems | sortingPipe : key : orderType">
-      <td>
-         <div *ngFor="let header of tableConfig.headers">
-          <span *ngIf="header.label === categoryFilter">
-            {{getValue(obj,header.key)}}
-          </span>
-         </div>
-      </td>
-      <td >
-      <span *ngFor =" let action of tableConfig.actions">
-
-        <!-- Generic table Buttons -->
-        <app-custom-button *ngIf =" action.rowAction && action.dynamicAction === undefined" [buttonConfig] ="{text:action.text, icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
-
-        <!--Dynamic table Buttons-->
-        <app-custom-button *ngIf =" action.rowAction  && action.dynamicAction && obj.bookState !== undefined && obj.bookState === 'STANDBY'"  [buttonConfig] ="{text:action.text, icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
-
-      </span>
-
-      </td>
-
-    </tr>
-
-    </tbody>
-  </table>
-  <app-custom-button *ngIf = "data.length > 1 && totalPages.length>1 && currentPage!=1" style="padding-right: 10px" [buttonConfig]="previousButtonConfig" (click)="movePage(false)"></app-custom-button>
-
-  <!-- Range of Pages -->
-
-  <app-custom-button *ngIf = "data.length >1 && totalPages.length>1" style="padding-right: 10px" [buttonConfig]="{text:'1', customCssClass:'btn btn-dark btn-sm'}"  (click)="setPage(1)" [enabled]="1 !== currentPage" ></app-custom-button>
-  <ng-container *ngIf="currentPage>3">...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ng-container>
-
-  <ng-container  *ngFor="let page of pages" >
-
-    <app-custom-button *ngIf = "data.length >1 && totalPages.length>1" style="padding-right: 10px" [buttonConfig]="{text:page.toString(), customCssClass:'btn btn-dark btn-sm'}"  (click)="setPage(page)" [enabled]="page !== currentPage" ></app-custom-button>
-
-  </ng-container>
-
-  <ng-container *ngIf="currentPage<totalPages.length-2">...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ng-container>
-
-  <app-custom-button *ngIf = "data.length >1 && totalPages.length>1" style="padding-right: 10px" [buttonConfig]="{text:totalPages.length.toString(), customCssClass:'btn btn-dark btn-sm'}"  (click)="setPage(totalPages.length)" [enabled]="totalPages.length !== currentPage" ></app-custom-button>
-
-
-  <!-- Next Page -->
-  <app-custom-button *ngIf = "data.length > 1 && totalPages.length>1 && currentPage!=totalPages.length" [buttonConfig]="nextButtonConfig" (click)="movePage(true)"></app-custom-button>
-
-
-</div>
-
 <!-- Main Table Default-->
-<div *ngIf = "data != null && data != undefined && categoryFilter === undefined || categoryFilter === ''">
+<div *ngIf = "data != null && data != undefined">
 <table class="table table-striped table-light table-bordered">
+  <!--Headers-->
   <thead class="table-dark">
-   <tr>
-    <th scope="col" *ngFor="let header of tableConfig.headers" (click)="sort(header.key)">
+   <tr *ngIf="categoryFilter === undefined || categoryFilter === ''">
+
+       <th *ngFor="let header of tableConfig.headers" (click)="sort(header.key)">
       {{header.label}}
-      <i *ngIf="orderType === 'asc' && data.length>1">
-        <fa-icon [icon]="faArrowUp "></fa-icon>
-      </i>
-      <i *ngIf="orderType === 'desc' && data.length>1">
-        <fa-icon [icon]="faArrowDown"></fa-icon>
-      </i>
-    </th>
-    <th scope="col" *ngIf = "tableConfig.actions && tableConfig.actions.length>0">
-      opzioni
-    </th>
+         <i *ngIf="orderType === 'asc' && data.length>1">
+           <fa-icon [icon]="faArrowUp "></fa-icon>
+         </i>
+         <i *ngIf="orderType === 'desc' && data.length>1">
+           <fa-icon [icon]="faArrowDown"></fa-icon>
+         </i>
+      </th>
+
+     <th scope="col" *ngIf = "tableConfig.actions && tableConfig.actions.length>0">
+       opzioni
+     </th>
+   </tr>
+
+   <tr *ngIf="categoryFilter !== undefined && categoryFilter !== ''">
+     <th (click)="sort(categoryValue)">
+      {{categoryFilterKey}}
+         <i *ngIf="orderType === 'asc' && data.length>1">
+           <fa-icon [icon]="faArrowUp "></fa-icon>
+         </i>
+         <i *ngIf="orderType === 'desc' && data.length>1">
+           <fa-icon [icon]="faArrowDown"></fa-icon>
+         </i>
+     </th>
+     <th scope="col" *ngIf = "tableConfig.actions && tableConfig.actions.length>0">
+       opzioni
+     </th>
    </tr>
   </thead>
 
-  <tbody>
+  <!--Table Body-->
+  <tbody *ngIf="categoryFilter === undefined || categoryFilter === ''">
+
   <tr *ngFor="let obj of data | searchingPipe : filter : filterKey | paginationPipe :currentPage :pageItems | sortingPipe : key : orderType; let objIndex=index">
     <td *ngFor="let header of tableConfig.headers">
-      {{getValue(obj,header.key)}}
+      <span *ngIf="header.label !== 'Image'">
+        {{getValue(obj,header.key)}}
+      </span>
+      <span *ngIf="header.label === 'Image'" (mouseleave)="currentObj = undefined">
+
+        <img [src]="'data:image/'+obj.imageType+';base64,' + obj.image" width="150" height="150" (mouseenter)="currentObj = obj.id" >
+
+        <div *ngIf = "currentObj === obj.id && header.key==='image'">
+            <app-custom-button [buttonConfig] ="{text:'Select Car Picture', customCssClass:'btn btn-primary btn-sm'}" (click)="openFile(fileInput)" ></app-custom-button>
+            <input hidden="hidden" #fileInput type="file" (change) = "onFileChanged($event,obj.id)" name="avatar" accept="image/*">
+        </div>
+
+      </span>
     </td>
     <td >
       <span *ngFor =" let action of tableConfig.actions">
@@ -157,11 +138,31 @@
 
         <!--Dynamic table Buttons-->
         <app-custom-button *ngIf =" action.rowAction  && action.dynamicAction && obj.bookState !== undefined && obj.bookState === 'STANDBY'"  [buttonConfig] ="{text:action.text, icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
-
       </span>
-
     </td>
   </tr>
+  </tbody>
+
+
+  <tbody *ngIf="categoryFilter !== undefined && categoryFilter !== ''">
+
+    <tr *ngFor="let obj of specificCategories! | paginationPipe :currentPage :pageItems | sortingPipe : key : orderType">
+      <td>
+         <div *ngFor="let header of categories">
+          <span *ngIf="header.label === obj.category.label"> <!--obj.category.label -->
+            {{obj.category.attribute}}
+          </span>
+         </div>
+      </td>
+      <td >
+      <span *ngFor =" let action of tableConfig.actions">
+
+        <!-- remove car from the category-->
+        <app-custom-button *ngIf =" action.rowAction  && action.dynamicAction && obj.category !== undefined"  [buttonConfig] ="{text:action.text, icon: action.icon, customCssClass:action.customCssClass}" (click) ="actionMethod(obj,action)"></app-custom-button>
+      </span>
+    </td>
+    </tr>
+
   </tbody>
 
 </table>

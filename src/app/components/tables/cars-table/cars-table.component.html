@@ -1,3 +1,13 @@
-<app-custom-table *ngIf = "!formRequest && cars != undefined" [tableConfig]="tableConfig" [data]="cars" (getTableData)="clickAction($event)"></app-custom-table>
+<app-custom-table
+  *ngIf = "!formRequest && !categoryFormRequest && cars != undefined"
+  [categories]="labels"
+  [specificCategories] = "carCategories"
+  [tableConfig]="tableConfig" [data]="cars"
+  (getTableData)="clickAction($event)" (sendImage)="uploadImage($event)"
+></app-custom-table>
 
-<app-cars-form *ngIf="formRequest" [car] = "car" (goBack) = "setRequest($event)"></app-cars-form>
+<app-cars-form *ngIf="formRequest" [car] = "car" [carCategories]="categories" (goBack) = "setRequest($event)"></app-cars-form>
+
+<app-category-form *ngIf="categoryFormRequest" [categories]="categories"  (goBack) = "setRequest($event)"></app-category-form>
+
+<app-car-category-form *ngIf="carCategoryFormRequest" (goBack) = "setRequest($event)" [label]="categoryLabel!" ></app-car-category-form>

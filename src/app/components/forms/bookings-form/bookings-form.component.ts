@@ -70,7 +70,8 @@ export class BookingsFormComponent implements  OnInit{
         {key: "brand", label: "Brand"},
         {key: "model", label:"Model"},
         {key: "color", label:"Color"},
-        {key: "numberPlate", label:"Plate Number"}
+        {key: "numberPlate", label:"Plate Number"},
+        {key:"", label:"Image"}
       ],
       order: {
         orderType: "desc",

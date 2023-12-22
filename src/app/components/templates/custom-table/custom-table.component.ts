@@ -1,17 +1,17 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomTableConfig} from "./custom-table.config";
 import {faArrowDown, faArrowUp, IconDefinition} from "@fortawesome/free-solid-svg-icons";
-import {
-  cancel,
-  CustomButtonConfig,
-  next,
-  previous
-} from "../custom-button/custom-button.config";
+import {cancel, CustomButtonConfig, next, previous} from "../custom-button/custom-button.config";
 import * as _ from "lodash";
 
 export interface TableEmit{
   obj: any;
   action: any;
+}
+
+export interface ImageEmit{
+  data: any;
+  id: any;
 }
 
 @Component({
@@ -24,7 +24,12 @@ export class CustomTableComponent implements OnInit {
 
   @Input() data!: any[];
 
+  @Input() categories?: any[];
+  @Input() specificCategories?: any[];
+
   @Output() getTableData: EventEmitter<TableEmit> = new EventEmitter();
+
+  @Output() sendImage: EventEmitter<ImageEmit> = new EventEmitter();
 
 
   //table variables
@@ -34,11 +39,13 @@ export class CustomTableComponent implements OnInit {
   filterKey?: string;
   categoryFilterKey?: string;
   categoryFilter?: string;
+  categoryValue?: string;
   pageItems!: number;
   currentPage!: number;
   totalPages!: number[];
   pages!: number[];
   noCategoryFilterMatch: boolean = false;
+  currentObj?: number;
 
   //table icons
   faArrowUp = faArrowUp;
@@ -50,14 +57,24 @@ export class CustomTableComponent implements OnInit {
   previousButtonConfig: CustomButtonConfig = previous;
 
   categoryFilterKeyCheck(filterValue: string){
-    for(let header of this.tableConfig.headers){
-      if(this.categoryFilterKey === header.label){
-        this.categoryFilter = this.categoryFilterKey
+    for(let header of this.categories!){
+      if(filterValue === header.label){
+        this.categoryFilter = filterValue
+        this.categoryValue = header.attribute;
         return this.noCategoryFilterMatch = true;
       }
     }
     this.categoryFilter = '';
     return this.noCategoryFilterMatch = false;
+  }
+
+  public onFileChanged(event: any, id:any){
+
+    this.sendImage.emit({data:event.target.files[0],id:id})
+  }
+
+  public openFile(fileInput: any){
+    fileInput.click();
   }
 
   constructor() {
@@ -152,6 +169,7 @@ export class CustomTableComponent implements OnInit {
   }
 
   getValue(obj:any, str:any): any{
+
 
     return _.get(obj,str);
   }

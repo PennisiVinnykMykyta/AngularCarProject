@@ -86,15 +86,6 @@ export class UserTableComponent implements  OnInit{
       case MyTableActionEnum.UBOOKINGS:
         void this.router.navigate(['userBookings', $event.obj.email])
         break;
-      case MyTableActionEnum.NEW_CATEGORY:
-        console.log("New Category Added with Name "+ $event.obj)
-        //this.userService.addCategory($event.obj).subscribe(() => this.setUsers())
-        break;
-      case MyTableActionEnum.DELETE_CATEGORY:
-        console.log("Category Deleted "+ $event.obj)
-        //this.userService.deleteCategory($event.obj).subscribe(() => this.setUsers())
-
-        break;
     }
   }
 

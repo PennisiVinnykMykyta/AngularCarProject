@@ -34,11 +34,11 @@ export class NavigationBarComponent implements  OnInit{
      this.onUpload();
    }
 
-  openFile(fileInput: any){
+  public openFile(fileInput: any){
     fileInput.click();
   }
 
-   public onUpload(){
+   public onUpload(): void{
      const uploadImageData: FormData = new FormData();
 
      uploadImageData.append('imageFile',this.selectedFile, this.selectedFile.name);
@@ -46,7 +46,7 @@ export class NavigationBarComponent implements  OnInit{
      this.userService.uploadProfilePic(uploadImageData,this.id).subscribe(() => this.getImage());
    }
 
-   public getImage(){
+   public getImage(): void{
 
      this.userService.downloadProfilePic(this.id).subscribe(image => {
        if(image!==null){

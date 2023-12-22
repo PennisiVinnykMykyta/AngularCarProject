@@ -22,6 +22,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LoginFormComponent} from "./components/forms/login-form/login-form.component";
 import {AuthenticationService} from "./components/services/authentication.service";
 import {InterceptorService} from "./components/services/interceptor.service";
+import { CategoryFormComponent } from './components/forms/category-form/category-form.component';
+import { CarCategoryFormComponent } from './components/forms/car-category-form/car-category-form.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import {InterceptorService} from "./components/services/interceptor.service";
     UserFormComponent,
     CarsFormComponent,
     BookingsFormComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    CategoryFormComponent,
+    CarCategoryFormComponent
   ],
   imports: [
     FormsModule,

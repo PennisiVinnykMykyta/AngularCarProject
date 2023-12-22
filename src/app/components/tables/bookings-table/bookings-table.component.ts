@@ -94,14 +94,6 @@ export class BookingsTableComponent implements  OnInit{
       case MyTableActionEnum.DISAPPROVE:
         this.bookingService.declineBooking($event.obj.id).subscribe(() => this.setBookings());
         break;
-      case MyTableActionEnum.NEW_CATEGORY:
-        console.log("New Category Added with Name "+ $event.obj)
-        //this.bookingService.addCategory($event.obj).subscribe(() => this.setBookings())
-        break;
-      case MyTableActionEnum.DELETE_CATEGORY:
-        console.log("Category Deleted "+ $event.obj)
-        //this.bookingService.deleteCategory($event.obj).subscribe(() => this.setBookings())
-        break;
     }
   }
 

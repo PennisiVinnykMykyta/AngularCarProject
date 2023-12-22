@@ -11,7 +11,7 @@ export class SearchingPipe implements PipeTransform {
     let filteredData: any[] = [];
     let innerKey: string = key.substring(0,key.indexOf('.'));
 
-    if(innerKey === "user" || key === "car"){
+    if(innerKey === "user" || innerKey === "car"){
       let innerKeySpec: string = key.substring(key.indexOf('.')+1);
       for(let object of data){
         if (object[innerKey][innerKeySpec].toString().toLowerCase().includes(filter.toLowerCase())) {

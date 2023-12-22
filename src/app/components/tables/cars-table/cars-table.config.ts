@@ -8,7 +8,7 @@ import {MyActionEvent} from "../../templates/custom-table/table-details/my-actio
 })
 
 export  class CarsTableConfig{
-  carActions = [
+  carActions: MyActionEvent[] = [
     {
       action: MyTableActionEnum.NEW_ROW,
       rowAction:false,
@@ -31,11 +31,25 @@ export  class CarsTableConfig{
     },
     {
       action: MyTableActionEnum.NEW_CATEGORY,
-      rowAction: false
+      rowAction: false,
+      text: "Create New Category"
     },
     {
       action: MyTableActionEnum.DELETE_CATEGORY,
-      rowAction: false
+      rowAction: false,
+      text: "Delete Category"
+    },
+    {
+      action: MyTableActionEnum.NEW_CAR_CATEGORY,
+      rowAction: false,
+      dynamicAction: true,
+      text: "Add Car To Category"
+    },
+    {
+      action: MyTableActionEnum.DELETE_CAR_CATEGORY,
+      rowAction: true,
+      dynamicAction: true,
+      text: "Remove Car From Category"
     }
   ]
 
@@ -45,7 +59,8 @@ export  class CarsTableConfig{
       {key: "brand", label: "Brand"},
       {key: "model", label:"Model"},
       {key: "color", label:"Color"},
-      {key: "numberPlate", label:"Plate Number"}
+      {key: "numberPlate", label:"Plate Number"},
+      {key: "image", label:"Image"}
     ],
     order: {
       orderType: "desc",
@@ -59,6 +74,28 @@ export  class CarsTableConfig{
       ]
     },
     actions: this.carActions
+  }
+
+  categoriesConfig = {
+    headers: [],
+    order: {
+      orderType: "desc",
+      defaultColumn: "desc"
+    },
+    pagination:{
+      itemPerPage: 5,
+      itemPerPageOptions:[
+        5,
+        10
+      ]
+    },
+
+    actions:
+      {
+        action: MyTableActionEnum.DELETE_CATEGORY,
+        text: "Delete This Category"
+      }
+
   }
 
 }
