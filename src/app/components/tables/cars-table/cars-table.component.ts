@@ -51,6 +51,7 @@ export class CarsTableComponent implements OnInit{
         this.categoryFormRequest = false;
         this.carCategoryFormRequest = false;
         this.carService.getAllCategories().subscribe(categories => {
+          this.categories = categories;
           this.labels = [];
           this.attributes = [];
           for(let index=0; index<categories.length; index++){
@@ -65,12 +66,13 @@ export class CarsTableComponent implements OnInit{
   }
 
   clickAction($event: { obj: any; action: any }):void {
+
     switch ($event.action.action) {
+
       case MyTableActionEnum.NEW_ROW:
         this.formRequest = true;
         this.car = {} as CarTemplate;
         break;
-
       case MyTableActionEnum.DELETE:
         this.carService.deleteCar($event.obj.id).subscribe(() => this.setCars());
         break;
@@ -97,6 +99,16 @@ export class CarsTableComponent implements OnInit{
       case MyTableActionEnum.DELETE_CAR_CATEGORY:
         this.carService.deleteCarCategory($event.obj.id).subscribe(()=>this.setCars())
         break;
+      case MyTableActionEnum.SET_ATTRIBUTES:
+        this.attributes = []
+        for(let i = 0; i<this.categories!.length; i++){
+          if(this.categories![i].label === $event.obj){
+            this.attributes.push(this.categories![i].attribute)
+          }
+      }
+      break;
+      case MyTableActionEnum.GET_CATEGORY_CARS:
+        this.carService.getCarsOfCategory($event.obj).subscribe( list => this.cars = list)
     }
   }
 

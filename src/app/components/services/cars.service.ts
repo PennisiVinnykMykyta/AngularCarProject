@@ -34,8 +34,8 @@ export class CarsService {
     return  this.http.get<CategoryTemplate[]>(`http://localhost:8080/api/category/list/by-car/${carId}`);
   }
 
-  getCarsOfCategory(label: string): Observable<CategoryTemplate[]>{
-    return  this.http.get<CategoryTemplate[]>(`http://localhost:8080/api/category/list/by-car/${label}`);
+  getCarsOfCategory(label: string): Observable<CarTemplate[]>{
+    return  this.http.get<CarTemplate[]>(`http://localhost:8080/api/car/list/by-category/${label}`);
   }
 
   deleteCar(carId:number): Observable<any>{

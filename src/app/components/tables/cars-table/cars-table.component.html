@@ -1,7 +1,7 @@
 <app-custom-table
   *ngIf = "!formRequest && !categoryFormRequest && cars != undefined"
   [categories]="labels"
-  [specificCategories] = "carCategories"
+  [specificCategories] = "attributes"
   [tableConfig]="tableConfig" [data]="cars"
   (getTableData)="clickAction($event)" (sendImage)="uploadImage($event)"
 ></app-custom-table>

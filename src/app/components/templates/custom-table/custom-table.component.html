@@ -4,28 +4,26 @@
     <p>Search by Car Attributes</p>
   </h5>
 
-  <select class="col-sm-2" [(ngModel)]="filterKey">
-    <option selected="selected" [ngValue]="categories[0].attribute">
-      {{categories[0].label}}
+  <select class="col-sm-2" [(ngModel)]="categoryLabel" (change)="actionMethod(categoryLabel,getAttributes)">
+    <option selected="selected" [ngValue]="categories[0]">
+      {{categories[0]}}
     </option>
-    <option class="col-md-2" *ngFor="let column of categories  | slice:1:tableConfig.headers.length" [ngValue]="column.attribute">
-      {{column.label}}
+    <option class="col-md-2" *ngFor="let column of categories  | slice:1:tableConfig.headers.length" [ngValue]="column">
+      {{column}}
     </option>
   </select>
 
-<!-- [(ngModel)]="categoryFilterKey" (change)="categoryFilterKeyCheck(categoryFilterKey!)" -->
-  <input class="col-md-1" type="search" list="categoryList" [(ngModel)]="filter" class="form-control w-25 p-2" placeholder="Search Category">
-  <datalist id="categoryList"> <!-- invece di prendere i header prenderemo le catgorie -->
-    <option *ngFor="let obj of categories">
-      {{obj.attribute}}
+  <input class="col-md-1" type="search" list="categoryList" [(ngModel)]="categoryAttribute" class="form-control w-25 p-2" placeholder="Search Category">
+  <datalist id="categoryList">
+    <option *ngFor="let obj of specificCategories">
+      {{obj}}
     </option>
   </datalist>
 
+  <app-custom-button *ngIf = "categoryAttribute !== undefined" [buttonConfig]="{text:'Submit', icon:faCheck}" (click)="actionMethod(categoryAttribute,getCars)" ></app-custom-button>
+
+
   <app-custom-button *ngIf = "data.length > 1 && filter!==undefined && filter !==''" [buttonConfig]="cancelButtonConfig" (click)="filter=undefined"></app-custom-button>
-
-
-  <app-custom-button *ngIf = "categoryFilterKey !== '' && categoryFilterKey !== undefined && !noCategoryFilterMatch && tableConfig.addCategoryAction!==undefined" [buttonConfig]="{text:'Add New Category'}" (click)="actionMethod(categoryFilterKey,tableConfig.addCategoryAction)"></app-custom-button>
-  <app-custom-button *ngIf = "categoryFilterKey !== '' && categoryFilterKey !== undefined && noCategoryFilterMatch && tableConfig.deleteCategoryAction!==undefined" [buttonConfig]="{text:'Delete Category'}" (click)="actionMethod(categoryFilter,tableConfig.deleteCategoryAction)"></app-custom-button>
 
 </div>
 

@@ -9,5 +9,7 @@ export enum MyTableActionEnum{
  DELETE_CATEGORY = "DeleteCategory",
  NEW_CAR_CATEGORY = "AddCarCategory",
  DELETE_CAR_CATEGORY = "DeleteCarCategory",
+ SET_ATTRIBUTES = "SetAttributes",
+ GET_CATEGORY_CARS = "GetCategoryCars"
 
 }

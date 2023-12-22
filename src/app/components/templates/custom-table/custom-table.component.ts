@@ -1,8 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomTableConfig} from "./custom-table.config";
-import {faArrowDown, faArrowUp, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faArrowDown, faArrowUp, faCheck, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {cancel, CustomButtonConfig, next, previous} from "../custom-button/custom-button.config";
 import * as _ from "lodash";
+import {MyActionEvent} from "./table-details/my-action-event";
+import {MyTableActionEnum} from "./table-details/my-actions";
 
 export interface TableEmit{
   obj: any;
@@ -44,8 +46,15 @@ export class CustomTableComponent implements OnInit {
   currentPage!: number;
   totalPages!: number[];
   pages!: number[];
-  noCategoryFilterMatch: boolean = false;
   currentObj?: number;
+  categoryLabel?: string;
+  categoryAttribute?: string;
+  getAttributes: MyActionEvent = {
+    action: MyTableActionEnum.SET_ATTRIBUTES
+  }
+  getCars: MyActionEvent ={
+    action: MyTableActionEnum.GET_CATEGORY_CARS
+  }
 
   //table icons
   faArrowUp = faArrowUp;
@@ -55,18 +64,6 @@ export class CustomTableComponent implements OnInit {
   cancelButtonConfig: CustomButtonConfig = cancel;
   nextButtonConfig: CustomButtonConfig = next;
   previousButtonConfig: CustomButtonConfig = previous;
-
-  categoryFilterKeyCheck(filterValue: string){
-    for(let header of this.categories!){
-      if(filterValue === header.label){
-        this.categoryFilter = filterValue
-        this.categoryValue = header.attribute;
-        return this.noCategoryFilterMatch = true;
-      }
-    }
-    this.categoryFilter = '';
-    return this.noCategoryFilterMatch = false;
-  }
 
   public onFileChanged(event: any, id:any){
 
@@ -97,8 +94,6 @@ export class CustomTableComponent implements OnInit {
     }
     this.getPageRange();
   }
-
-
 
 //table methods
   sort(key: any): void {
@@ -175,4 +170,5 @@ export class CustomTableComponent implements OnInit {
   }
 
 
+  protected readonly faCheck = faCheck;
 }
