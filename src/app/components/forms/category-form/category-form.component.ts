@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CarsService} from "../../services/cars.service";
 import {faArrowAltCircleLeft, faCheck} from "@fortawesome/free-solid-svg-icons";
 import {CategoryTemplate} from "../../templates/dto-templates/category-template";
@@ -9,7 +9,7 @@ import {CarCategoryTemplate} from "../../templates/dto-templates/car-category-te
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.css']
 })
-export class CategoryFormComponent {
+export class CategoryFormComponent implements OnInit{
 
   @Input() categories?: CategoryTemplate[]
 
@@ -17,9 +17,20 @@ export class CategoryFormComponent {
 
   label!: string;
   attribute!: string;
+  categoriesToDelete: Set<string> = new Set()
 
   constructor(private carService: CarsService) {
   }
+
+  ngOnInit() {
+
+    if(this.categories !== undefined){
+      for(let index = 0; index < this.categories.length; index++){
+        this.categoriesToDelete.add(this.categories[index].label)
+      }
+    }
+  }
+
   clickAction(action?:string){
     if(action === 'add'){
       const category: CategoryTemplate = {

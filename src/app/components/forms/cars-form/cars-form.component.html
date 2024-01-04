@@ -1,41 +1,45 @@
+<form #ngForm="ngForm" (ngSubmit)="clickAction()" class="form-horizontal">
 
-<div class="form-group row">
-  <label class="col-sm-1">Brand:</label>
-  <div class="col-sm-10">
-  <input class="form-control" name = ">Brand" type="text" [(ngModel)] = "car.brand" placeholder="Enter CarBrand">
-  </div>
-</div>
-
-<div class="form-group row">
-  <label class="col-sm-1">Model:</label>
-  <div class="col-sm-10">
-  <input class="form-control" name="Model"  type="text" [(ngModel)] = "car.model" placeholder="Enter CarModel">
-  </div>
-</div>
-
-<div class="form-group row">
-  <label class="col-sm-1">Color:</label>
-  <div class="col-sm-10">
-  <input class="form-control" name="Color" type="text" [(ngModel)] = "car.color" placeholder="Enter CarColor">
-  </div>
-</div>
-
-<div class="form-group row">
-  <label class="col-sm-1">Plate Number:</label>
-  <div class="col-sm-10">
-  <input class="form-control" name="numberPlate" type="text"  [(ngModel)] = "car.numberPlate"  placeholder="Enter PlateNumber">
-  </div>
-</div>
-
-  <div *ngFor = "let category of carCategories; let objIndex=index"   class="form-group row">
-
-    <label class="col-sm-1">{{category.label}}:</label>
+  <div class="form-group row">
+    <label class="col-sm-1">Brand:</label>
     <div class="col-sm-10">
-      <input class="form-control" name="numberPlate" type="text" [(ngModel)]="category.attribute" placeholder="{{category.label}} details">
+      <input class="form-control" name = ">Brand" type="text" [(ngModel)] = "car.brand" placeholder="Enter CarBrand">
     </div>
   </div>
 
-<app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit', customCssClass:'btn btn-secondary btn-sm'}" (click)="clickAction()"></app-custom-button>
+  <div class="form-group row">
+    <label class="col-sm-1">Model:</label>
+    <div class="col-sm-10">
+      <input class="form-control" name="Model"  type="text" [(ngModel)] = "car.model" placeholder="Enter CarModel">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-1">Color:</label>
+    <div class="col-sm-10">
+      <input class="form-control" name="Color" type="text" [(ngModel)] = "car.color" placeholder="Enter CarColor">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-1">Plate Number:</label>
+    <div class="col-sm-10">
+      <input class="form-control" name="numberPlate" type="text"  [(ngModel)] = "car.numberPlate"  placeholder="Enter PlateNumber">
+    </div>
+  </div>
+
+  <div *ngFor = "let category of carCategories; let i=index;"   class="form-group row">
+
+    <label class="col-sm-1">{{category.label}}:</label>
+    <div class ="form-group row" class="col-sm-10">
+      <input class="form-control" [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="category.attribute" placeholder="{{category.label}} details">
+    </div>
+  </div>
+
+
+<app-custom-button [buttonConfig] = "{text: 'Submit', icon:faCheck, type:'submit', customCssClass:'btn btn-secondary btn-sm'}"></app-custom-button>
+
+</form>
 
 
 <div>

@@ -80,7 +80,6 @@ export class CustomTableComponent implements OnInit {
 
   ngOnInit() {
 
-
     this.categoryFilterKey = ''
     this.filterKey=this.tableConfig.headers[0].key;
     this.key = this.tableConfig.order.defaultColumn;

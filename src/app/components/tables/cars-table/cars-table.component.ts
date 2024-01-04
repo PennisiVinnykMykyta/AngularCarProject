@@ -21,7 +21,7 @@ export class CarsTableComponent implements OnInit{
 
   car!: any;
   tableConfig!: CustomTableConfig;
-  cars!: CarTemplate[];
+  cars?: CarTemplate[];
   formRequest!: boolean;
   categoryFormRequest!: boolean;
   carCategoryFormRequest!: boolean;
@@ -77,18 +77,22 @@ export class CarsTableComponent implements OnInit{
         this.carService.deleteCar($event.obj.id).subscribe(() => this.setCars());
         break;
       case MyTableActionEnum.EDIT:
-        this.formRequest = true;
         this.car = $event.obj
-        this.carService.getCategoriesOfCar(this.car.id).subscribe( list => this.categories = list)
+        this.carService.getCategoriesOfCar(this.car.id).subscribe( list => {
+
+          this.categories = list;
+          this.formRequest = true;
+        })
+
         break;
       case MyTableActionEnum.NEW_CATEGORY:
         this.categories = undefined;
         this.categoryFormRequest = true;
         break;
       case MyTableActionEnum.DELETE_CATEGORY:
-        this.categoryFormRequest = true;
         this.carService.getAllCategories().subscribe(list =>{
           this.categories = list;
+          this.categoryFormRequest = true;
         })
         break;
       case MyTableActionEnum.NEW_CAR_CATEGORY:
@@ -105,10 +109,14 @@ export class CarsTableComponent implements OnInit{
           if(this.categories![i].label === $event.obj){
             this.attributes.push(this.categories![i].attribute)
           }
-      }
-      break;
+        }
+        break;
       case MyTableActionEnum.GET_CATEGORY_CARS:
-        this.carService.getCarsOfCategory($event.obj).subscribe( list => this.cars = list)
+        this.cars = undefined;
+        this.carService.getCarsOfCategory($event.obj).subscribe( list => {
+          this.cars = list;
+        })
+        break;
     }
   }
 

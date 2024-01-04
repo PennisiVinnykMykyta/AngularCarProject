@@ -21,20 +21,32 @@ export class CarsFormComponent implements OnInit{
   constructor(private carService: CarsService) {
   }
 
-  categoriesToSave?: CategoryTemplate[];
+  carCategoriesAttributes: string[] = [];
 
   ngOnInit() {
 
-    this.categoriesToSave = this.carCategories;
+
+    if(this.carCategories !== undefined){
+      for(let index = 0; index<this.carCategories.length; index++){
+        this.carCategoriesAttributes.push(this.carCategories[index].attribute);
+      }
+
+    }
   }
 
 
-  clickAction(action?:string):void{
+  clickAction(action?:string):void{ //trovare solo att modificati ed aggiornare solo quelli
     if(action !== 'back'){
       this.carService.addORUpdateCar(this.car).subscribe(() => {
         if(this.carCategories !== undefined){
           for(let index = 0; index<this.carCategories.length; index++){
-            this.carService.updateAttribute(this.carCategories[index],this.car.id).subscribe();
+
+            if(this.carCategoriesAttributes[index] !== this.carCategories[index].attribute){
+
+              this.carService.updateAttribute(this.carCategories[index],this.car.id).subscribe();
+
+            }
+
           }
         }
         this.clickAction("back")

@@ -22,8 +22,8 @@
 <span *ngIf="categories !== undefined">
   <input class="col-md-1" type="search" [(ngModel)]="label" list="categoryList" class="form-control w-25 p-2" placeholder="Select Category to Delete">
   <datalist id="categoryList">
-    <option *ngFor="let obj of categories">
-      {{obj.label}}
+    <option *ngFor="let obj of categoriesToDelete">
+      {{obj}}
     </option>
   </datalist>
 
